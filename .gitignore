@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Drishanindustries/.vs
+obj 
+bin
+bin/debug
+bin/release
+packages
+.vs
+/Drishanindustries/obj
+/Drishanindustries/bin
+/ProductCataLog.Lib/obj
+/ProductCataLog.Lib/bin
+/DrishanIndustries.Test/obj
+/DrishanIndustries.Test/bin
+/.vs/Drishanindustries/v17/.wsuo
+/Drishanindustries/log
