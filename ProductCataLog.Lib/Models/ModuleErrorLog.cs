@@ -15,7 +15,7 @@ namespace ProductCataLog.Lib.Models
         public string varExtra2 { get; set; }
         public string varExtraa3 { get; set; }
         public DateTime dtUpdatedDate { get; set; }
-        public string varErrorMessage { get; set; }
+        public string varExceptionMessage { get; set; }
         public int fk_Status { get; set; }
         public string varMessage { get; set; }
     }

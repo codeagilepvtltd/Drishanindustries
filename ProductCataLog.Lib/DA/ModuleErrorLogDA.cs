@@ -13,11 +13,11 @@ namespace ProductCataLog.Lib.DA
         DataSet resultSet = new DataSet();
 
         private StringBuilder sqlQuery;
-        public void Insert_Modules_Error_Log(string varPageName, string varMethodName, string varUserId, string varStackTrace, string varModuleName, string varSourceSystem, string varExtra1, string varExtra2, string varExtraa3, string varErrorMessage)
+        public void Insert_Modules_Error_Log(string varPageName, string varMethodName, string varUserId, string varStackTrace, string varModuleName, string varSourceSystem, string varExtra1, string varExtra2, string varExtraa3, string varExceptionMessage)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "varPageName", "varMethodName", "varUserId", "varStackTrace", "varModuleName", "varSourceSystem", "varExtra1", "varExtra2", "varExtraa3", "varErrorMessage" };
-            object[] objParamValue = { varPageName, varMethodName, varUserId, varStackTrace, varModuleName, varSourceSystem, varExtra1, varExtra2, varExtraa3, varErrorMessage };
+            object[] objParamName = { "varPageName", "varMethodName", "varUserId", "varStackTrace", "varModuleName", "varSourceSystem", "varExtra1", "varExtra2", "varExtraa3", "varExceptionMessage" };
+            object[] objParamValue = { varPageName, varMethodName, varUserId, varStackTrace, varModuleName, varSourceSystem, varExtra1, varExtra2, varExtraa3, varExceptionMessage };
 
             try
             {
@@ -41,11 +41,11 @@ namespace ProductCataLog.Lib.DA
             moduleErrorLogModel.varExtra1 = moduleErrorLogModel.varExtra1 == null ? "" : moduleErrorLogModel.varExtra1;
             moduleErrorLogModel.varExtra2 = moduleErrorLogModel.varExtra2 == null ? "" : moduleErrorLogModel.varExtra2;
             moduleErrorLogModel.varExtraa3 = moduleErrorLogModel.varExtraa3 == null ? "" : moduleErrorLogModel.varExtraa3;
-            moduleErrorLogModel.varErrorMessage = moduleErrorLogModel.varErrorMessage == null ? "" : moduleErrorLogModel.varErrorMessage;
+            moduleErrorLogModel.varExceptionMessage = moduleErrorLogModel.varExceptionMessage == null ? "" : moduleErrorLogModel.varExceptionMessage;
 
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "varPageName", "varMethodName", "varUserId", "varStackTrace", "varModuleName", "varSourceSystem", "varExtra1", "varExtra2", "varExtraa3", "varErrorMessage" };
-            object[] objParamValue = { moduleErrorLogModel.varPageName, moduleErrorLogModel.varMethodName, moduleErrorLogModel.varUserId, moduleErrorLogModel.varStackTrace, moduleErrorLogModel.varModuleName, moduleErrorLogModel.varSourceSystem, moduleErrorLogModel.varExtra1, moduleErrorLogModel.varExtra2, moduleErrorLogModel.varExtraa3, moduleErrorLogModel.varErrorMessage };
+            object[] objParamName = { "varPageName", "varMethodName", "varUserId", "varStackTrace", "varModuleName", "varSourceSystem", "varExtra1", "varExtra2", "varExtraa3", "varExceptionMessage" };
+            object[] objParamValue = { moduleErrorLogModel.varPageName, moduleErrorLogModel.varMethodName, moduleErrorLogModel.varUserId, moduleErrorLogModel.varStackTrace, moduleErrorLogModel.varModuleName, moduleErrorLogModel.varSourceSystem, moduleErrorLogModel.varExtra1, moduleErrorLogModel.varExtra2, moduleErrorLogModel.varExtraa3, moduleErrorLogModel.varExceptionMessage };
 
             try
             {

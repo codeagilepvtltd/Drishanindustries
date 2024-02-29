@@ -11,14 +11,7 @@ namespace ProductCataLog.Lib.Common
     {
         USP_Check_Login,
         USP_Insert_Modules_Error_Log,
-        USP_InsertUpdate_State_Master,
-        USP_InsertUpdate_Role_Master,
-        USP_Select_StateList,
-        USP_Select_CountryList,
-        USP_Select_RoleList,
-        USP_InsertUpdate_Country_Master,
-        USP_InsertUpdate_City_Master,
-        USP_Select_CityList
+        USP_InsertUpdate_Login_Master
     }
     public class Common_Messages
     {

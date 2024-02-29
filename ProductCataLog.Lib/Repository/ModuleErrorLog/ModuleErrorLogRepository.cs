@@ -13,12 +13,12 @@ namespace ProductCataLog.Lib.Repository.ModuleErrorLog
     {
         DataSet dsResult = new DataSet();
 
-        public void Insert_Modules_Error_Log(string varPageName, string varMethodName, string varUserId, string varStackTrace, string varModuleName, string varSourceSystem, string varExtra1, string varExtra2, string varExtraa3, string varErrorMessage)
+        public void Insert_Modules_Error_Log(string varPageName, string varMethodName, string varUserId, string varStackTrace, string varModuleName, string varSourceSystem, string varExtra1, string varExtra2, string varExtraa3, string varExceptionMessage)
         {
             try
             {
                 ModuleErrorLogDA objModuleErrorLogDA = new ModuleErrorLogDA();
-                objModuleErrorLogDA.Insert_Modules_Error_Log(varPageName, varMethodName, varUserId, varStackTrace, varModuleName, varSourceSystem, varExtra1, varExtra2, varExtraa3, varErrorMessage);
+                objModuleErrorLogDA.Insert_Modules_Error_Log(varPageName, varMethodName, varUserId, varStackTrace, varModuleName, varSourceSystem, varExtra1, varExtra2, varExtraa3, varExceptionMessage);
 
             }
             catch(Exception ex)

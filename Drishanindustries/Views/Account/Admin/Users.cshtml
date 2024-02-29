@@ -1,0 +1,141 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.LoginMasterViewModel
+@{
+    ViewData["Title"] = "Drishan Industries - Users";    
+}
+
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Login Master</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item">Forms</li>
+            <li class="breadcrumb-item active" aria-current="page">Login Master</li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-12">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Login Entry</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>UserName:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="txtUserName" placeholder="User Name">
+                            </div>
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">Email ID:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="txtEmailid" placeholder="Email ID">
+                            </div>
+                            <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>Password:</label>
+                            <div class="col-sm-3">
+                                <input type="password" class="form-control" id="txtpassword" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" />
+                            </div>
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">Lock:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkLock" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-dark">Cancel</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Login User List</h6>
+                    <button type="button" class="btn btn-primary">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email ID</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>Lock</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email ID</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>Lock</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test@gmail.com</td>
+                                <td>123456</td>
+                                <td>Active</td>
+                                <td>No</td>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test@gmail.com</td>
+                                <td>123456</td>
+                                <td>Active</td>
+                                <td>No</td>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test@gmail.com</td>
+                                <td>123456</td>
+                                <td>Active</td>
+                                <td>No</td>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test@gmail.com</td>
+                                <td>123456</td>
+                                <td>Active</td>
+                                <td>No</td>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test@gmail.com</td>
+                                <td>123456</td>
+                                <td>Active</td>
+                                <td>No</td>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
