@@ -12,7 +12,7 @@ namespace ProductCataLog.Lib.Repository.Account
     {
         #region Login
         public AccountLoginViewModel CheckAuthentication(AccountLoginViewModel accountLoginViewModel)
-        {          
+        {
             Account_DA accountDA = new Account_DA();
 
             try
@@ -23,6 +23,7 @@ namespace ProductCataLog.Lib.Repository.Account
                 {
                     accountLoginViewModel.LoginMaster.varUserName = Convert.ToString(dsResult.Tables[0].Rows[0]["varUserName"]);
                     accountLoginViewModel.LoginMaster.varPassword = Convert.ToString(dsResult.Tables[0].Rows[0]["varPassword"]);
+                    accountLoginViewModel.LoginMaster.intGlCode = Convert.ToInt64(dsResult.Tables[0].Rows[0]["intGlCode"]);
                 }
                 else
                 {

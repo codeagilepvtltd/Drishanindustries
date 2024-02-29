@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductCataLog.Lib.Common;
 using ProductCataLog.Lib.Models;
@@ -7,21 +9,24 @@ using ProductCataLog.Lib.Repository.ModuleErrorLog;
 using ProductCataLog.Lib.ViewModels;
 using System.Data;
 using System.Net;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Drishanindustries.Common;
 
 namespace Drishanindustries.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountRepository accountRepository;
-        //private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IModuleErrorLogRepository moduleErrorLogRepository;
         // GET: Controller
 
 
-        public AccountController(IAccountRepository _accountRepository, IModuleErrorLogRepository _moduleErrorLogRepository)
+        public AccountController(IAccountRepository _accountRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
         {
             accountRepository = _accountRepository;
-            //httpContextAccessor = _httpContextAccessor;
+            httpContextAccessor = _httpContextAccessor;
             moduleErrorLogRepository = _moduleErrorLogRepository;
         }
 
@@ -39,6 +44,9 @@ namespace Drishanindustries.Controllers
         [HttpPost]
         public async Task<ActionResult> ValidateLogin(AccountLoginViewModel accountLoginViewModel, string returnUrl)
         {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
             try
             {
                 string decodedUrl = "";
@@ -61,6 +69,19 @@ namespace Drishanindustries.Controllers
                 AccountLoginViewModel accountLoginView = accountRepository.CheckAuthentication(accountLoginViewModel);
                 if(!string.IsNullOrEmpty(accountLoginView.LoginMaster.varUserName))
                 {
+                    var claims = new List<Claim>();
+                    claims.Add(new Claim(ClaimTypes.Name, accountLoginViewModel.LoginMaster.varUserName));
+                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    /*Set Session*/
+                    sessionManager.IntGlCode = accountLoginView.LoginMaster.intGlCode;
+                    sessionManager.UserName = accountLoginView.LoginMaster.varUserName;
+
+
                     return RedirectToAction("Index", "DashBoard");
                 }
                 else
@@ -72,6 +93,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
+                 moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 return View();
             }

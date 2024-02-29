@@ -148,7 +148,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Common\Common_Functions.cs" />
     <Compile Include="Common\SQLHelper.cs" />
     <Compile Include="DA\Account_DA.cs" />
