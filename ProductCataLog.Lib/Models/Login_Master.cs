@@ -18,9 +18,9 @@ namespace ProductCataLog.Lib.Models
 
         public string varPassword { get; set; }
 
-        public char ?chrLock { get; set; }
+        public string chrLock { get; set; }
 
-        public char ?chrActive { get; set; }
+        public string chrActive { get; set; }
 
         public DateTime? dtEntryDate { get; set; }
 
