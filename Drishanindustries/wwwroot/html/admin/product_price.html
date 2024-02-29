@@ -327,103 +327,53 @@
                 <!-- Topbar -->
                 <!-- Container Fluid-->
                 <div class="container-fluid" id="container-wrapper">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Customer Master</h1>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item">Forms</li>
-                            <li class="breadcrumb-item active" aria-current="page">Customer Master</li>
-                        </ol>
-                    </div>
 
                     <div class="row">
                         <div class="col-lg-12">
                             <!-- Form Basic -->
                             <div class="card mb-6">
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Customer Entry</h6>
-                                </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>First Name:</label>
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product:</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                                                <select class="select2-single-placeholder form-control" name="State" id="ddlCategory">
+                                                    <option value="">Select</option>
+                                                    <option value="Aceh">Male</option>
+                                                    <option value="Aceh">Female</option>
+                                                </select>
                                             </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Middle Name:</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="txtMiddleName" placeholder="Middle Name">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Original Price:</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" id="txtOriginalPrice" placeholder="Original Price">
                                             </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>Last Name:</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description:</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="txtProductShortDescription" placeholder="Product Short Description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content:</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="txtDescription" placeholder="Html Content"></textarea>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Address:</label>
-                                            <div class="col-sm-3">
-                                                <textarea class="form-control" id="txtAddress" rows="3"></textarea>
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product Price:</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" id="txtPRoductPrice" placeholder="Product Price">
                                             </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">City:</label>
-                                            <div class="col-sm-3">
-                                                <select class="select2-single-placeholder form-control" name="City" id="ddlCity">
-                                                    <option value="">Select</option>
-                                                    <option value="Aceh">Male</option>
-                                                    <option value="Aceh">Female</option>
-                                                </select>
-                                            </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">State:</label>
-                                            <div class="col-sm-3">
-                                                <select class="select2-single-placeholder form-control" name="City" id="ddlCity">
-                                                    <option value="">Select</option>
-                                                    <option value="Aceh">Male</option>
-                                                    <option value="Aceh">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">PinCode:</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="txtPinCode" placeholder="Pin Code">
-                                            </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Gender:</label>
-                                            <div class="col-sm-3">
-                                                <select class="select2-single-placeholder form-control" name="Gender" id="ddlGender">
-                                                    <option value="">Select</option>
-                                                    <option value="Aceh">Male</option>
-                                                    <option value="Aceh">Female</option>
-                                                </select>
-                                            </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>Mobile No:</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="txtMobileNo" placeholder="Mobile No">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Email:</label>
-                                            <div class="col-sm-3">
-                                                <input type="email" class="form-control" id="txtEmail" placeholder="Email">
-                                            </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">DOB:</label>
-                                            <div class="col-sm-3">
-                                                <input type="date" class="form-control" id="txtDOB" placeholder="Password">
-                                            </div>
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Anniversary:</label>
-                                            <div class="col-sm-3">
-                                                <input type="date" class="form-control" id="txtAnniversary" placeholder="Anniversary">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-1 col-form-label">Status:</label>
-                                            <div class="col-sm-3">
-                                                <input type="checkbox" id="chkStatus" />
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Display Price:</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" id="txtDisplayPrice" placeholder="Display Name">
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                         <button type="submit" class="btn btn-dark">Cancel</button>
-                                        
+
                                     </form>
                                 </div>
 
@@ -441,71 +391,65 @@
                         <div class="col-lg-12">
                             <div class="card mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Customer List</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Product List</h6>
                                     <button type="button" class="btn btn-primary">Download</button>
                                 </div>
                                 <div class="table-responsive p-3">
                                     <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>Full Name</th>
-                                                <th>Mobile No</th>
-                                                <th>User Type</th>
-                                                <th>DOB</th>
-                                                <th>Address</th>
-                                                <th>Action</th>
+                                                <th>Edit/ Delete</th>
+                                                <th>ProductName</th>
+                                                <th>Description</th>
+                                                <th>Product Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Full Name</th>
-                                                <th>Mobile No</th>
-                                                <th>User Type</th>
-                                                <th>DOB</th>
-                                                <th>Address</th>
-                                                <th>Action</th>
+                                                <th>Edit/ Delete</th>
+                                                <th>ProductName</th>
+                                                <th>Description</th>
+                                                <th>Product Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                                 <td>9067971934</td>
                                                 <td>Student</td>
                                                 <td>21-01-2024</td>
-                                                <td>B402, Ganesh Greens</td>
-                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                             </tr>
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                                 <td>9067971934</td>
                                                 <td>Student</td>
                                                 <td>21-01-2024</td>
-                                                <td>B402, Ganesh Greens</td>
-                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                             </tr>
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                                 <td>9067971934</td>
                                                 <td>Student</td>
                                                 <td>21-01-2024</td>
-                                                <td>B402, Ganesh Greens</td>
-                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                             </tr>
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                                 <td>9067971934</td>
                                                 <td>Student</td>
                                                 <td>21-01-2024</td>
-                                                <td>B402, Ganesh Greens</td>
-                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                             </tr>
                                             <tr>
-                                                <td>Tiger Nixon</td>
+                                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
                                                 <td>9067971934</td>
                                                 <td>Student</td>
                                                 <td>21-01-2024</td>
-                                                <td>B402, Ganesh Greens</td>
+                                            </tr>
+                                            <tr>
                                                 <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                                <td>9067971934</td>
+                                                <td>Student</td>
+                                                <td>21-01-2024</td>
                                             </tr>
                                         </tbody>
                                     </table>

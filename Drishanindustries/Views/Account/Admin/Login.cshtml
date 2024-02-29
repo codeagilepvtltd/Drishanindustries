@@ -1,7 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProductCataLog.Lib.ViewModels.AccountLoginViewModel
 @{
-    ViewData["Title"] = "Drishan Industries - Login";
+    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Login");
     Layout = null;
 }
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="~/img/logo/logo.png" rel="icon">
-    <title>Drishan Industries - Login</title>
+    <title>@ViewData["Title"]</title>
     <link href="~/css/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="~/css/Admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/css/Admin/ruang-admin.min.css" rel="stylesheet">

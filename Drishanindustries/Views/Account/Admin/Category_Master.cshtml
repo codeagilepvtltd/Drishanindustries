@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProductCataLog.Lib.ViewModels.CategoryMasterViewModel
 @{
-    ViewData["Title"] = "Pranic Ahmedbad - Category";
+    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName,  Drishanindustries.Common.Common.AppName,"Category");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,14 +14,14 @@
                 <div class="card-body">
                     <form class="needs-validation" method="post" id="frmCategoryDetail" novalidate>
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span style="color:red">*</span>Category code:</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Category code:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <input type="text" tabindex="1" class="form-control custom_input" maxlength="100" id="txtCategoryCode" asp-for="category_Master.varCatergoryCode" placeholder="Catergory Code">
                                     @Html.ValidationMessageFor(model => model.category_Master.varCatergoryCode, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span style="color:red">*</span>Category Name:</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Category Name:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <input type="text" tabindex="2" class="form-control custom_input" maxlength="100" id="txtCategoryName" asp-for="category_Master.varCatergoryName" placeholder="Catergory Name">
@@ -44,7 +44,7 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="checkbox" tabindex="3" asp-for="category_Master.chrActive" id="chkchrActive" />
+                                    <input type="checkbox" tabindex="3" asp-for="category_Master.chrActive" id="chkchrActive" class="mtop10" />
                                 </div>
                             </div>
                         </div>

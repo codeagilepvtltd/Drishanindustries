@@ -9,7 +9,11 @@ html {
   min-height: 100%;
   font-family: Nunito
 }
+.red {color:red;}
 
+.mtop10 {
+    margin-top: 10px;
+}
 body {
   height: 100%
 }
