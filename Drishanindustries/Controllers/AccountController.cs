@@ -12,6 +12,7 @@ using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Drishanindustries.Common;
+using System;
 
 namespace Drishanindustries.Controllers
 {
@@ -181,8 +182,8 @@ namespace Drishanindustries.Controllers
 
             try
             {
-                categoryView.category_Master.ref_EntryBy = 1;
-                categoryView.category_Master.ref_UpdateBy = 1;
+                categoryView.category_Master.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                categoryView.category_Master.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 categoryView.category_Master.chrActive = categoryView.category_Master.chrActive == "true" ? "Y" : "N";
                 DataSet result = accountRepository.InsertUpdate_category(categoryView);
                 var resultJson = JsonConvert.SerializeObject(result);
