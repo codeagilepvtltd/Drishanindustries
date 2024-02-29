@@ -33,7 +33,7 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Parents :</label>
                             <div class="col-sm-3">
                                 @(Html.DevExtreme().SelectBox().ID("ddlCategoryList")
-                                    .DataSource(d => d.Mvc().Controller("Account").LoadAction("GetCategoryList").Key("intGlCode"))
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetCategoryList").Key("intGlCode"))
                                     .DisplayExpr("varCatergoryName")
                                     .ValueExpr("intGlCode")
                                     .Placeholder("-- Select --")
@@ -83,7 +83,7 @@
                     @(Html.DevExtreme().DataGrid()
                         .ID("grdCategoryDetials")
                         .ShowBorders(true)
-                        .DataSource(ds => ds.Mvc().Controller("Account").Key("intGlCode").LoadAction("GetCategoryList"))
+                        .DataSource(ds => ds.Mvc().Controller("Product").Key("intGlCode").LoadAction("GetCategoryList"))
                         .Selection(s => s.Mode(SelectionMode.Single))
                         .LoadPanel(f => f.Enabled(false))
                         .Columns(columns =>
@@ -129,7 +129,7 @@
 
 @Html.AntiForgeryToken()
 @section Scripts {
-    <script src="~/Scripts/Account/Category.js"></script>
+    <script src="~/Scripts/Product/Category.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
 }
 

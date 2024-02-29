@@ -28,7 +28,7 @@ function ValidateData() {
             type: "POST",
             data: $('#frmCategoryDetail').serialize(),
             timeout: 15000, // adjust the limit. currently its 15 seconds
-            url: configuration.onLoad() + "Account/Save_Category",
+            url: configuration.onLoad() + "Product/Save_Category",
             success: function (response) {
 
                 if (response.Unauthorized == "401") {
