@@ -60,6 +60,7 @@ namespace ProductCataLog.Lib.DA
             {
                 throw;
             }
+            return resultSet;
 
         }
         public DataSet GetLoginMasterList(int AddId = 0)
