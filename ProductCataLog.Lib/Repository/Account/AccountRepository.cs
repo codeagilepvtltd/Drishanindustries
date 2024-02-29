@@ -53,6 +53,53 @@ namespace ProductCataLog.Lib.Repository.Account
 
         #endregion
 
+        #region Category
+        public List<Category_Master> GetCategoryList(int intGlCode = 0)
+        {
+            Account_DA accountDA = new Account_DA();
+            List<Category_Master> category_Masters = new List<Category_Master>();
 
+            try
+            {
+                DataSet dsResult = accountDA.GetCategoryList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    category_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new Category_Master()
+                    {
+                        intGlCode = row.Field<int>("intGICode"),
+                        varCatergoryCode = row.Field<string>("varCatergoryCode"),
+                        varCatergoryName = row.Field<string>("varCatergoryName"),
+                        ParentCatergoryName = row.Field<string>("ParentCategory"),
+                        ref_ParentID = row.Field<int>("ParentCategoryID"),
+                        chrActive = row.Field<string>("chrActive"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return category_Masters;
+        }
+
+        public DataSet InsertUpdate_category(CategoryMasterViewModel categoryViewModel)
+        {
+            Account_DA accountDA = new Account_DA();
+            try
+            {
+                return accountDA.InsertUpdate_Category(categoryViewModel);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

@@ -20,4 +20,11 @@ namespace ProductCataLog.Lib.ViewModels
 
         public List<Login_Master> login_Masters { get; set; }
     }
+
+    public class CategoryMasterViewModel
+    {
+        public Category_Master category_Master { get; set; }
+
+        public List<Category_Master> Category_Masters { get; set; }
+    }
 }
