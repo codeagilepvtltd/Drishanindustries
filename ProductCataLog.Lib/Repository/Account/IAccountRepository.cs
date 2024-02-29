@@ -12,14 +12,6 @@ namespace ProductCataLog.Lib.Repository.Account
 
         #endregion
 
-
-        #region Category
-        List<Category_Master> GetCategoryList(int intGlCode = 0);
-
-        DataSet InsertUpdate_category(CategoryMasterViewModel categoryViewModel);
-
-        #endregion
-
         #region Login Master
         DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel1);
         LoginMasterViewModel GetLoginMasterlist(int CityId = 0);
