@@ -67,7 +67,7 @@ namespace Drishanindustries.Controllers
                 }
 
                 AccountLoginViewModel accountLoginView = accountRepository.CheckAuthentication(accountLoginViewModel);
-                if(!string.IsNullOrEmpty(accountLoginView.LoginMaster.varUserName))
+                if (!string.IsNullOrEmpty(accountLoginView.LoginMaster.varUserName))
                 {
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, accountLoginViewModel.LoginMaster.varUserName));
@@ -93,7 +93,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                 moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 return View();
             }
@@ -112,6 +112,9 @@ namespace Drishanindustries.Controllers
 
             LoginMasterViewModel loginMasterViewModel = new LoginMasterViewModel();
             DataSet dsResult = new DataSet();
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
             try
             {
                 loginMasterViewModel = accountRepository.GetLoginMasterlist();
@@ -120,7 +123,9 @@ namespace Drishanindustries.Controllers
             }
             catch (Exception ex)
             {
-                //ModuleErrorLogRepository.Insert_Modules_Error_Log("GetPersonDetails", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
             }
@@ -128,6 +133,9 @@ namespace Drishanindustries.Controllers
 
         public ActionResult Save_LoginMaster(LoginMasterViewModel loginmasterView)
         {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
             try
             {
                 loginmasterView.login_Master.ref_EntryBy = 1;
@@ -150,6 +158,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -167,6 +176,9 @@ namespace Drishanindustries.Controllers
         [HttpPost]
         public ActionResult Save_Category(CategoryMasterViewModel categoryView)
         {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
             try
             {
                 categoryView.category_Master.ref_EntryBy = 1;
@@ -189,6 +201,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -196,6 +209,8 @@ namespace Drishanindustries.Controllers
 
         public IActionResult GetCategoryList(int intGlCode = 0)
         {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
 
             CategoryMasterViewModel Category_Master = new CategoryMasterViewModel();
             DataSet dsResult = new DataSet();
@@ -207,7 +222,9 @@ namespace Drishanindustries.Controllers
             }
             catch (Exception ex)
             {
-                //ModuleErrorLogRepository.Insert_Modules_Error_Log("GetPersonDetails", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
             }
