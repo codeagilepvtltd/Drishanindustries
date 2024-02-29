@@ -12,6 +12,12 @@ namespace ProductCataLog.Lib.Repository.Account
 
         #endregion
 
-        
+        #region Login Master
+        DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel1);
+        LoginMasterViewModel GetLoginMasterlist(int CityId = 0);
+
+        #endregion
+
+
     }
 }
