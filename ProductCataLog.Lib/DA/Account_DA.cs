@@ -27,7 +27,7 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet InsertUpdate_Login_Master(LoginMasterViewModel loginMasterViewModel)
+        public DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel)
         {
             sqlQuery = new StringBuilder();
             object[] objParamName = { "intGlCode", "varUserName", "varMobileNo", "varEmailID", "varPassword", "chrLock", "chrActive", "ref_EntryBy", "ref_UpdateBy" };
@@ -60,6 +60,23 @@ namespace ProductCataLog.Lib.DA
             {
                 throw;
             }
+
+        }
+        public DataSet GetLoginMasterList(int AddId = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode" };
+            object[] objParamValue = { AddId };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_LoginMasterList, objParamName, objParamValue);
+
+            }
+            catch
+            {
+                throw;
+            }
             return resultSet;
 
         }
@@ -82,5 +99,6 @@ namespace ProductCataLog.Lib.DA
             }
 
         }
+
     }
 }
