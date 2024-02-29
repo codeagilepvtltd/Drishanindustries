@@ -5,7 +5,7 @@ using ProductCataLog.Lib.Repository.ModuleErrorLog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+//builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
