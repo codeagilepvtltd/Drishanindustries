@@ -155,6 +155,7 @@
     <Compile Include="DA\ModuleErrorLogDA.cs" />
     <Compile Include="Models\Address_Master.cs" />
     <Compile Include="Models\City_Master.cs" />
+    <Compile Include="Models\Category_Master.cs" />
     <Compile Include="Models\Country_Master.cs" />
     <Compile Include="Models\Course_Master.cs" />
     <Compile Include="Models\Email_Log.cs" />

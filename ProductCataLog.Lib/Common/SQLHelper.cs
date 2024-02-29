@@ -12,7 +12,10 @@ namespace ProductCataLog.Lib.Common
         USP_Check_Login,
         USP_Insert_Modules_Error_Log,
         USP_InsertUpdate_Login_Master,
+        USP_Select_CategoryList,
+        USP_InsertUpdate_Category_Master
         USP_Select_LoginMasterList
+
     }
     public class Common_Messages
     {
