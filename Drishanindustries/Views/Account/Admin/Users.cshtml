@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model LoginMasterViewModel
+@model ProductCataLog.Lib.ViewModels.LoginMasterViewModel
 @{
     ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Users");
 }
@@ -10,13 +10,13 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <form class="needs-validation" method="post" id="frmUsers" novalidate>
-
+                    <form class="user" asp-controller="Account" asp-action="Save_LoginMaster" method="post" id="frmUsers" novalidate>
+                        @* <form class="needs-validation" method="post" id="frmUsers" novalidate> *@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>User Name:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="txtUserName" placeholder="User Name" tabindex="1">
+                                    <input type="text" tabindex="1" class="form-control" id="txtUserName" asp-for="login_Master.varUserName" placeholder="User Name" tabindex="1">
                                 </div>
                             </div>
 
@@ -24,7 +24,7 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Password:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="txtpassword" placeholder="Password">
+                                    <input type="password" tabindex="2" class="form-control" id="txtpassword" asp-for="login_Master.varPassword" placeholder="Password">
                                 </div>
                             </div>
 
@@ -34,13 +34,13 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Mobile No:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="txtMobileNo" placeholder="Mobile No">
+                                    <input type="number" tabindex="3" class="form-control" maxlength="10" id="txtMobileNo" asp-for="login_Master.varMobileNo" placeholder="Mobile No">
                                 </div>
                             </div>
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Email ID:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="txtEmailid" placeholder="Email ID">
+                                    <input type="text" tabindex="4" class="form-control" id="txtEmailid" asp-for="login_Master.varEmailID" placeholder="Email ID">
                                 </div>
                             </div>
 
@@ -50,17 +50,23 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label" >Status:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="checkbox" id="chkStatus" class="mtop10" />
+                                    <input type="checkbox" tabindex="5" id="chkStatus" asp-for="login_Master.chrActive" class="mtop10" />
                                 </div>
                             </div>
                             <label for="inputEmail3" class="col-sm-2 col-form-label" >Lock:</label>
                             <div class="col-sm-3">
-                                <input type="checkbox" id="chkLock" class="mtop10" />
+                                <input type="checkbox" tabindex="6" id="chkLock" asp-for="login_Master.chrLock" class="mtop10" />
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="submit" class="btn btn-dark">Cancel</button>
+                        <div class="form-group mb-0">
+                            <button type="button" id="btnSubmit" tabindex="7" class="btn btn-primary" onclick="return ValidateData()">Submit</button>
+                            <button type="button" id="btnCancel" tabindex="8" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+                        </div>
+                        <input type="hidden" asp-for="@Model.login_Master.intGlCode" id="intGlCode" />
+                        <input type="hidden" asp-for="@Model.login_Master.chrActive" id="chrActive" />
+                        <input type="hidden" asp-for="@Model.login_Master.chrLock" id="chrLock" />
+                       @*  <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-dark">Cancel</button> *@
 
                     </form>
                 </div>
