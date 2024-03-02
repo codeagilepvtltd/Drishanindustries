@@ -151,11 +151,14 @@
     <Compile Include="Common\Common_Functions.cs" />
     <Compile Include="Common\SQLHelper.cs" />
     <Compile Include="DA\Account_DA.cs" />
+    <Compile Include="DA\Config_DA.cs" />
     <Compile Include="DA\ModuleErrorLogDA.cs" />
     <Compile Include="DA\Product_DA.cs" />
     <Compile Include="Models\Address_Master.cs" />
     <Compile Include="Models\City_Master.cs" />
     <Compile Include="Models\Category_Master.cs" />
+    <Compile Include="Models\Config_Details.cs" />
+    <Compile Include="Models\Config_Master.cs" />
     <Compile Include="Models\Country_Master.cs" />
     <Compile Include="Models\Course_Master.cs" />
     <Compile Include="Models\Email_Log.cs" />
@@ -184,12 +187,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Account\AccountRepository.cs" />
     <Compile Include="Repository\Account\IAccountRepository.cs" />
+    <Compile Include="Repository\Config\ConfigRepository.cs" />
+    <Compile Include="Repository\Config\IConfigRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\IModuleErrorLogRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\ModuleErrorLogRepository.cs" />
     <Compile Include="Repository\Product\IProductRepository.cs" />
     <Compile Include="Repository\Product\ProductRepository.cs" />
     <Compile Include="ViewModels\AccountModels.cs" />
     <Compile Include="ViewModels\CommonFieldModels.cs" />
+    <Compile Include="ViewModels\ConfigDetailsModels.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
   </ItemGroup>
   <ItemGroup />
