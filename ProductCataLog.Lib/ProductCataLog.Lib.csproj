@@ -171,6 +171,7 @@
     <Compile Include="Models\Page_Master.cs" />
     <Compile Include="Models\Page_Role_Mapping.cs" />
     <Compile Include="Models\Password_History.cs" />
+    <Compile Include="Models\Product_Master.cs" />
     <Compile Include="Models\Question_Master.cs" />
     <Compile Include="Models\Role_Master.cs" />
     <Compile Include="Models\State_Master.cs" />

@@ -58,5 +58,60 @@ namespace ProductCataLog.Lib.Repository.Product
         }
 
         #endregion
+
+        #region Product
+        public List<Product_Master> GetProductList(int intGlCode = 0)
+        {
+            Product_DA ProductDA = new Product_DA();
+            List<Product_Master> product_Masters = new List<Product_Master>();
+
+            try
+            {
+                DataSet dsResult = ProductDA.GetProductList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    product_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new Product_Master()
+                    {
+                        intGiCode = row.Field<int>("intGiCode"),
+                        varProductCode = row.Field<string>("varProductCode"),
+                        varProductName = row.Field<string>("varProductName"),
+                        varCatergoryCode = row.Field<string>("varCatergoryCode"),
+                        varCatergoryName = row.Field<string>("varCatergoryName"),
+                        varLongDescription = row.Field<string>("varLongDescription"),
+                        varShortDescription = row.Field<string>("varShortDescription"),
+                        decDisplayPrice = row.Field<decimal>("decDisplayPrice"),
+                        decOriginalPrice = row.Field<decimal>("decOriginalPrice"),
+                        ref_CategoryId = row.Field<Int64>("ref_CategoryId"),
+                        ProductPriceID = row.Field<int>("ProductPriceID"),
+                        chrActive = row.Field<string>("chrActive"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return product_Masters;
+        }
+
+        public DataSet InsertUpdate_product(ProductMasterViewModel productViewModel)
+        {
+            Product_DA ProductDA = new Product_DA();
+            try
+            {
+                return ProductDA.InsertUpdate_Product(productViewModel);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

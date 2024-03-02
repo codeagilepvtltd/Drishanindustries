@@ -94,5 +94,70 @@ namespace Drishanindustries.Controllers
         }
 
         #endregion
+
+        #region Product
+        public IActionResult Product()
+        {
+            return View("Admin/Product_Master");
+        }
+
+        [HttpPost]
+        public ActionResult Save_Product(ProductMasterViewModel productView)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            try
+            {
+                productView.product_master.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                productView.product_master.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
+                productView.product_master.chrActive = productView.product_master.chrActive == "true" ? "Y" : "N";
+                DataSet result = productRepository.InsertUpdate_product(productView);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }
+
+        public IActionResult GetProductList(int intGlCode = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            ProductMasterViewModel Product_Master = new ProductMasterViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                Product_Master.product_masters = productRepository.GetProductList(intGlCode);
+                var resultJson = JsonConvert.SerializeObject(Product_Master.product_masters);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        #endregion
     }
 }

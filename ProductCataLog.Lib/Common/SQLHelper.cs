@@ -14,7 +14,10 @@ namespace ProductCataLog.Lib.Common
         USP_InsertUpdate_Login_Master,
         USP_Select_CategoryList,
         USP_InsertUpdate_Category_Master,
-        USP_Select_LoginMasterList
+        USP_Select_LoginMasterList,
+        USP_Select_ProductList,
+        USP_InsertUpdate_ProductPrice_Master,
+        USP_InsertUpdate_Product_Master
 
     }
     public class Common_Messages
