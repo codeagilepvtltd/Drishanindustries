@@ -46,5 +46,45 @@ namespace ProductCataLog.Lib.DA
             }
 
         }
+
+
+        public DataSet GetProductList(int ProductId = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode" };
+            object[] objParamValue = { ProductId };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ProductList, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+
+        public DataSet InsertUpdate_Product(ProductMasterViewModel productViewModel)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode", "ref_ProductPriceID", "ref_CategoryId", "varProductCode", "varProductName",
+                "varShortDescription","decOriginalPrice","decDisplayPrice","varLongDescription", "chrActive", "ref_EntryBy", "ref_UpdateBy" };
+            object[] objParamValue = { productViewModel.product_master.intGiCode,productViewModel.product_master.ProductPriceID,productViewModel.product_master.ref_CategoryId,
+                      productViewModel.product_master.varProductCode,productViewModel.product_master.varProductName,productViewModel.product_master.varShortDescription,
+                productViewModel.product_master.decOriginalPrice,productViewModel.product_master.decDisplayPrice,productViewModel.product_master.varLongDescription
+            ,productViewModel.product_master.chrActive,productViewModel.product_master.ref_EntryBy,productViewModel.product_master.ref_UpdateBy};
+
+            try
+            {
+                return SQLHelper.GetData(StoredProcedures.USP_InsertUpdate_Product_Master, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }

@@ -139,8 +139,8 @@ namespace Drishanindustries.Controllers
 
             try
             {
-                loginmasterView.login_Master.ref_EntryBy = 1;
-                loginmasterView.login_Master.ref_UpdateBy = 1;
+                loginmasterView.login_Master.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode); ;
+                loginmasterView.login_Master.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode); ;
                 loginmasterView.login_Master.chrActive = loginmasterView.login_Master.chrActive == "true" ? "Y" : "N";
                 DataSet result = accountRepository.InsertUpdate_LoginMaster(loginmasterView);
                 var resultJson = JsonConvert.SerializeObject(result);

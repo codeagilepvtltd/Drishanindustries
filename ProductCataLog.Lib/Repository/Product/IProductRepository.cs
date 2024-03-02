@@ -13,5 +13,12 @@ namespace ProductCataLog.Lib.Repository.Product
         DataSet InsertUpdate_category(CategoryMasterViewModel categoryViewModel);
 
         #endregion
+
+        #region Product
+        List<Product_Master> GetProductList(int intGlCode = 0);
+
+        DataSet InsertUpdate_product(ProductMasterViewModel productViewModel);
+
+        #endregion
     }
 }
