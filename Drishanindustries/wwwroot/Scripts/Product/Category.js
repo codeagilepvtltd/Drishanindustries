@@ -68,6 +68,7 @@ function resetValidation() {
     $('input:text').val('');
     $("#intGlCode").val('0');
     $("#Action").val('Insert');
+    $("#txtMetaDescription").val('');
 
     $("#chkchrActive").prop('checked', false);
 
@@ -92,6 +93,8 @@ function editdata(e) {
     $("#Action").val('Update');
     $("#txtCategoryName").val(e.row.data.varCatergoryName);
     $("#txtCategoryCode").val(e.row.data.varCatergoryCode);
+    $("#txtMetaKeyword").val(e.row.data.MetaKeyword);
+    $("#txtMetaDescription").val(e.row.data.MetaDescription);
     $("#ref_ParentID").val(e.row.data.ref_ParentID);
     $("#chkchrActive").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
 

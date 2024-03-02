@@ -24,5 +24,7 @@ namespace ProductCataLog.Lib.Models
         public decimal decDisplayPrice { get; set; }
         public string varCatergoryCode { get; set; }
         public string varCatergoryName { get; set; }
+        public string MetaKeyword { get; set; }
+        public string MetaDescription { get; set; }
     }
 }

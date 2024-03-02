@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+   
 });
 
 function ValidateData() {
@@ -104,15 +104,14 @@ function resetValidation() {
     $('textarea').val('');
     $("#intGiCode").val('0');
     $("#Action").val('Insert');
-
+    $("#txtMetaDescription").val('');
     $("#chkchrActive").prop('checked', false);
-
+    $("#txtDescription").summernote('code', '');
     $("#chrActive").val(true);
     $("#grdProductDetials").dxDataGrid('instance').refresh();
     $("#grdProductDetials").dxDataGrid('instance').clearFilter();
 
 }
-
 
 function editdata(e) {
 
@@ -129,12 +128,14 @@ function editdata(e) {
     $("#txtProductName").val(e.row.data.varProductName);
     $("#txtProductCode").val(e.row.data.varProductCode);
     $("#txtProductShortDescription").val(e.row.data.varShortDescription);
-    $("#txtDescription").val(e.row.data.varLongDescription);
+    $("#txtDescription").summernote('code', e.row.data.varLongDescription);
     $("#txtPRoductPrice").val(e.row.data.decOriginalPrice);
     $("#txtDisplayPrice").val(e.row.data.decDisplayPrice);
-
+    $("#txtMetaKeyword").val(e.row.data.MetaKeyword);
+    $("#txtMetaDescription").val(e.row.data.MetaDescription);
     $("#ref_CategoryId").val(e.row.data.ref_CategoryId);
     $("#ProductPriceID").val(e.row.data.ProductPriceID);
     $("#chkchrActive").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
 
 }
+

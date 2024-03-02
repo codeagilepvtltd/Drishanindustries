@@ -31,9 +31,10 @@ namespace ProductCataLog.Lib.DA
         public DataSet InsertUpdate_Category(CategoryMasterViewModel categoryViewModel)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode", "varCatergoryCode", "varCatergoryName", "ref_ParentID", "chrActive", "ref_EntryBy", "ref_UpdateBy" };
+            object[] objParamName = { "intGlCode", "varCatergoryCode", "varCatergoryName", "ref_ParentID", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy" };
             object[] objParamValue = { categoryViewModel.category_Master.intGlCode, categoryViewModel.category_Master.varCatergoryCode, categoryViewModel.category_Master.varCatergoryName,
-                      categoryViewModel.category_Master.ref_ParentID, categoryViewModel.category_Master.chrActive, categoryViewModel.category_Master.ref_EntryBy,
+                      categoryViewModel.category_Master.ref_ParentID, categoryViewModel.category_Master.chrActive, categoryViewModel.category_Master.MetaKeyword,
+                 categoryViewModel.category_Master.MetaDescription, categoryViewModel.category_Master.ref_EntryBy,
                 categoryViewModel.category_Master.ref_UpdateBy };
 
             try
@@ -70,11 +71,12 @@ namespace ProductCataLog.Lib.DA
         {
             sqlQuery = new StringBuilder();
             object[] objParamName = { "intGlCode", "ref_ProductPriceID", "ref_CategoryId", "varProductCode", "varProductName",
-                "varShortDescription","decOriginalPrice","decDisplayPrice","varLongDescription", "chrActive", "ref_EntryBy", "ref_UpdateBy" };
+                "varShortDescription","decOriginalPrice","decDisplayPrice","varLongDescription", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy" };
             object[] objParamValue = { productViewModel.product_master.intGiCode,productViewModel.product_master.ProductPriceID,productViewModel.product_master.ref_CategoryId,
                       productViewModel.product_master.varProductCode,productViewModel.product_master.varProductName,productViewModel.product_master.varShortDescription,
                 productViewModel.product_master.decOriginalPrice,productViewModel.product_master.decDisplayPrice,productViewModel.product_master.varLongDescription
-            ,productViewModel.product_master.chrActive,productViewModel.product_master.ref_EntryBy,productViewModel.product_master.ref_UpdateBy};
+            ,productViewModel.product_master.chrActive,productViewModel.product_master.MetaKeyword,
+                productViewModel.product_master.MetaDescription,productViewModel.product_master.ref_EntryBy,productViewModel.product_master.ref_UpdateBy};
 
             try
             {

@@ -153,9 +153,12 @@
     <Compile Include="DA\Account_DA.cs" />
     <Compile Include="DA\ModuleErrorLogDA.cs" />
     <Compile Include="DA\Product_DA.cs" />
+    <Compile Include="DA\Reports_DA.cs" />
+    <Compile Include="DA\Utility_DA.cs" />
     <Compile Include="Models\Address_Master.cs" />
     <Compile Include="Models\City_Master.cs" />
     <Compile Include="Models\Category_Master.cs" />
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\Country_Master.cs" />
     <Compile Include="Models\Course_Master.cs" />
     <Compile Include="Models\Email_Log.cs" />
@@ -188,9 +191,14 @@
     <Compile Include="Repository\ModuleErrorLog\ModuleErrorLogRepository.cs" />
     <Compile Include="Repository\Product\IProductRepository.cs" />
     <Compile Include="Repository\Product\ProductRepository.cs" />
+    <Compile Include="Repository\Reports\IReportsRepository.cs" />
+    <Compile Include="Repository\Reports\ReportsRepository.cs" />
+    <Compile Include="Repository\Utility\IUtilityRepository.cs" />
+    <Compile Include="Repository\Utility\UtilityRepository.cs" />
     <Compile Include="ViewModels\AccountModels.cs" />
     <Compile Include="ViewModels\CommonFieldModels.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
+    <Compile Include="ViewModels\ReportsModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

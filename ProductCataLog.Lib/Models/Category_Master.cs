@@ -26,5 +26,8 @@ namespace ProductCataLog.Lib.Models
         public DateTime? dtUpdatedDate { get; set; }
 
         public long? ref_UpdateBy { get; set; }
+
+        public string MetaKeyword { get; set; }
+        public string MetaDescription { get; set; }
     }
 }

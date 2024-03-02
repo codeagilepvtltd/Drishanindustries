@@ -4,6 +4,7 @@ using ProductCataLog.Lib.Common;
 using ProductCataLog.Lib.Repository.Account;
 using ProductCataLog.Lib.Repository.ModuleErrorLog;
 using ProductCataLog.Lib.Repository.Product;
+using ProductCataLog.Lib.Repository.Reports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+builder.Services.AddSingleton<IReportsRepository, ReportsRepository>();
 builder.Services.AddSingleton<IModuleErrorLogRepository, ModuleErrorLogRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRouting();

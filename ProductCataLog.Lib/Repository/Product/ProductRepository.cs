@@ -28,6 +28,8 @@ namespace ProductCataLog.Lib.Repository.Product
                         varCatergoryCode = row.Field<string>("varCatergoryCode"),
                         varCatergoryName = row.Field<string>("varCatergoryName"),
                         ParentCatergoryName = row.Field<string>("ParentCategory"),
+                        MetaDescription = row.Field<string>("MetaDescription"),
+                        MetaKeyword = row.Field<string>("MetaKeyword"),
                         ref_ParentID = row.Field<int>("ParentCategoryID"),
                         chrActive = row.Field<string>("chrActive"),
                         dtEntryDate = row.Field<DateTime>("dtEntryDate")
@@ -80,6 +82,8 @@ namespace ProductCataLog.Lib.Repository.Product
                         varCatergoryName = row.Field<string>("varCatergoryName"),
                         varLongDescription = row.Field<string>("varLongDescription"),
                         varShortDescription = row.Field<string>("varShortDescription"),
+                        MetaDescription = row.Field<string>("MetaDescription"),
+                        MetaKeyword = row.Field<string>("MetaKeyword"),
                         decDisplayPrice = row.Field<decimal>("decDisplayPrice"),
                         decOriginalPrice = row.Field<decimal>("decOriginalPrice"),
                         ref_CategoryId = row.Field<Int64>("ref_CategoryId"),
