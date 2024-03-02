@@ -71,8 +71,8 @@ function PopUpMessage(message, classname) {
             cancelButtonColor: "#f46a6a",
             icon: classname
         });
-    } else  {
-        Swal.fire({ 
+    } else {
+        Swal.fire({
             text: message,
             //type: "info",
             showCancelButton: !0,
