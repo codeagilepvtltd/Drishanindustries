@@ -14,4 +14,12 @@ namespace ProductCataLog.Lib.ViewModels
         public List<Config_Details> config_Details { get; set; }
 
     }
+
+    public class ConfigMasterViewModel
+    {
+        public Config_Master config_Master { get; set; }
+
+        public List<Config_Master> config_Masters { get; set; }
+
+    }
 }
