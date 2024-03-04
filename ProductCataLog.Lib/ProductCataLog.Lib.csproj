@@ -171,6 +171,7 @@
     <Compile Include="Models\Forgot_Password_History.cs" />
     <Compile Include="Models\Gallery.cs" />
     <Compile Include="Models\Inquiry.cs" />
+    <Compile Include="Models\InquiryDetails.cs" />
     <Compile Include="Models\LoginForm_Details.cs" />
     <Compile Include="Models\Login_Master.cs" />
     <Compile Include="Models\LookupType_Master.cs" />

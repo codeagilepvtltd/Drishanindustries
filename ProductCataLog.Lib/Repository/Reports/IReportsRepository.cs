@@ -12,5 +12,9 @@ namespace ProductCataLog.Lib.Repository.Reports
         List<ContactUs> GetContactUsList(int fk_LookupType_DetailsId = 0);
         List<LookupType_Details> GetLookUpTypeList(string varPurpose = "");
         #endregion
+
+        #region ProductList report
+        List<Inquiry_Details> GetProductInquiryList(int ref_LookupTypeDetailId = 0);
+        #endregion
     }
 }

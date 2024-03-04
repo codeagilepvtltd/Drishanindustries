@@ -10,24 +10,6 @@ namespace ProductCataLog.Lib.DA
         private StringBuilder sqlQuery;
         private DataSet resultSet;
 
-        public DataSet GetProductInquiryList(int InquiryId = 0)
-        {
-            sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode" };
-            object[] objParamValue = { InquiryId };
-
-            try
-            {
-                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_CategoryList, objParamName, objParamValue);
-            }
-            catch
-            {
-                throw;
-            }
-            return resultSet;
-
-        }
-
         public DataSet GetContactUsList(int fk_LookupType_DetailsId = 0)
         {
             sqlQuery = new StringBuilder();
@@ -45,7 +27,23 @@ namespace ProductCataLog.Lib.DA
             return resultSet;
 
         }
+        public DataSet GetProductInquiryList(int @ref_LookupTypeDetailId = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "ref_LookupTypeDetailId" };
+            object[] objParamValue = { ref_LookupTypeDetailId };
 
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ProductInquiryList, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
         public DataSet GetLookUpTypeList(string varPurpose = "")
         {
             sqlQuery = new StringBuilder();
