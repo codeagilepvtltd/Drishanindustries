@@ -22,7 +22,8 @@ namespace ProductCataLog.Lib.Common
         USP_Select_ConfigDetailsList,
         USP_InsertUpdate_Configuration_Details,
         USP_Select_ContactUsReport,
-        USP_Select_LookUpTypeList
+        USP_Select_LookUpTypeList,
+        USP_Select_ProductInquiryList
 
     }
     public class Common_Messages

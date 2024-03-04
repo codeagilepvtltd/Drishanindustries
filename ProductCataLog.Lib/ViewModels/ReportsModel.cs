@@ -20,4 +20,10 @@ namespace ProductCataLog.Lib.ViewModels
         public LookupType_Details LookupType_Details { get; set; }
         public List<LookupType_Details> LookupType_DetailsList { get; set; }
     }
+    public class ProductInquiryReportViewModel
+    {
+        public Inquiry_Details InquiryDetails { get; set; }
+
+        public List<Inquiry_Details> InquiryDetailsList { get; set; }
+    }
 }
