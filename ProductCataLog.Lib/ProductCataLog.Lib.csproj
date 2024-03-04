@@ -173,6 +173,8 @@
     <Compile Include="Models\Inquiry.cs" />
     <Compile Include="Models\LoginForm_Details.cs" />
     <Compile Include="Models\Login_Master.cs" />
+    <Compile Include="Models\LookupType_Master.cs" />
+    <Compile Include="Models\LookupType_Details.cs" />
     <Compile Include="Models\ModuleErrorLog.cs" />
     <Compile Include="Models\Page_Master.cs" />
     <Compile Include="Models\Page_Role_Mapping.cs" />

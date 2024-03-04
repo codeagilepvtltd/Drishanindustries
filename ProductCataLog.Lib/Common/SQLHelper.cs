@@ -20,7 +20,9 @@ namespace ProductCataLog.Lib.Common
         USP_InsertUpdate_Product_Master,
         USP_Select_ConfigMasterList,
         USP_Select_ConfigDetailsList,
-        USP_InsertUpdate_Configuration_Details
+        USP_InsertUpdate_Configuration_Details,
+        USP_Select_ContactUsReport,
+        USP_Select_LookUpTypeList
 
     }
     public class Common_Messages
