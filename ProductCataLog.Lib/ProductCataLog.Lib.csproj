@@ -190,8 +190,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Account\AccountRepository.cs" />
     <Compile Include="Repository\Account\IAccountRepository.cs" />
-    <Compile Include="Repository\Config\ConfigRepository.cs" />
-    <Compile Include="Repository\Config\IConfigRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\IModuleErrorLogRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\ModuleErrorLogRepository.cs" />
     <Compile Include="Repository\Product\IProductRepository.cs" />
