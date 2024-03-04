@@ -28,15 +28,33 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetContactUsList(int ContactId = 0)
+        public DataSet GetContactUsList(int fk_LookupType_DetailsId = 0)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode" };
-            object[] objParamValue = { ContactId };
+            object[] objParamName = { "fk_LookupType_DetailsId" };
+            object[] objParamValue = { fk_LookupType_DetailsId };
 
             try
             {
-                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_CategoryList, objParamName, objParamValue);
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ContactUsReport, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+
+        public DataSet GetLookUpTypeList(string varPurpose = "")
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "varPurpose" };
+            object[] objParamValue = { varPurpose };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_LookUpTypeList, objParamName, objParamValue);
             }
             catch
             {
