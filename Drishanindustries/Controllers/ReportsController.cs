@@ -52,7 +52,29 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("ContactUsReport", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+        public IActionResult GetProductInquiryListReport(int fk_LookupType_DetailsId = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            ProductInquiryReportViewModel productInquiryReportViewModel = new ProductInquiryReportViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                productInquiryReportViewModel.InquiryDetailsList = reportsRepository.GetProductInquiryList(fk_LookupType_DetailsId);
+                var resultJson = JsonConvert.SerializeObject(productInquiryReportViewModel.InquiryDetailsList);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("ProductListInquiryReport", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
