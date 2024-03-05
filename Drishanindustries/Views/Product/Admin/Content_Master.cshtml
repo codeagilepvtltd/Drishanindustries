@@ -215,3 +215,25 @@
 
 </div>
 <!---Container Fluid-->
+@Html.AntiForgeryToken()
+@section Scripts {
+    <script src="~/Scripts/Product/ProductContent.js"></script>
+    <script src="~/Scripts/Account/Common.js"></script>
+}
+
+<style>
+    .dvdx-overlay-content {
+        position: absolute;
+        z-index: 1000;
+        outline: 0;
+        overflow: unset !important;
+    }
+
+    .dx-overlay-content.dx-popup-normal.dx-popup-draggable.dx-resizable.dx-dropdowneditor-overlay-flipped {
+        overflow: scroll !important;
+    }
+
+    .custom-checkbox {
+        margin: 40px 0px;
+    }
+</style>
