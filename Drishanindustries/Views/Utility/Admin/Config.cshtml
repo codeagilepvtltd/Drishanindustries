@@ -17,9 +17,9 @@
                             <label for="inputEmail3" class="col-sm-1 col-form-label"><span class="red">*</span>Config Type:</label>
                             <div class="col-sm-3">                               
                                 @(Html.DevExtreme().SelectBox().ID("ddlConfigType")
-                                    .DataSource(d => d.Mvc().Controller("Utility").LoadAction("GetConfigMasterList").Key("intGlCode"))
+                                    .DataSource(d => d.Mvc().Controller("Utility").LoadAction("GetConfigMasterList").Key("intGICode"))
                                     .DisplayExpr("varName")
-                                    .ValueExpr("intGlCode")
+                                    .ValueExpr("intGICode")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)
                                     .OnOpened("dxSelectBox_OnOpened ")
@@ -128,6 +128,7 @@
 
 @Html.AntiForgeryToken()
 @section Scripts {
+    <script src="~/Scripts/Utility/Configuration.js"></script>
     <script src="~/Scripts/Account/config.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
 }
