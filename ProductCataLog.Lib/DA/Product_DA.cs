@@ -48,7 +48,6 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-
         public DataSet GetProductList(int ProductId = 0)
         {
             sqlQuery = new StringBuilder();
@@ -88,5 +87,7 @@ namespace ProductCataLog.Lib.DA
             }
 
         }
+
+
     }
 }

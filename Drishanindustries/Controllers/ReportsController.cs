@@ -58,6 +58,11 @@ namespace Drishanindustries.Controllers
                 return RedirectToAction("ErrorForbidden", "Account");
             }
         }
+
+        public IActionResult ProductInquiry()
+        {
+            return View("Admin/ProductInquiry");
+        }
         public IActionResult GetProductInquiryListReport(int fk_LookupType_DetailsId = 0)
         {
 
