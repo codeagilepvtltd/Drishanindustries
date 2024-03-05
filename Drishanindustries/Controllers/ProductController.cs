@@ -159,5 +159,36 @@ namespace Drishanindustries.Controllers
         }
 
         #endregion
+
+        #region ProductImage/Video
+        public IActionResult ProductContentMaster()
+        {
+            return View("Admin/Content_Master");
+        }
+
+        public IActionResult GetContentTypeMasterList(int intGlCode = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            ProductContentTypeMasterViewModel ProductContent_Master = new ProductContentTypeMasterViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                ProductContent_Master.contentType_Masters = productRepository.GetContentTypeMasterList(intGlCode);
+                var resultJson = JsonConvert.SerializeObject(ProductContent_Master.contentType_Masters);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        #endregion
     }
 }

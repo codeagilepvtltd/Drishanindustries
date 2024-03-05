@@ -88,6 +88,22 @@ namespace ProductCataLog.Lib.DA
 
         }
 
+        public DataSet GetContentTypeMasterList(int intGICOde = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGICOde" };
+            object[] objParamValue = { intGICOde };
 
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ContentTypeMasterList, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
     }
 }

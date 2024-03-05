@@ -1,0 +1,239 @@
+﻿@using DevExtreme.AspNet.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.ProductContentTypeMasterViewModel
+@{
+    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Dashboard");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-6">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product Name:</label>
+                            <div class="col-sm-10">
+                                @(Html.DevExtreme().SelectBox().ID("ddlGetProductList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetProductList").Key("intGiCode"))
+                                    .DisplayExpr("varProductName")
+                                    .ValueExpr("intGiCode")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened ")
+                                    )
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content Type:</label>
+                            <div class="col-sm-2">
+                                @(Html.DevExtreme().SelectBox().ID("ddlContentTypeList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetContentTypeMasterList").Key("intGlCode"))
+                                    .DisplayExpr("varContentType")
+                                    .ValueExpr("intGlCode")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened ")
+                                    )
+                            </div>
+                        </div>
+                        <div id="image">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtImagetitle" placeholder="Image Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtImageShortDescription" placeholder="Image Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control" id="txtImageUrl" placeholder="Image Url" tabindex="3">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="document">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtDocuementTitle" placeholder="Document Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtDocumentShortDescription" placeholder="Document Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtDocumentDescription" placeholder="Document Description"></textarea>
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Document Url</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control" id="txtDocumentUrl" placeholder="Document Url" tabindex="3">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="video">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtVideoTitle" placeholder="Video Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtVideoShortDescription" placeholder="Video Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtVideoDescription" placeholder="Video Description"></textarea>
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Video Url</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtVideoUrl" placeholder="Video Url" tabindex="3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" tabindex="6" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
+                        <button type="submit" class="btn btn-dark" tabindex="8">Cancel</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<!---Container Fluid-->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Product Content</h6>
+                    <button type="button" class="btn btn-primary">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Edit/ Delete</th>
+                                <th>Product Name</th>
+                                <th>Content Type</th>
+                                <th>Content Name</th>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Status</th>
+                                <th>Entry Date</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Edit/ Delete</th>
+                                <th>Product Name</th>
+                                <th>Content Type</th>
+                                <th>Content Name</th>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Status</th>
+                                <th>Entry Date</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!---Container Fluid-->
+@Html.AntiForgeryToken()
+@section Scripts {
+    <script src="~/Scripts/Product/ProductContent.js"></script>
+    <script src="~/Scripts/Account/Common.js"></script>
+}
+
+<style>
+    .dvdx-overlay-content {
+        position: absolute;
+        z-index: 1000;
+        outline: 0;
+        overflow: unset !important;
+    }
+
+    .dx-overlay-content.dx-popup-normal.dx-popup-draggable.dx-resizable.dx-dropdowneditor-overlay-flipped {
+        overflow: scroll !important;
+    }
+
+    .custom-checkbox {
+        margin: 40px 0px;
+    }
+</style>

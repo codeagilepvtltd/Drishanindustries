@@ -18,7 +18,10 @@ namespace ProductCataLog.Lib.Repository.Product
         List<Product_Master> GetProductList(int intGlCode = 0);
 
         DataSet InsertUpdate_product(ProductMasterViewModel productViewModel);
+        #endregion
 
+        #region ProductImage/Video
+        List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0);
         #endregion
     }
 }

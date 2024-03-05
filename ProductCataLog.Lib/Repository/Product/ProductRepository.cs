@@ -117,5 +117,38 @@ namespace ProductCataLog.Lib.Repository.Product
         }
 
         #endregion
+
+
+        #region ProductImage/Video
+        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0)
+        {
+            Product_DA ProductDA = new Product_DA();
+            List<ContentType_Master> contentType_Masters = new List<ContentType_Master>();
+
+            try
+            {
+                DataSet dsResult = ProductDA.GetContentTypeMasterList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    contentType_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new ContentType_Master()
+                    {
+                        intGICOde = row.Field<int>("intGICOde"),
+                        varContentType = row.Field<string>("varContentType"),
+                        varContentDescription = row.Field<string>("varContentDescription"),
+                        chrActive = row.Field<string>("chrActive"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return contentType_Masters;
+        }
+        #endregion
     }
 }
