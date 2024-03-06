@@ -1,0 +1,156 @@
+﻿@using DevExtreme.AspNet.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Blog");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+   <!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-6">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Blog Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="txtImagetitle" placeholder="Blog Title" tabindex="3">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="txtBlogShortDescription" placeholder="Blog Short Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="txtBlogDescription" placeholder="Blog Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" id="txtBlogUrl" placeholder="Blog path" tabindex="3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" tabindex="6" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
+                        <button type="submit" class="btn btn-dark" tabindex="8">Cancel</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<!---Container Fluid-->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Blogs</h6>
+                    <button type="button" class="btn btn-primary">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Edit/ Delete</th>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Image</th>
+                                <th>Entry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Edit/ Delete</th>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Image</th>
+                                <th>Entry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                <td>9067971934</td>
+                                <td>9067971934</td>
+                                <td>Student</td>
+                                <td>21-01-2024</td>
+                                <td>21-01-2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!---Container Fluid-->
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/Scripts/Account/Common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="text/javascript">
+        $('#txtBlogDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+}
