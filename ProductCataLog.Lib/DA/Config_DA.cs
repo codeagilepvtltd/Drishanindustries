@@ -30,7 +30,6 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-
         public DataSet GetConfigDetailsList(int ConfigDetailId = 0)
         {
             object[] objParamName = { "intGlCode" };

@@ -95,5 +95,93 @@ namespace ProductCataLog.Lib.Repository.Utility
             }
         }
         #endregion
+
+        #region ContentTypeMaster
+        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0)
+        {
+            Blogs_DA BlogsDA = new Blogs_DA();
+            List<ContentType_Master> contentType_Master = new List<ContentType_Master>();
+
+            try
+            {
+                DataSet dsResult = BlogsDA.GetContentTypeMasterList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    contentType_Master = dsResult.Tables[0].AsEnumerable().Select(row => new ContentType_Master()
+                    {
+                        intGICOde = row.Field<int>("intGICOde"),
+                        varContentType = row.Field<string>("varContentType"),
+                        varContentDescription = row.Field<string>("varContentDescription"),
+                        chrActive = row.Field<string>("chrActive"),                        
+                        dtEntryDate = row.Field<DateTime?>("dtEntryDate")                       
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return contentType_Master;
+        }
+        #endregion
+
+        #region GalleryMapping
+        public List<Gallery_Mapping> GetGalleryMappingList(int ref_ContentTypeId = 0)
+        {
+            Blogs_DA blogsDA = new Blogs_DA();
+            List<Gallery_Mapping> gallery_Mappings = new List<Gallery_Mapping>();
+
+            try
+            {
+                DataSet dsResult = blogsDA.GetGalleryMappingList(ref_ContentTypeId);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    gallery_Mappings = dsResult.Tables[0].AsEnumerable().Select(row => new Gallery_Mapping()
+                    {
+                        CTM_intGlCode = row.Field<int>("CTM_intGlCode"),
+                        CTM_varContentType = row.Field<string>("CTM_varContentType"),
+                        CM_intGlCode = row.Field<int>("CM_intGlCode"),
+                        CM_varAuthor = row.Field<string>("CM_varAuthor"),
+                        CM_varTitle = row.Field<string>("CM_varTitle"),
+                        CM_varShortDescription = row.Field<string>("CM_varShortDescription"),
+                        CM_varContent = row.Field<string>("CM_varContent"),
+                        intGICode = row.Field<int>("GM_intGlCode"),
+                        varGalleryType = row.Field<string>("GM_varGalleryType"),
+                        varGalleryName = row.Field<string>("GM_varGalleryName"),
+                        varGalleryPath = row.Field<string>("GM_varGalleryPath"),
+                        varGalleryURL = row.Field<string>("GM_varGalleryURL"),
+                        varTitle = row.Field<string>("GM_varTitle"),
+                        varShortDescription = row.Field<string>("GM_varShortDescription"),
+                        varContent = row.Field<string>("GM_varContent"),
+                        PM_intGlCode = row.Field<int>("PM_intGlCode"),
+                        varProductName = row.Field<string>("PM_varProductName"),
+                        charActive = row.Field<string>("GM_chrActive")                        
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return gallery_Mappings;
+        }
+
+        public DataSet InsertUpdate_GalleryMappingDetails(GalleryMappingViewModel galleryMappingViewModel)
+        {
+            Blogs_DA blogsDA = new Blogs_DA();
+            try
+            {
+                return blogsDA.InsertUpdate_GalleryMappingDetails(galleryMappingViewModel);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }
