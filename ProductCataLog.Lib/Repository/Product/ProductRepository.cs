@@ -149,6 +149,59 @@ namespace ProductCataLog.Lib.Repository.Product
             }
             return contentType_Masters;
         }
+
+        public List<Gallery_Mapping> GetGalleryMappingList(int intGlCode = 0)
+        {
+            Product_DA ProductDA = new Product_DA();
+            List<Gallery_Mapping> gallery_Masters = new List<Gallery_Mapping>();
+
+            try
+            {
+                DataSet dsResult = ProductDA.GetGalleryMappingList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    gallery_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new Gallery_Mapping()
+                    {
+                        intGICode = row.Field<int>("GM_intGlCode"),
+                        fk_ContentID = row.Field<int>("fk_ContentID"),
+                        fk_ContentTypeID = row.Field<int>("CTM_intGlCode"),
+                        fk_ProductID = row.Field<int>("PM_intGlCode"),
+                        varGalleryType = row.Field<string>("GM_varGalleryType"),
+                        varGalleryName = row.Field<string>("GM_varGalleryName"),
+                        varGalleryPath = row.Field<string>("GM_varGalleryPath"),
+                        varGalleryURL = row.Field<string>("GM_varGalleryURL"),
+                        varTitle = row.Field<string>("GM_varTitle"),
+                        varShortDescription = row.Field<string>("GM_varShortDescription"),
+                        varContent = row.Field<string>("GM_varContent"),
+                        varProductName = row.Field<string>("PM_varProductName"),
+                        charActive = row.Field<string>("GM_chrActive"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return gallery_Masters;
+        }
+
+        public DataSet InsertUpdate_GalleryMapping(ProductContentTypeMasterViewModel ContentViewModel)
+        {
+            Product_DA ProductDA = new Product_DA();
+            try
+            {
+                return ProductDA.InsertUpdate_GalleryMapping(ContentViewModel);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }

@@ -16,7 +16,7 @@
             <!-- Form Basic -->
             <div class="card mb-6">
                 <div class="card-body">
-                    <form>
+                    <form class="needs-validation" method="post" id="frmGalleryMaster" novalidate>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product Name:</label>
                             <div class="col-sm-10">
@@ -26,7 +26,7 @@
                                     .ValueExpr("intGiCode")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)
-                                    .OnOpened("dxSelectBox_OnOpened ")
+                                    .OnOpened("dxSelectBox_OnOpened")
                                     )
                             </div>
                         </div>
@@ -39,34 +39,34 @@
                                     .ValueExpr("intGlCode")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)
-                                    .OnOpened("dxSelectBox_OnOpened ")
+                                    .OnOpened("dxSelectBox_OnOpened")
                                     )
                             </div>
                         </div>
-                        <div id="image">
+                        <div id="image" >
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="txtImagetitle" placeholder="Image Title" tabindex="3">
+                                    <input type="text" class="form-control" id="txtImagetitle" asp-for="gallery_Mapping.varGalleryName" placeholder="Image Title" tabindex="3">
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control" id="txtImageShortDescription" placeholder="Image Short Description"></textarea>
+                                    <textarea class="form-control" id="txtImageShortDescription" asp-for="content_Master.varShortDescription" placeholder="Image Short Description"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
+                                    <textarea class="form-control" id="txtImageDescription" asp-for="contentType_Master.varContentDescription" placeholder="Image Description"></textarea>
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                                 <div class="col-sm-4">
-                                    <input type="file" class="form-control" id="txtImageUrl" placeholder="Image Url" tabindex="3">
+                                    <input type="file" class="form-control" id="txtImageUrl" asp-for="gallery_Mapping.varGalleryURL" placeholder="Image Url" tabindex="3">
                                 </div>
                             </div>
 
                         </div>
-                        <div id="document">
+                        <div id="document" hidden="hidden">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="video">
+                        <div id="video" hidden="hidden">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
@@ -113,12 +113,18 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
                             <div class="col-sm-3">
-                                <input type="checkbox" id="chkStatus" tabindex="6" />
+                                <input type="checkbox" id="chkStatus" asp-for="gallery_Mapping.charActive" tabindex="6" />
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
-                        <button type="submit" class="btn btn-dark" tabindex="8">Cancel</button>
-
+                        <div class="form-group mb-0">
+                            <button type="button" id="btnSave" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Save</button>
+                            <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+                        </div>
+                        <input type="hidden" asp-for="@Model.content_Master.intGICode" id="ref_ContentId" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.charActive" id="chrActive" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ProductID" id="fk_ProductID" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ContentTypeID" id="fk_ContentTypeID" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.intGICode" id="ref_GalleryId" />
                     </form>
                 </div>
 

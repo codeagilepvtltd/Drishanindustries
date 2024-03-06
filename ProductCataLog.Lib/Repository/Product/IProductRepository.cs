@@ -1,7 +1,9 @@
-﻿using ProductCataLog.Lib.Models;
+﻿using ProductCataLog.Lib.Common;
+using ProductCataLog.Lib.Models;
 using ProductCataLog.Lib.ViewModels;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 
 namespace ProductCataLog.Lib.Repository.Product
 {
@@ -22,6 +24,10 @@ namespace ProductCataLog.Lib.Repository.Product
 
         #region ProductImage/Video
         List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0);
+
+        List<Gallery_Mapping> GetGalleryMappingList(int intGlCode = 0);
+
+        DataSet InsertUpdate_GalleryMapping(ProductContentTypeMasterViewModel ContentViewModel);
         #endregion
     }
 }
