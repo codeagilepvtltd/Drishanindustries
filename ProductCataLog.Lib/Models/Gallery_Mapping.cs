@@ -24,9 +24,11 @@ namespace ProductCataLog.Lib.Models
 
         public long intGICode { get; set; }
 
+        public int? CTM_intGlCode { get; set; }
         public int? fk_ProductID { get; set; }
 
         public int? fk_ContentID { get; set; }
+        public int? fk_ContentTypeID { get; set; }
 
         public string varGalleryType { get; set; }
 
@@ -35,6 +37,12 @@ namespace ProductCataLog.Lib.Models
         public string varGalleryPath { get; set; }
 
         public string varGalleryURL { get; set; }
+
+        public string varTitle { get; set; }
+        public string varContent { get; set; }
+        public string varProductName { get; set; }
+
+        public string varShortDescription { get; set; }
 
         public string charActive { get; set; }
 

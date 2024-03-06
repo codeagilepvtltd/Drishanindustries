@@ -105,5 +105,46 @@ namespace ProductCataLog.Lib.DA
             return resultSet;
 
         }
+
+        public DataSet GetGalleryMappingList(int ref_ContentTypeId = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "ref_ContentTypeId" };
+            object[] objParamValue = { ref_ContentTypeId };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_GalleryMappingList, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+        public DataSet InsertUpdate_GalleryMapping(ProductContentTypeMasterViewModel contentViewModel)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "ref_ContentId", "ref_GalleryId", "fk_ProductID", "fk_ContentTypeID", "varTitle",
+                "varGalleryType", "varGalleryName", "varGalleryURL", "varGalleryPath","varAuthor","varShortDescription","varContent","chrActive",
+            "ref_EntryBy","ref_UpdateBy"};
+            object[] objParamValue = { contentViewModel.content_Master.intGICode, contentViewModel.gallery_Mapping.intGICode, contentViewModel.gallery_Mapping.fk_ProductID,
+                      contentViewModel.gallery_Mapping.fk_ContentTypeID, contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryType,
+                 contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryURL,
+                contentViewModel.gallery_Mapping.varGalleryURL,contentViewModel.content_Master.ref_EntryBy,contentViewModel.content_Master.varShortDescription,
+                contentViewModel.contentType_Master.varContentDescription,contentViewModel.gallery_Mapping.charActive,contentViewModel.gallery_Mapping.ref_EntryBy,
+            contentViewModel.gallery_Mapping.ref_UpdateBy};
+
+            try
+            {
+                return SQLHelper.GetData(StoredProcedures.USP_InsertUpdate_GalleryMapping, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }

@@ -189,6 +189,62 @@ namespace Drishanindustries.Controllers
             }
         }
 
+        public IActionResult GetGalleryMappingList(int intGlCode = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            ProductContentTypeMasterViewModel ProductContent_Master = new ProductContentTypeMasterViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode);
+                var resultJson = JsonConvert.SerializeObject(ProductContent_Master.gallery_Mappings);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save_Gallery(ProductContentTypeMasterViewModel galleyView)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            try
+            {
+                galleyView.gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                galleyView.gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
+                galleyView.gallery_Mapping.charActive = galleyView.gallery_Mapping.charActive == "true" ? "Y" : "N";
+                DataSet result = productRepository.InsertUpdate_GalleryMapping(galleyView);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }
         #endregion
     }
 }
