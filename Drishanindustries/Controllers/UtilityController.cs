@@ -113,5 +113,13 @@ namespace Drishanindustries.Controllers
         }
 
         #endregion
+
+        #region Blogs
+        public IActionResult Blogs()
+        {
+            return View("Admin/Blogs");
+        }
+        #endregion
+
     }
 }
