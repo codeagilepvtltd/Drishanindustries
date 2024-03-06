@@ -151,6 +151,7 @@
     <Compile Include="Common\Common_Functions.cs" />
     <Compile Include="Common\SQLHelper.cs" />
     <Compile Include="DA\Account_DA.cs" />
+    <Compile Include="DA\Blogs_DA.cs" />
     <Compile Include="DA\Config_DA.cs" />
     <Compile Include="DA\ModuleErrorLogDA.cs" />
     <Compile Include="DA\Product_DA.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Repository\Utility\IUtilityRepository.cs" />
     <Compile Include="Repository\Utility\UtilityRepository.cs" />
     <Compile Include="ViewModels\AccountModels.cs" />
+    <Compile Include="ViewModels\BlogsModels.cs" />
     <Compile Include="ViewModels\CommonFieldModels.cs" />
     <Compile Include="ViewModels\ConfigDetailsModels.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
