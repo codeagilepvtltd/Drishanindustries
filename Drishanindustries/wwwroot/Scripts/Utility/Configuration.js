@@ -16,7 +16,7 @@ function ValidateData() {
     $("#ref_ConfigurationID").val(ddlConfigType);
 
     if ($("#txtConfigName").val() == "") {
-        PopUpMessage("Please Config Name.", "fa fa-exclamation-circle popup_icon");
+        PopUpMessage("Please Enter Config Name.", "fa fa-exclamation-circle popup_icon");
         $("#txtConfigName").focus();
         return false;
     }

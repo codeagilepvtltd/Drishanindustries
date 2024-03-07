@@ -1,5 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.GalleryMappingViewModel
 @{
     ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Blog");
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,41 +14,48 @@
             <!-- Form Basic -->
             <div class="card mb-6">
                 <div class="card-body">
-                    <form>
+                    <form class="needs-validation" method="post" id="frmBlogsDetail" novalidate>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Blog Title</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="txtImagetitle" placeholder="Blog Title" tabindex="3">
+                                <input type="text" class="form-control" id="txtImagetitle" placeholder="Blog Title" tabindex="1" asp-for="Gallery_Mapping.CM_varTitle">
                             </div>
 
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="txtBlogShortDescription" placeholder="Blog Short Description"></textarea>
+                                <textarea class="form-control" id="txtBlogShortDescription" placeholder="Blog Short Description" tabindex="2" asp-for="Gallery_Mapping.CM_varShortDescription"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="txtBlogDescription" placeholder="Blog Description"></textarea>
+                                <textarea class="form-control" id="txtBlogDescription" placeholder="Blog Description" tabindex="3" asp-for="Gallery_Mapping.CM_varContent"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" id="txtBlogUrl" placeholder="Blog path" tabindex="3">
+                                <input type="file" class="form-control" id="txtBlogUrl" placeholder="Blog path" tabindex="4" asp-for="Gallery_Mapping.varGalleryURL">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
                             <div class="col-sm-3">
-                                <input type="checkbox" id="chkStatus" tabindex="6" />
+                                <input type="checkbox" id="chkStatus" tabindex="5" asp-for="Gallery_Mapping.charActive" />
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
-                        <button type="submit" class="btn btn-dark" tabindex="8">Cancel</button>
+                        @* <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
+                        <button type="submit" class="btn btn-dark" tabindex="7">Cancel</button> *@
 
+                        <button type="button" id="btnSave" tabindex="6" class="btn btn-primary" onclick="return ValidateData()">Save</button>
+                        <button type="button" id="btnCancel" tabindex="7" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.CTM_intGlCode" id="ref_ContentTypeId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.CM_intGlCode" id="ref_ContentId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.charActive" id="chrActive" />                        
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.PM_intGlCode" id="ref_GalleryId" />
                     </form>
                 </div>
 
@@ -68,63 +76,47 @@
                     <h6 class="m-0 font-weight-bold text-primary">Blogs</h6>
                     <button type="button" class="btn btn-primary">Download</button>
                 </div>
-                <div class="table-responsive p-3">
-                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Edit/ Delete</th>
-                                <th>Title</th>
-                                <th>Short Description</th>
-                                <th>Image</th>
-                                <th>Entry Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Edit/ Delete</th>
-                                <th>Title</th>
-                                <th>Short Description</th>
-                                <th>Image</th>
-                                <th>Entry Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="table-responsive p-3">                   
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("grdBlogsDetials")
+                        .ShowBorders(true)
+                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("ref_ContentTypeId").LoadAction("GetGalleryMappingList"))
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .LoadPanel(f => f.Enabled(false))
+                        .Columns(columns =>
+                        {
+                            columns.Add().DataField("CM_intGlCode").Caption("Edit").Type(GridCommandColumnType.Buttons)
+                            .Width(50)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
+
+                            });
+                            columns.Add().DataField("CM_varTitle").Caption("Title");
+                            columns.Add().DataField("CM_varShortDescription").Caption("Short Description");
+                            columns.Add().DataField("GM_varGalleryURL").Caption("Image");
+                            columns.Add().DataField("GM_chrActive").Caption("Status");
+                           @*  columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd"); *@
+
+                        })
+                        .ColumnAutoWidth(true)
+                        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowInfo(true);
+                        })
+                        .Sorting(sorting => sorting.Mode(DevExtreme.AspNet.Mvc.GridSortingMode.Multiple))
+                        .FilterRow(filterRow => filterRow
+                        .Visible(true)
+                        .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .WordWrapEnabled(true)
+
+                        )
                 </div>
             </div>
         </div>
@@ -136,6 +128,7 @@
 
 @section Scripts {
     <script src="~/Scripts/Account/Common.js"></script>
+    <script src="~/Scripts/Utility/Blogs.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
         $('#txtBlogDescription').summernote({
