@@ -20,7 +20,9 @@ function ValidateData() {
         $("#txtBlogDescription").focus();
         return false;
     }
-
+    $("#ref_GalleryUrl").val($("#txtBlogUrl").val());
+    $("#ref_ContentTypeId").val('4');
+    
     setTimeout(function () {
         $.ajax({
             type: "POST",
@@ -51,16 +53,14 @@ function ExportExcel() {
     $("#grdBlogsDetials").dxDataGrid("instance").exportToExcel(false);
 }
 
-function resetValidation() {
-
+function resetValidation() {    
     //Removes validation from input-fields
     $('.input-validation-error').addClass('input-validation-valid');
     $('.input-validation-error').removeClass('input-validation-error');
     //Removes validation message after input-fields
     $('.field-validation-error').addClass('field-validation-valid');
     $('.field-validation-error').removeClass('field-validation-error');
-    $('.field-validation-valid span').html('')
-    $("#ddlCategoryList").dxSelectBox('instance').option('value', "0");
+    $('.field-validation-valid span').html('')    
     $('input:text').val('');
     $('textarea').val('');
     $("#ref_ContentTypeId").val('0');
