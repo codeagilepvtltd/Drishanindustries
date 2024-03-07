@@ -163,8 +163,8 @@ namespace ProductCataLog.Lib.Repository.Product
                 {
                     gallery_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new Gallery_Mapping()
                     {
-                        intGICode = row.Field<int>("GM_intGlCode"),
-                        fk_ContentID = row.Field<int>("fk_ContentID"),
+                        intGICode = row.Field<Int64>("GM_intGlCode"),
+                        fk_ContentID = row.Field<Int64>("CM_intGlCode"),
                         fk_ContentTypeID = row.Field<int>("CTM_intGlCode"),
                         fk_ProductID = row.Field<int>("PM_intGlCode"),
                         varGalleryType = row.Field<string>("GM_varGalleryType"),
@@ -173,6 +173,7 @@ namespace ProductCataLog.Lib.Repository.Product
                         varGalleryURL = row.Field<string>("GM_varGalleryURL"),
                         varTitle = row.Field<string>("GM_varTitle"),
                         varShortDescription = row.Field<string>("GM_varShortDescription"),
+                        varContentDescription = row.Field<string>("CM_varContent"),
                         varContent = row.Field<string>("GM_varContent"),
                         varProductName = row.Field<string>("PM_varProductName"),
                         charActive = row.Field<string>("GM_chrActive"),
