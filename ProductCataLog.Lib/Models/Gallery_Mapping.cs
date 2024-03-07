@@ -8,8 +8,6 @@ namespace ProductCataLog.Lib.Models
 {
     public class Gallery_Mapping
     {
-        public int CTM_intGlCode { get; set; }
-
         public string CTM_varContentType { get; set; }
 
         public int CM_intGlCode { get; set; }
@@ -46,12 +44,6 @@ namespace ProductCataLog.Lib.Models
 
         public string charActive { get; set; }
 
-        public string varTitle { get; set; }
-
-        public string varShortDescription { get; set; }
-
-        public string varContent { get; set; }
-
         public DateTime? dtEntryDate { get; set; }
 
         public long? ref_EntryBy { get; set; }
@@ -61,8 +53,6 @@ namespace ProductCataLog.Lib.Models
         public long? ref_UpdateBy { get; set; }
 
         public int PM_intGlCode { get; set; }
-
-        public string varProductName { get; set; }
 
     }
 
