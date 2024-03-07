@@ -198,7 +198,7 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode);
+                ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID != 0).ToList();
                 var resultJson = JsonConvert.SerializeObject(ProductContent_Master.gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
