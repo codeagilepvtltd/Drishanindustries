@@ -11,7 +11,7 @@ function ValidateData() {
 
     var ddlProduct = $("#ddlGetProductList").dxSelectBox('instance').option('value');
     if (ddlProduct == undefined || ddlProduct == null || ddlProduct == '' || ddlProduct == '0') {
-        PopUpMessage('Please Select Category.', "fa fa-exclamation-circle popup_icon");
+        PopUpMessage('Please Select Product.', "fa fa-exclamation-circle popup_icon");
         $("#ddlGetProductList").focus();
         return false;
     }
@@ -19,11 +19,22 @@ function ValidateData() {
 
     var ddlContentType = $("#ddlContentTypeList").dxSelectBox('instance').option('value');
     if (ddlContentType == undefined || ddlContentType == null || ddlContentType == '' || ddlContentType == '0') {
-        PopUpMessage('Please Select Category.', "fa fa-exclamation-circle popup_icon");
+        PopUpMessage('Please Select Content type.', "fa fa-exclamation-circle popup_icon");
         $("#ddlContentTypeList").focus();
         return false;
     }
     $("#fk_ContentTypeID").val(ddlContentType);
+
+    if ($("#txtImagetitle").val() == "") {
+        PopUpMessage("Please Enter Content Title.", "fa fa-exclamation-circle popup_icon");
+        $("#txtImagetitle").focus();
+        return false;
+    }
+    if ($("#txtImageUrl").val() == "") {
+        PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
+        $("#txtImageUrl").focus();
+        return false;
+    }
     $("#ref_GalleryUrl").val($("#txtImageUrl").val());
     setTimeout(function () {
         $.ajax({
@@ -53,7 +64,7 @@ function ValidateData() {
     }, 1000);
 }
 function ExportExcel() {
-    $("#frmGalleryMaster").dxDataGrid("instance").exportToExcel(false);
+    $("#grdGalleryDetials").dxDataGrid("instance").exportToExcel(false);
 }
 
 function resetValidation() {
@@ -115,7 +126,6 @@ function GetSelectedContentType(e) {
     var image = document.getElementById("image");
     var documents = document.getElementById("document");
     var video = document.getElementById("video");
-
     var selectedItem = $("#ddlContentTypeList").dxSelectBox('instance').option('selectedItem');
     $("#ref_GalleryType").val(selectedItem.varContentType);
     if (selectedItem.varContentType == "Video") {
