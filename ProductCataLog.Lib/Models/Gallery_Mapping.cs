@@ -10,7 +10,7 @@ namespace ProductCataLog.Lib.Models
     {
         public string CTM_varContentType { get; set; }
 
-        public int CM_intGlCode { get; set; }
+        public long? CM_intGlCode { get; set; }
 
         public string CM_varTitle { get; set; }
 
@@ -53,7 +53,7 @@ namespace ProductCataLog.Lib.Models
 
         public long? ref_UpdateBy { get; set; }
 
-        public int PM_intGlCode { get; set; }
+        public int? PM_intGlCode { get; set; }
 
     }
 

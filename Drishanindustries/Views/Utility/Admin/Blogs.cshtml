@@ -37,7 +37,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" id="txtBlogUrl" placeholder="Blog path" tabindex="4" asp-for="Gallery_Mapping.varGalleryURL">
+                                <input type="file" class="form-control" id="txtBlogUrl" placeholder="Blog path" formenctype='multipart/form-data' tabindex="4" asp-for="Gallery_Mapping.varGalleryURL">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -56,6 +56,7 @@
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.CM_intGlCode" id="ref_ContentId" />
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.charActive" id="chrActive" />                        
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.PM_intGlCode" id="ref_GalleryId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryURL" id="ref_GalleryUrl" />
                     </form>
                 </div>
 
@@ -80,7 +81,7 @@
                     @(Html.DevExtreme().DataGrid()
                         .ID("grdBlogsDetials")
                         .ShowBorders(true)
-                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("ref_ContentTypeId").LoadAction("GetGalleryMappingList"))
+                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("CM_intGlCode").LoadAction("GetGalleryMappingList"))
                         .Selection(s => s.Mode(SelectionMode.Single))
                         .LoadPanel(f => f.Enabled(false))
                         .Columns(columns =>
@@ -94,7 +95,7 @@
                             });
                             columns.Add().DataField("CM_varTitle").Caption("Title");
                             columns.Add().DataField("CM_varShortDescription").Caption("Short Description");
-                            columns.Add().DataField("GM_varGalleryURL").Caption("Image");
+                            columns.Add().DataField("varGalleryURL").Caption("Image");
                             columns.Add().DataField("GM_chrActive").Caption("Status");
                            @*  columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd"); *@
 
