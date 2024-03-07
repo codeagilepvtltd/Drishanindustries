@@ -24,7 +24,7 @@ function ValidateData() {
         return false;
     }
     $("#fk_ContentTypeID").val(ddlContentType);
-
+    $("#ref_GalleryUrl").val($("#txtImageUrl").val());
     setTimeout(function () {
         $.ajax({
             type: "POST",
@@ -42,8 +42,7 @@ function ValidateData() {
                 else {
                     PopUpWithClose(response.Table[0].varMessage, "fa fa-check-circle popup_icon_success");
                     resetValidation();
-                    $("#grdProductDetials").dxDataGrid('instance').refresh();
-                    $("#ddlCategoryList").dxSelectBox('getDataSource').reload();
+                    $("#grdGalleryDetials").dxDataGrid('instance').refresh();
                 }
             },
             error: function (error) {
@@ -62,47 +61,76 @@ function resetValidation() {
     //Removes validation from input-fields
     $('.input-validation-error').addClass('input-validation-valid');
     $('.input-validation-error').removeClass('input-validation-error');
-    //Removes validation message after input-fields
     $('.field-validation-error').addClass('field-validation-valid');
     $('.field-validation-error').removeClass('field-validation-error');
     $('.field-validation-valid span').html('')
-    $("#ddlCategoryList").dxSelectBox('instance').option('value', "0");
+    $("#ddlGetProductList").dxSelectBox('instance').option('value', "0");
+    $("#ddlContentTypeList").dxSelectBox('instance').option('value', "0");
     $('input:text').val('');
+    $('input:file').val('');
     $('textarea').val('');
-    $("#intGiCode").val('0');
+    $("#ref_ContentId").val('0');
+    $("#fk_ProductID").val('0');
+    $("#fk_ContentTypeID").val('0');
+    $("#ref_GalleryId").val('0');
     $("#Action").val('Insert');
-    $("#txtMetaDescription").val('');
     $("#chkStatus").prop('checked', false);
-    $("#txtDescription").summernote('code', '');
     $("#chrActive").val(true);
-    $("#grdProductDetials").dxDataGrid('instance').refresh();
-    $("#grdProductDetials").dxDataGrid('instance').clearFilter();
+    $("#grdGalleryDetials").dxDataGrid('instance').refresh();
+    $("#grdGalleryDetials").dxDataGrid('instance').clearFilter();
 
 }
 
 function editdata(e) {
 
-    $("#ddlCategoryList").dxSelectBox("getDataSource").reload();
-
+    $("#ddlGetProductList").dxSelectBox("getDataSource").reload();
+    $("#ddlContentTypeList").dxSelectBox("getDataSource").reload();
     setTimeout(function () {
 
-        var ddlCategoryList = $("#ddlCategoryList").dxSelectBox('instance');
-        ddlCategoryList.option('value', parseInt(e.row.data.ref_CategoryId));
+        var ddlGetProductList = $("#ddlGetProductList").dxSelectBox('instance');
+        ddlGetProductList.option('value', parseInt(e.row.data.fk_ProductID));
+
+        var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
+        ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
 
     }, 100);
-    $("#intGiCode").val(e.row.data.intGiCode);
+
     $("#Action").val('Update');
-    $("#txtImagetitle").val(e.row.data.varProductName);
-    $("#txtProductCode").val(e.row.data.varProductCode);
-    $("#txtProductShortDescription").val(e.row.data.varShortDescription);
-    $("#txtDescription").summernote('code', e.row.data.varLongDescription);
-    $("#txtPRoductPrice").val(e.row.data.decOriginalPrice);
-    $("#txtDisplayPrice").val(e.row.data.decDisplayPrice);
-    $("#txtMetaKeyword").val(e.row.data.MetaKeyword);
-    $("#txtMetaDescription").val(e.row.data.MetaDescription);
-    $("#ref_CategoryId").val(e.row.data.ref_CategoryId);
-    $("#ProductPriceID").val(e.row.data.ProductPriceID);
-    $("#chkStatus").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
+    $("#txtImagetitle").val(e.row.data.varTitle);
+    $("#txtImageShortDescription").val(e.row.data.varShortDescription);
+    $("#txtImageDescription").val(e.row.data.varContentDescription);
+    $("#ref_GalleryUrl").val(e.row.data.varGalleryURL);
+
+    $("#ref_ContentId").val(e.row.data.fk_ContentID);
+    $("#fk_ProductID").val(e.row.data.fk_ProductID);
+    $("#fk_ContentTypeID").val(e.row.data.fk_ContentTypeID);
+    $("#ref_GalleryId").val(e.row.data.intGICode);
+
+
+    $("#chkStatus").prop('checked', e.row.data.charActive == 'Active' ? true : false);
 
 }
 
+function GetSelectedContentType(e) {
+    var image = document.getElementById("image");
+    var documents = document.getElementById("document");
+    var video = document.getElementById("video");
+
+    var selectedItem = $("#ddlContentTypeList").dxSelectBox('instance').option('selectedItem');
+    $("#ref_GalleryType").val(selectedItem.varContentType);
+    if (selectedItem.varContentType == "Video") {
+        image.style.display = "none";
+        documents.style.display = "none";
+        video.style.display = "block";
+    }
+    else if (selectedItem.varContentType == "Document") {
+        image.style.display = "none";
+        documents.style.display = "block";
+        video.style.display = "none";
+    }
+    else if (selectedItem.varContentType == "Gallery") {
+        image.style.display = "block";
+        documents.style.display = "none";
+        video.style.display = "none";
+    }
+}

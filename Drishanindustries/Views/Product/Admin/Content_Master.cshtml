@@ -34,16 +34,17 @@
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content Type:</label>
                             <div class="col-sm-2">
                                 @(Html.DevExtreme().SelectBox().ID("ddlContentTypeList")
-                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetContentTypeMasterList").Key("intGlCode"))
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetContentTypeMasterList").Key("intGICOde"))
                                     .DisplayExpr("varContentType")
-                                    .ValueExpr("intGlCode")
+                                    .ValueExpr("intGICOde")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)
                                     .OnOpened("dxSelectBox_OnOpened")
+                                    .OnValueChanged("GetSelectedContentType")
                                     )
                             </div>
                         </div>
-                        <div id="image" >
+                        <div id="image" style="display: none;">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
@@ -61,12 +62,12 @@
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                                 <div class="col-sm-4">
-                                    <input type="file" class="form-control" id="txtImageUrl" asp-for="gallery_Mapping.varGalleryURL" placeholder="Image Url" tabindex="3">
+                                    <input type="file" class="form-control" id="txtImageUrl"  formenctype='multipart/form-data' placeholder="Image Url" tabindex="3">
                                 </div>
                             </div>
 
                         </div>
-                        <div id="document" hidden="hidden">
+                        <div id="document" style="display: none;">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
@@ -88,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="video" hidden="hidden">
+                        <div id="video" style="display: none;">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
@@ -125,6 +126,8 @@
                         <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ProductID" id="fk_ProductID" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ContentTypeID" id="fk_ContentTypeID" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.intGICode" id="ref_GalleryId" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryURL" id="ref_GalleryUrl" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryType" id="ref_GalleryType" />
                     </form>
                 </div>
 
@@ -146,74 +149,48 @@
                     <button type="button" class="btn btn-primary">Download</button>
                 </div>
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Edit/ Delete</th>
-                                <th>Product Name</th>
-                                <th>Content Type</th>
-                                <th>Content Name</th>
-                                <th>Title</th>
-                                <th>Short Description</th>
-                                <th>Status</th>
-                                <th>Entry Date</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Edit/ Delete</th>
-                                <th>Product Name</th>
-                                <th>Content Type</th>
-                                <th>Content Name</th>
-                                <th>Title</th>
-                                <th>Short Description</th>
-                                <th>Status</th>
-                                <th>Entry Date</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                <td>9067971934</td>
-                                <td>9067971934</td>
-                                <td>Student</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                                <td>21-01-2024</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("grdGalleryDetials")
+                        .ShowBorders(true)
+                        .DataSource(ds => ds.Mvc().Controller("Product").Key("intGICode").LoadAction("GetGalleryMappingList"))
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .LoadPanel(f => f.Enabled(false))
+                        .Columns(columns =>
+                        {
+                            columns.Add().DataField("intGICode").Caption("Edit").Type(GridCommandColumnType.Buttons)
+                            .Width(50)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
+
+                            });
+                            columns.Add().DataField("varGalleryName").Caption("Gallery Name");
+                            columns.Add().DataField("varGalleryType").Caption("Gallery Type");
+                            columns.Add().DataField("varGalleryURL").Caption("Gallery URL");
+                            columns.Add().DataField("varTitle").Caption("Title");
+                            columns.Add().DataField("varProductName").Caption("Product Name");
+                            columns.Add().DataField("charActive").Caption("Status");
+                            columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
+
+                        })
+                        .ColumnAutoWidth(true)
+                        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowInfo(true);
+                        })
+                        .Sorting(sorting => sorting.Mode(DevExtreme.AspNet.Mvc.GridSortingMode.Multiple))
+                        .FilterRow(filterRow => filterRow
+                        .Visible(true)
+                        .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .WordWrapEnabled(true)
+
+                        )
                 </div>
             </div>
         </div>

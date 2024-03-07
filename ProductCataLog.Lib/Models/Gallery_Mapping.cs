@@ -25,7 +25,7 @@ namespace ProductCataLog.Lib.Models
         public int? CTM_intGlCode { get; set; }
         public int? fk_ProductID { get; set; }
 
-        public int? fk_ContentID { get; set; }
+        public long? fk_ContentID { get; set; }
         public int? fk_ContentTypeID { get; set; }
 
         public string varGalleryType { get; set; }
@@ -41,6 +41,7 @@ namespace ProductCataLog.Lib.Models
         public string varProductName { get; set; }
 
         public string varShortDescription { get; set; }
+        public string varContentDescription { get; set; }
 
         public string charActive { get; set; }
 
