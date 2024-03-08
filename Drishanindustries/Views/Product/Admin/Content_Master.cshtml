@@ -48,21 +48,21 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="txtImagetitle" asp-for="gallery_Mapping.varGalleryName" placeholder="Image Title" tabindex="3">
+                                    <input type="text" class="form-control" id="txtImagetitle" placeholder="Image Title" tabindex="3">
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control" id="txtImageShortDescription" asp-for="content_Master.varShortDescription" placeholder="Image Short Description"></textarea>
+                                    <textarea class="form-control" id="txtImageShortDescription" placeholder="Image Short Description"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control" id="txtImageDescription" asp-for="contentType_Master.varContentDescription" placeholder="Image Description"></textarea>
+                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                                 <div class="col-sm-4">
-                                    <input type="file" class="form-control" id="txtImageUrl"  formenctype='multipart/form-data' placeholder="Image Url" tabindex="3">
+                                    <input type="file" class="form-control" id="txtImageUrl" formenctype='multipart/form-data' placeholder="Image Url" tabindex="3">
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="txtDocuementTitle" placeholder="Document Title" tabindex="3">
+                                    <input type="text" class="form-control" id="txtDocumentTitle" placeholder="Document Title" tabindex="3">
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
                                 <div class="col-sm-4">
@@ -85,7 +85,7 @@
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Document Url</label>
                                 <div class="col-sm-4">
-                                    <input type="file" class="form-control" id="txtDocumentUrl" placeholder="Document Url" tabindex="3">
+                                    <input type="file" class="form-control" id="txtDocumentUrl" formenctype='multipart/form-data' placeholder="Document Url" tabindex="3">
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                 </div>
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Video Url</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="txtVideoUrl" placeholder="Video Url" tabindex="3">
+                                    <input type="text" class="form-control" id="txtVideoUrl" formenctype='multipart/form-data' placeholder="Video Url" tabindex="3">
                                 </div>
                             </div>
                         </div>
@@ -121,6 +121,7 @@
                             <button type="button" id="btnSave" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Save</button>
                             <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
                         </div>
+
                         <input type="hidden" asp-for="@Model.content_Master.intGICode" id="ref_ContentId" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.charActive" id="chrActive" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ProductID" id="fk_ProductID" />
@@ -128,6 +129,9 @@
                         <input type="hidden" asp-for="@Model.gallery_Mapping.intGICode" id="ref_GalleryId" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryURL" id="ref_GalleryUrl" />
                         <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryType" id="ref_GalleryType" />
+                        <input type="hidden" asp-for="@Model.contentType_Master.varContentDescription" id="ref_ContentDesc" />
+                        <input type="hidden" asp-for="@Model.content_Master.varShortDescription" id="ref_ContentShortDesc" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryName" id="ref_ContentName" />
                     </form>
                 </div>
 

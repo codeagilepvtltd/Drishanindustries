@@ -25,17 +25,59 @@ function ValidateData() {
     }
     $("#fk_ContentTypeID").val(ddlContentType);
 
-    if ($("#txtImagetitle").val() == "") {
-        PopUpMessage("Please Enter Content Title.", "fa fa-exclamation-circle popup_icon");
-        $("#txtImagetitle").focus();
-        return false;
+    var selectedItem = $("#ddlContentTypeList").dxSelectBox('instance').option('selectedItem');
+
+    if (selectedItem.varContentType == "Gallery") {
+        if ($("#txtImagetitle").val() == "") {
+            PopUpMessage("Please Enter Content Title.", "fa fa-exclamation-circle popup_icon");
+            $("#txtImagetitle").focus();
+            return false;
+        }
+        if ($("#txtImageUrl").val() == "") {
+            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
+            $("#txtImageUrl").focus();
+            return false;
+        }
+        $("#ref_GalleryUrl").val($("#txtImageUrl").val());
+        $("#ref_ContentShortDesc").val($("#txtImageShortDescription").val());
+        $("#ref_ContentDesc").val($("#txtImageDescription").val());
+        $("#ref_ContentName").val($("#txtImagetitle").val());
     }
-    if ($("#txtImageUrl").val() == "") {
-        PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
-        $("#txtImageUrl").focus();
-        return false;
+
+    if (selectedItem.varContentType == "Video") {
+        if ($("#txtVideoTitle").val() == "") {
+            PopUpMessage("Please Enter Content Title.", "fa fa-exclamation-circle popup_icon");
+            $("#txtVideoTitle").focus();
+            return false;
+        }
+        if ($("#txtVideoUrl").val() == "") {
+            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
+            $("#txtVideoUrl").focus();
+            return false;
+        }
+        $("#ref_GalleryUrl").val($("#txtVideoUrl").val());
+        $("#ref_ContentShortDesc").val($("#txtVideoShortDescription").val());
+        $("#ref_ContentDesc").val($("#txtVideoDescription").val());
+        $("#ref_ContentName").val($("#txtVideoTitle").val());
     }
-    $("#ref_GalleryUrl").val($("#txtImageUrl").val());
+
+    if (selectedItem.varContentType == "Document") {
+        if ($("#txtDocuementTitle").val() == "") {
+            PopUpMessage("Please Enter Content Title.", "fa fa-exclamation-circle popup_icon");
+            $("#txtDocuementTitle").focus();
+            return false;
+        }
+        if ($("#txtDocumentUrl").val() == "") {
+            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
+            $("#txtDocumentUrl").focus();
+            return false;
+        }
+        $("#ref_GalleryUrl").val($("#txtDocumentUrl").val());
+        $("#ref_ContentShortDesc").val($("#txtDocumentShortDescription").val());
+        $("#ref_ContentDesc").val($("#txtDocumentDescription").val());
+        $("#ref_ContentName").val($("#txtDocumentTitle").val());
+    }
+
     setTimeout(function () {
         $.ajax({
             type: "POST",
@@ -91,26 +133,20 @@ function resetValidation() {
     $("#grdGalleryDetials").dxDataGrid('instance').clearFilter();
 
 }
-
 function editdata(e) {
 
-    $("#ddlGetProductList").dxSelectBox("getDataSource").reload();
     $("#ddlContentTypeList").dxSelectBox("getDataSource").reload();
+    $("#ddlGetProductList").dxSelectBox("getDataSource").reload();
     setTimeout(function () {
+        var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
+        ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
 
         var ddlGetProductList = $("#ddlGetProductList").dxSelectBox('instance');
         ddlGetProductList.option('value', parseInt(e.row.data.fk_ProductID));
 
-        var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
-        ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
-
-    }, 100);
+    }, 1000);
 
     $("#Action").val('Update');
-    $("#txtImagetitle").val(e.row.data.varTitle);
-    $("#txtImageShortDescription").val(e.row.data.varShortDescription);
-    $("#txtImageDescription").val(e.row.data.varContentDescription);
-    $("#ref_GalleryUrl").val(e.row.data.varGalleryURL);
 
     $("#ref_ContentId").val(e.row.data.fk_ContentID);
     $("#fk_ProductID").val(e.row.data.fk_ProductID);
@@ -120,6 +156,37 @@ function editdata(e) {
 
     $("#chkStatus").prop('checked', e.row.data.charActive == 'Active' ? true : false);
 
+    $("#ref_GalleryUrl").val(e.row.data.varGalleryURL);
+    $("#ref_ContentShortDesc").val(e.row.data.varShortDescription);
+    $("#ref_ContentDesc").val(e.row.data.varContentDescription);
+    $("#ref_ContentName").val(e.row.data.varTitle);
+
+   
+    if (e.row.data.varGalleryType == "Gallery") {
+
+        $("#txtImagetitle").val($("#ref_ContentName").val());
+        $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
+        $("#txtImageDescription").val($("#ref_ContentDesc").val());
+        
+
+        
+    }
+
+    else if (e.row.data.varGalleryType == "Video") {
+        $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
+        $("#txtVideoDescription").val($("#ref_ContentDesc").val());
+        $("#txtVideoTitle").val($("#ref_ContentName").val());
+        
+       
+    }
+
+    else if (e.row.data.varGalleryType == "Document") {
+        $("#txtDocumentShortDescription").val($("#ref_ContentShortDesc").val());
+        $("#txtDocumentDescription").val($("#ref_ContentDesc").val());
+        $("#txtDocumentTitle").val($("#ref_ContentName").val());
+        
+    }
+
 }
 
 function GetSelectedContentType(e) {
@@ -128,6 +195,7 @@ function GetSelectedContentType(e) {
     var video = document.getElementById("video");
     var selectedItem = $("#ddlContentTypeList").dxSelectBox('instance').option('selectedItem');
     $("#ref_GalleryType").val(selectedItem.varContentType);
+
     if (selectedItem.varContentType == "Video") {
         image.style.display = "none";
         documents.style.display = "none";
