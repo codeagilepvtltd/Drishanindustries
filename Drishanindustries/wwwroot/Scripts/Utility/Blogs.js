@@ -64,8 +64,7 @@ function ValidateData() {
     //}, 1000);
 }
 
-function resetValidation() {
-
+function resetValidation() {    
     //Removes validation from input-fields
     $('.input-validation-error').addClass('input-validation-valid');
     $('.input-validation-error').removeClass('input-validation-error');

@@ -55,7 +55,7 @@ namespace ProductCataLog.Lib.Models
 
         public long? ref_UpdateBy { get; set; }
 
-        public int PM_intGlCode { get; set; }
+        public int? PM_intGlCode { get; set; }
 
     }
 

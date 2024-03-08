@@ -141,6 +141,9 @@ namespace ProductCataLog.Lib.Repository.Utility
                 {
                     gallery_Mappings = dsResult.Tables[0].AsEnumerable().Select(row => new Gallery_Mapping()
                     {
+                        fk_ContentID = row.Field<Int64>("CM_intGlCode"),
+                        fk_ContentTypeID = row.Field<int>("CTM_intGlCode"),
+                        fk_ProductID = row.Field<int>("PM_intGlCode"),
                         CTM_intGlCode = row.Field<int>("CTM_intGlCode"),
                         CTM_varContentType = row.Field<string>("CTM_varContentType"),
                         CM_intGlCode = row.Field<long>("CM_intGlCode"),

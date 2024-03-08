@@ -91,7 +91,7 @@ namespace ProductCataLog.Lib.DA
         public DataSet GetContentTypeMasterList(int intGICOde = 0)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGICOde" };
+            object[] objParamName = { "intGlCode" };
             object[] objParamValue = { intGICOde };
 
             try

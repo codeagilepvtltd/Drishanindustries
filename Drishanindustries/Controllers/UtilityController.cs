@@ -152,7 +152,7 @@ namespace Drishanindustries.Controllers
             }
         }
 
-        public IActionResult GetGalleryMappingList()
+        public IActionResult GetGalleryMappingList(int ref_ContentTypeId = 0)
         {
 
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
@@ -161,7 +161,7 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList().Where(p => p.varGalleryType == ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
+                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId).Where(x => x.CTM_varContentType == ContentType.Blogs.ToString()).ToList();
                 var resultJson = JsonConvert.SerializeObject(Gallery_Mapping.Gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
@@ -217,6 +217,7 @@ namespace Drishanindustries.Controllers
                 galleyView.Gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.charActive = galleyView.Gallery_Mapping.charActive == "true" ? "Y" : "N";
+                galleyView.Gallery_Mapping.fk_ContentTypeID = GetBlogContentType();
                 DataSet result = utilityRepository.InsertUpdate_GalleryMappingDetails(galleyView);
                 var resultJson = JsonConvert.SerializeObject(result);
 
