@@ -10,7 +10,7 @@ namespace ProductCataLog.Lib.Models
     {
         public int intGICOde { get; set; }
 
-        public string varContentType { get; set; }
+        public string  varContentType { get; set; }
 
         public string varContentDescription { get; set; }
 

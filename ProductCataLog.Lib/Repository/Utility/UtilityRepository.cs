@@ -146,12 +146,12 @@ namespace ProductCataLog.Lib.Repository.Utility
                         fk_ProductID = row.Field<int>("PM_intGlCode"),
                         CTM_intGlCode = row.Field<int>("CTM_intGlCode"),
                         CTM_varContentType = row.Field<string>("CTM_varContentType"),
-                        CM_intGlCode = row.Field<Int64>("CM_intGlCode"),
+                        CM_intGlCode = row.Field<long>("CM_intGlCode"),
                         CM_varAuthor = row.Field<string>("CM_varAuthor"),
                         CM_varTitle = row.Field<string>("CM_varTitle"),
                         CM_varShortDescription = row.Field<string>("CM_varShortDescription"),
                         CM_varContent = row.Field<string>("CM_varContent"),
-                        intGICode = row.Field<Int64>("GM_intGlCode"),
+                        intGICode = row.Field<long>("GM_intGlCode"),
                         varGalleryType = row.Field<string>("GM_varGalleryType"),
                         varGalleryName = row.Field<string>("GM_varGalleryName"),
                         varGalleryPath = row.Field<string>("GM_varGalleryPath"),
@@ -161,6 +161,7 @@ namespace ProductCataLog.Lib.Repository.Utility
                         varContent = row.Field<string>("GM_varContent"),
                         PM_intGlCode = row.Field<int>("PM_intGlCode"),
                         varProductName = row.Field<string>("PM_varProductName"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate"),
                         charActive = row.Field<string>("GM_chrActive")                        
                     }).ToList();
 

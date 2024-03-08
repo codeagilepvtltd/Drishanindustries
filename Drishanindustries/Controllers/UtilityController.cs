@@ -1,13 +1,16 @@
 ﻿using Drishanindustries.Common;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductCataLog.Lib.Common;
+using ProductCataLog.Lib.Models;
 using ProductCataLog.Lib.Repository.Account;
 using ProductCataLog.Lib.Repository.ModuleErrorLog;
 using ProductCataLog.Lib.Repository.Product;
 using ProductCataLog.Lib.Repository.Utility;
 using ProductCataLog.Lib.ViewModels;
 using System.Data;
+using System.Net.Http.Headers;
 
 namespace Drishanindustries.Controllers
 {
@@ -16,11 +19,14 @@ namespace Drishanindustries.Controllers
         private readonly IUtilityRepository utilityRepository;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IModuleErrorLogRepository moduleErrorLogRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
         // GET: Controller
 
 
-        public UtilityController(IUtilityRepository _utilityRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
+        public UtilityController(IWebHostEnvironment webHostEnvironment, IUtilityRepository _utilityRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
         {
+            _webHostEnvironment = webHostEnvironment;
             utilityRepository = _utilityRepository;
             httpContextAccessor = _httpContextAccessor;
             moduleErrorLogRepository = _moduleErrorLogRepository;
@@ -117,6 +123,9 @@ namespace Drishanindustries.Controllers
         #region Blogs
         public IActionResult Blogs()
         {
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
+
             return View("Admin/Blogs");
         }
 
@@ -166,14 +175,45 @@ namespace Drishanindustries.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Save_Gallery(GalleryMappingViewModel galleyView)
+        private string UploadedFile(GalleryMappingViewModel model)
         {
-
+            string uniqueFileName = string.Empty;
+            string filePath = string.Empty;
+            if (model.Gallery_Mapping.UploadedImage != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles/blog");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                uniqueFileName = DateTime.Now.Ticks.ToString() + "." + Path.GetExtension(model.Gallery_Mapping.UploadedImage.FileName);
+                filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Gallery_Mapping.UploadedImage.CopyTo(fileStream);
+                }
+            }
+            else if (!string.IsNullOrEmpty(model.Gallery_Mapping.varGalleryPath))
+            {
+                filePath = model.Gallery_Mapping.varGalleryPath;
+            }
+            return @"\UploadFiles\blog\" + Path.GetFileName(filePath);
+        }
+        [HttpPost]
+        public ActionResult Save_Gallery(IFormFile image, GalleryMappingViewModel galleyView)
+        {
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
-
             try
             {
+                ContentType_Master contentType_Master = ContentType(ProductCataLog.Lib.Common.ContentType.Blogs);
+                galleyView.Gallery_Mapping.CTM_intGlCode = contentType_Master.intGICOde;
+                galleyView.Gallery_Mapping.varGalleryType = contentType_Master.varContentType;
+                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView);
+                if (!string.IsNullOrEmpty(galleyView.Gallery_Mapping.varGalleryPath))
+                {
+                    galleyView.Gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.Gallery_Mapping.varGalleryPath);
+                }
+                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView);
                 galleyView.Gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.charActive = galleyView.Gallery_Mapping.charActive == "true" ? "Y" : "N";
@@ -183,14 +223,16 @@ namespace Drishanindustries.Controllers
 
                 if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
                 {
-                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
-                    return Content(resultJson, "application/json");
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
+                    TempData["MessageType"] = "Error";
+
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
-                    return Content(resultJson, "application/json");
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, "Product");
+                    TempData["MessageType"] = "Success";
                 }
+                return RedirectToAction(nameof(Blogs));
             }
             catch (Exception ex)
             {
@@ -200,13 +242,12 @@ namespace Drishanindustries.Controllers
                 return Content(JsonConvert.SerializeObject(0));
             }
         }
-
         [NonAction]
-        private int GetBlogContentType(int intGlCode = 0)
-        {          
-            return utilityRepository.GetContentTypeMasterList(intGlCode).Where(x => x.varContentType == ContentType.Blogs.ToString()).FirstOrDefault().intGICOde; ;          
+        private ContentType_Master ContentType(ContentType contentType)
+        {
+            ContentTypeViewModel ContentType_Master = new ContentTypeViewModel();
+            return utilityRepository.GetContentTypeMasterList(0).Where(p => p.varContentType == contentType.ToString()).SingleOrDefault();
         }
-
         #endregion
 
     }
