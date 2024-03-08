@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace ProductCataLog.Lib.Models
     {
         public string CTM_varContentType { get; set; }
 
-        public int CM_intGlCode { get; set; }
+        public IFormFile UploadedImage { get; set; }
+        public long CM_intGlCode { get; set; }
 
         public string CM_varTitle { get; set; }
 

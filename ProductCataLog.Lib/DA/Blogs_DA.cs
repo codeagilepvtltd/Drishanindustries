@@ -52,12 +52,12 @@ namespace ProductCataLog.Lib.DA
             object[] objParamName = { "ref_ContentId", "ref_GalleryId", "fk_ProductID", "fk_ContentTypeID", "varTitle",
                 "varGalleryType","varGalleryName","varGalleryURL","varGalleryPath", "varAuthor", "varShortDescription",
                 "varContent", "chrActive", "ref_EntryBy", "@ref_UpdateBy" };
-            object[] objParamValue = { galleryMappingViewModel.Gallery_Mapping.CM_intGlCode, galleryMappingViewModel.Gallery_Mapping.CTM_intGlCode,
-            galleryMappingViewModel.Gallery_Mapping.fk_ProductID,galleryMappingViewModel.Gallery_Mapping.fk_ContentID,
-            galleryMappingViewModel.Gallery_Mapping.varTitle,galleryMappingViewModel.Gallery_Mapping.varGalleryType,
-            galleryMappingViewModel.Gallery_Mapping.varGalleryName,galleryMappingViewModel.Gallery_Mapping.varGalleryURL,
+            object[] objParamValue = { galleryMappingViewModel.Gallery_Mapping.CM_intGlCode, galleryMappingViewModel.Gallery_Mapping.intGICode,
+            galleryMappingViewModel.Gallery_Mapping.fk_ProductID,galleryMappingViewModel.Gallery_Mapping.CTM_intGlCode,
+            galleryMappingViewModel.Gallery_Mapping.CM_varTitle,galleryMappingViewModel.Gallery_Mapping.varGalleryType,
+            galleryMappingViewModel.Gallery_Mapping.CM_varTitle,galleryMappingViewModel.Gallery_Mapping.varGalleryURL,
             galleryMappingViewModel.Gallery_Mapping.varGalleryPath,galleryMappingViewModel.Gallery_Mapping.CM_varAuthor,
-            galleryMappingViewModel.Gallery_Mapping.varShortDescription,galleryMappingViewModel.Gallery_Mapping.varContent,
+            galleryMappingViewModel.Gallery_Mapping.CM_varShortDescription,galleryMappingViewModel.Gallery_Mapping.CM_varContent,
             galleryMappingViewModel.Gallery_Mapping.charActive,galleryMappingViewModel.Gallery_Mapping.ref_EntryBy,
             galleryMappingViewModel.Gallery_Mapping.ref_UpdateBy};
 

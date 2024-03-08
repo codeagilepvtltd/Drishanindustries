@@ -29,6 +29,13 @@ namespace ProductCataLog.Lib.Common
         USP_InsertUpdate_GalleryMapping
 
     }
+    public enum ContentType
+    {
+        Document,
+        Gallery,
+        Video,
+        Blogs
+    }
     public class Common_Messages
     {
         public const string Save_Failed_Message = "Error in saving {0} data.";
