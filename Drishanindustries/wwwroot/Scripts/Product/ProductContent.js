@@ -78,32 +78,32 @@ function ValidateData() {
         $("#ref_ContentName").val($("#txtDocumentTitle").val());
     }
 
-    setTimeout(function () {
-        $.ajax({
-            type: "POST",
-            data: $('#frmGalleryMaster').serialize(),
-            timeout: 15000, // adjust the limit. currently its 15 seconds
-            url: configuration.onLoad() + "Product/Save_Gallery",
-            success: function (response) {
+    //setTimeout(function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        data: $('#frmGalleryMaster').serialize(),
+    //        timeout: 15000, // adjust the limit. currently its 15 seconds
+    //        url: configuration.onLoad() + "Product/Save_Gallery",
+    //        success: function (response) {
 
-                if (response.Unauthorized == "401") {
-                    window.location.href = configuration.onLoad() + 'Home';
-                }
-                else if (response.Table[0].intStatus == 0) {
-                    PopUpMessage(response.Table[0].varMessage, "fa fa-exclamation-circle popup_icon_failure");
-                }
-                else {
-                    PopUpWithClose(response.Table[0].varMessage, "fa fa-check-circle popup_icon_success");
-                    resetValidation();
-                    $("#grdGalleryDetials").dxDataGrid('instance').refresh();
-                }
-            },
-            error: function (error) {
-                PopUpMessage("Something Went Wrong,Please Try Again Later.", "fa fa-exclamation-circle popup_failure");
-            }
-        });
-        //$('#loading').fadeOut();
-    }, 1000);
+    //            if (response.Unauthorized == "401") {
+    //                window.location.href = configuration.onLoad() + 'Home';
+    //            }
+    //            else if (response.Table[0].intStatus == 0) {
+    //                PopUpMessage(response.Table[0].varMessage, "fa fa-exclamation-circle popup_icon_failure");
+    //            }
+    //            else {
+    //                PopUpWithClose(response.Table[0].varMessage, "fa fa-check-circle popup_icon_success");
+    //                resetValidation();
+    //                $("#grdGalleryDetials").dxDataGrid('instance').refresh();
+    //            }
+    //        },
+    //        error: function (error) {
+    //            PopUpMessage("Something Went Wrong,Please Try Again Later.", "fa fa-exclamation-circle popup_failure");
+    //        }
+    //    });
+    //    //$('#loading').fadeOut();
+    //}, 1000);
 }
 function ExportExcel() {
     $("#grdGalleryDetials").dxDataGrid("instance").exportToExcel(false);
@@ -131,6 +131,12 @@ function resetValidation() {
     $("#chrActive").val(true);
     $("#grdGalleryDetials").dxDataGrid('instance').refresh();
     $("#grdGalleryDetials").dxDataGrid('instance').clearFilter();
+
+    var my_images = document.getElementById("my_images");
+    my_images.style.display = "none";
+
+    var my_Docs = document.getElementById("my_Docs");
+    my_Docs.style.display = "none";
 
 }
 function editdata(e) {
@@ -161,30 +167,44 @@ function editdata(e) {
     $("#ref_ContentDesc").val(e.row.data.varContentDescription);
     $("#ref_ContentName").val(e.row.data.varTitle);
 
-   
+
     if (e.row.data.varGalleryType == "Gallery") {
 
         $("#txtImagetitle").val($("#ref_ContentName").val());
         $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtImageDescription").val($("#ref_ContentDesc").val());
-        
 
-        
+        var my_images = document.getElementById("my_images");
+        var my_images1 = document.getElementById("my_images1");
+        my_images.style.display = "block";
+        my_images.href = e.row.data.varGalleryURL;
+        my_images1.src = e.row.data.varGalleryURL;
+        my_images.style.display = "none";
+        my_images.href = "";
+        my_images1.src = "";
     }
 
     else if (e.row.data.varGalleryType == "Video") {
         $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtVideoDescription").val($("#ref_ContentDesc").val());
         $("#txtVideoTitle").val($("#ref_ContentName").val());
-        
-       
+
+
     }
 
     else if (e.row.data.varGalleryType == "Document") {
         $("#txtDocumentShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtDocumentDescription").val($("#ref_ContentDesc").val());
         $("#txtDocumentTitle").val($("#ref_ContentName").val());
-        
+
+        var my_Docs = document.getElementById("my_Docs");
+       /* var my_Docs1 = document.getElementById("my_Docs1");*/
+        my_Docs.style.display = "block";
+        my_Docs.href = e.row.data.varGalleryURL;
+       /* my_Docs1.src = e.row.data.varGalleryURL;*/
+        /*my_Docs.style.display = "none";*/
+       
+       /* my_Docs1.src = "";*/
     }
 
 }
