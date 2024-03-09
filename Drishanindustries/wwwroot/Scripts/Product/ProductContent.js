@@ -33,11 +33,7 @@ function ValidateData() {
             $("#txtImagetitle").focus();
             return false;
         }
-        if ($("#txtImageUrl").val() == "") {
-            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
-            $("#txtImageUrl").focus();
-            return false;
-        }
+        
         $("#ref_GalleryUrl").val($("#txtImageUrl").val());
         $("#ref_ContentShortDesc").val($("#txtImageShortDescription").val());
         $("#ref_ContentDesc").val($("#txtImageDescription").val());
@@ -50,11 +46,7 @@ function ValidateData() {
             $("#txtVideoTitle").focus();
             return false;
         }
-        if ($("#txtVideoUrl").val() == "") {
-            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
-            $("#txtVideoUrl").focus();
-            return false;
-        }
+       
         $("#ref_GalleryUrl").val($("#txtVideoUrl").val());
         $("#ref_ContentShortDesc").val($("#txtVideoShortDescription").val());
         $("#ref_ContentDesc").val($("#txtVideoDescription").val());
@@ -67,11 +59,7 @@ function ValidateData() {
             $("#txtDocuementTitle").focus();
             return false;
         }
-        if ($("#txtDocumentUrl").val() == "") {
-            PopUpMessage("Please Select Content.", "fa fa-exclamation-circle popup_icon");
-            $("#txtDocumentUrl").focus();
-            return false;
-        }
+       
         $("#ref_GalleryUrl").val($("#txtDocumentUrl").val());
         $("#ref_ContentShortDesc").val($("#txtDocumentShortDescription").val());
         $("#ref_ContentDesc").val($("#txtDocumentDescription").val());
@@ -122,13 +110,16 @@ function resetValidation() {
     $('input:text').val('');
     $('input:file').val('');
     $('textarea').val('');
+    $("#txtImageDescription").summernote('code', '');
+    $("#txtVideoDescription").summernote('code', '');
+    $("#txtDocumentDescription").summernote('code', '');
     $("#ref_ContentId").val('0');
     $("#fk_ProductID").val('0');
     $("#fk_ContentTypeID").val('0');
     $("#ref_GalleryId").val('0');
     $("#Action").val('Insert');
     $("#chkStatus").prop('checked', false);
-    $("#chrActive").val(true);
+    $("#chrActive").val(false);
     $("#grdGalleryDetials").dxDataGrid('instance').refresh();
     $("#grdGalleryDetials").dxDataGrid('instance').clearFilter();
 
@@ -151,16 +142,14 @@ function editdata(e) {
         ddlGetProductList.option('value', parseInt(e.row.data.fk_ProductID));
 
     }, 1000);
-
+    
+    $("#chkStatus").prop('checked', e.row.data.charActive == 'Active' ? true : false);
     $("#Action").val('Update');
 
     $("#ref_ContentId").val(e.row.data.fk_ContentID);
     $("#fk_ProductID").val(e.row.data.fk_ProductID);
     $("#fk_ContentTypeID").val(e.row.data.fk_ContentTypeID);
     $("#ref_GalleryId").val(e.row.data.intGICode);
-
-
-    $("#chkStatus").prop('checked', e.row.data.charActive == 'Active' ? true : false);
 
     $("#ref_GalleryUrl").val(e.row.data.varGalleryURL);
     $("#ref_ContentShortDesc").val(e.row.data.varShortDescription);
@@ -179,7 +168,7 @@ function editdata(e) {
 
         $("#txtImagetitle").val($("#ref_ContentName").val());
         $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
-        $("#txtImageDescription").val($("#ref_ContentDesc").val());
+        $("#txtImageDescription").summernote('code',$("#ref_ContentDesc").val());
 
         my_images.style.display = "block";
         my_images.href = e.row.data.varGalleryURL;
@@ -188,22 +177,19 @@ function editdata(e) {
 
     else if (e.row.data.varGalleryType == "Video") {
         $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
-        $("#txtVideoDescription").val($("#ref_ContentDesc").val());
+        $("#txtVideoDescription").summernote('code', $("#ref_ContentDesc").val());
         $("#txtVideoTitle").val($("#ref_ContentName").val());
+        $("#txtVideoUrl").val(e.row.data.varGalleryURL)
     }
 
     else if (e.row.data.varGalleryType == "Document") {
         $("#txtDocumentShortDescription").val($("#ref_ContentShortDesc").val());
-        $("#txtDocumentDescription").val($("#ref_ContentDesc").val());
+        $("#txtDocumentDescription").summernote('code', $("#ref_ContentDesc").val());
         $("#txtDocumentTitle").val($("#ref_ContentName").val());
-
-        /* var my_Docs1 = document.getElementById("my_Docs1");*/
+        
         my_Docs.style.display = "block";
         my_Docs.href = e.row.data.varGalleryURL;
-        /* my_Docs1.src = e.row.data.varGalleryURL;*/
-        /*my_Docs.style.display = "none";*/
 
-        /* my_Docs1.src = "";*/
     }
 
 }

@@ -56,22 +56,23 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <input type="file" class="form-control" id="txtImageUrl" asp-for="gallery_Mapping.UploadedImage" formenctype='multipart/form-data' placeholder="Image Url" tabindex="3">
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-3">
                                     <a id="my_images" class="my_images" href="" style="display:none">
                                         <img id="my_images1" alt="my_images" src="" style="height:50px;width:100px" />
                                     </a>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
+                                </div>
+                            </div>
+
                         </div>
                         <div id="document" style="display: none;">
                             <div class="form-group row">
@@ -85,23 +86,22 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="txtDocumentDescription" placeholder="Document Description"></textarea>
-                                </div>                               
-
-                            </div>
-                            <div class="form-group row">                               
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Document Url</label>
                                 <div class="col-sm-4">
                                     <input type="file" class="form-control" id="txtDocumentUrl" asp-for="gallery_Mapping.UploadedImage" formenctype='multipart/form-data' placeholder="Document Url" tabindex="3">
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <a id="my_Docs" class="" href="" style="display:none" target="_blank">
                                         View
                                     </a>
                                 </div>
-                               
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="txtDocumentDescription" placeholder="Document Description"></textarea>
+                                </div>
+
                             </div>
                         </div>
                         <div id="video" style="display: none;">
@@ -116,20 +116,23 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Video Url</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtVideoUrl" formenctype='multipart/form-data' placeholder="Video Url" tabindex="3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="txtVideoDescription" placeholder="Video Description"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Video Url</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="txtVideoUrl" formenctype='multipart/form-data' placeholder="Video Url" tabindex="3">
-                                </div>
-                                <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
-                                <div class="col-sm-3">
-                                    <input type="checkbox" id="chkStatus" asp-for="gallery_Mapping.charActive" tabindex="6" />
-                                </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" asp-for="gallery_Mapping.charActive" tabindex="6" />
                             </div>
                         </div>
                         <div class="form-group mb-0">
@@ -223,9 +226,52 @@
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript" src="~/lib/vendor/fancybox/jquery.fancybox.min.js"></script>
-    
+
     <script type="text/javascript">
         $("a#my_images").fancybox();
+
+        $('#txtDocumentDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        $('#txtImageDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        $('#txtVideoDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
     </script>
 }
 
