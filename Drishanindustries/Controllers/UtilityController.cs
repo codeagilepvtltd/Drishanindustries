@@ -187,7 +187,7 @@ namespace Drishanindustries.Controllers
                 {
                     Directory.CreateDirectory(uploadsFolder);
                 }
-                uniqueFileName = DateTime.Now.Ticks.ToString() + "." + Path.GetExtension(model.Gallery_Mapping.UploadedImage.FileName);
+                uniqueFileName = DateTime.Now.Ticks.ToString() +  Path.GetExtension(model.Gallery_Mapping.UploadedImage.FileName);
                 filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
