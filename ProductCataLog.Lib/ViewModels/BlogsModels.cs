@@ -20,4 +20,10 @@ namespace ProductCataLog.Lib.ViewModels
 
         public List<Gallery_Mapping> Gallery_Mappings { get; set; }
     }
+    public class NewsMappingViewModel
+    {
+        public Gallery_Mapping Gallery_Mapping { get; set; }
+
+        public List<Gallery_Mapping> Gallery_Mappings { get; set; }
+    }
 }
