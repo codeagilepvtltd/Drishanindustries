@@ -131,8 +131,8 @@ namespace ProductCataLog.Lib.DA
             "ref_EntryBy","ref_UpdateBy"};
             object[] objParamValue = { contentViewModel.content_Master.intGICode, contentViewModel.gallery_Mapping.intGICode, contentViewModel.gallery_Mapping.fk_ProductID,
                       contentViewModel.gallery_Mapping.fk_ContentTypeID, contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryType,
-                 contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryURL,
-                contentViewModel.gallery_Mapping.varGalleryURL,contentViewModel.gallery_Mapping.ref_EntryBy,contentViewModel.content_Master.varShortDescription,
+                 contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryPath,
+                contentViewModel.gallery_Mapping.varGalleryPath,contentViewModel.gallery_Mapping.ref_EntryBy,contentViewModel.content_Master.varShortDescription,
                 contentViewModel.contentType_Master.varContentDescription,contentViewModel.gallery_Mapping.charActive,contentViewModel.gallery_Mapping.ref_EntryBy,
             contentViewModel.gallery_Mapping.ref_UpdateBy};
 

@@ -14,6 +14,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Drishanindustries.Common;
 using System;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Drishanindustries.Controllers
 {
@@ -22,9 +23,11 @@ namespace Drishanindustries.Controllers
         private readonly IProductRepository productRepository;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IModuleErrorLogRepository moduleErrorLogRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IProductRepository _productRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
+        public ProductController(IWebHostEnvironment webHostEnvironment, IProductRepository _productRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
         {
+            _webHostEnvironment = webHostEnvironment;
             productRepository = _productRepository;
             httpContextAccessor = _httpContextAccessor;
             moduleErrorLogRepository = _moduleErrorLogRepository;
@@ -223,19 +226,32 @@ namespace Drishanindustries.Controllers
                 galleyView.gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.gallery_Mapping.charActive = galleyView.gallery_Mapping.charActive == "true" ? "Y" : "N";
+                if (galleyView.gallery_Mapping.varGalleryType == "Gallery")
+                {
+                    galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/images");
+                }
+                else if(galleyView.gallery_Mapping.varGalleryType == "Document")
+                {
+                    galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/document");
+                }
+                if (!string.IsNullOrEmpty(galleyView.gallery_Mapping.varGalleryPath))
+                {
+                    galleyView.gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.gallery_Mapping.varGalleryPath);
+                }
                 DataSet result = productRepository.InsertUpdate_GalleryMapping(galleyView);
                 var resultJson = JsonConvert.SerializeObject(result);
 
                 if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
                 {
                     TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
-                    return Content(resultJson, "application/json");
+                    TempData["MessageType"] = "Error";
                 }
                 else
                 {
                     TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
-                    return Content(resultJson, "application/json");
+                    TempData["MessageType"] = "Success";
                 }
+                return RedirectToAction(nameof(ProductContentMaster));
             }
             catch (Exception ex)
             {
@@ -244,6 +260,41 @@ namespace Drishanindustries.Controllers
 
                 return Content(JsonConvert.SerializeObject(0));
             }
+        }
+
+        private string UploadedFile(ProductContentTypeMasterViewModel model, string RootFolder)
+        {
+            string uniqueFileName = string.Empty;
+            string filePath = string.Empty;
+            if (model.gallery_Mapping.UploadedImage != null)
+            {
+                string uploadsFolder = string.Empty;
+                uploadsFolder = string.Concat(_webHostEnvironment.WebRootPath, RootFolder);
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                uniqueFileName = DateTime.Now.Ticks.ToString() + Path.GetExtension(model.gallery_Mapping.UploadedImage.FileName);
+                filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.gallery_Mapping.UploadedImage.CopyTo(fileStream);
+                }
+            }
+            else if (!string.IsNullOrEmpty(model.gallery_Mapping.varGalleryPath))
+            {
+                filePath = model.gallery_Mapping.varGalleryPath;
+            }
+            string ReturntValue = string.Empty;
+            if (model.gallery_Mapping.varGalleryType == "Gallery")
+            {
+                ReturntValue = @"\UploadFiles\product\images\" + Path.GetFileName(filePath);
+            }
+            else if (model.gallery_Mapping.varGalleryType == "Document")
+            {
+                ReturntValue = @"\UploadFiles\product\document\" + Path.GetFileName(filePath);
+            }
+            return ReturntValue;
         }
         #endregion
     }
