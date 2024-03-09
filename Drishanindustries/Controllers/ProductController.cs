@@ -234,6 +234,10 @@ namespace Drishanindustries.Controllers
                 {
                     galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/document");
                 }
+                else if (galleyView.gallery_Mapping.varGalleryType == "Video")
+                {
+                    galleyView.gallery_Mapping.varGalleryPath = galleyView.gallery_Mapping.varGalleryURL;
+                }
                 if (!string.IsNullOrEmpty(galleyView.gallery_Mapping.varGalleryPath))
                 {
                     galleyView.gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.gallery_Mapping.varGalleryPath);
