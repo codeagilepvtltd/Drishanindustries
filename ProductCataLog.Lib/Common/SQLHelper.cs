@@ -7,6 +7,20 @@ using System.Transactions;
 
 namespace ProductCataLog.Lib.Common
 {
+    public enum PageNames
+    {
+        Login,
+        Blog,
+        News,
+        ProductContent,
+        ProductInquiry,
+        ProductInquiryReport,
+        ContactUsReport,
+        Dashboard,
+        Category,
+        Products,
+        Config
+    }
     public enum StoredProcedures
     {
         USP_Check_Login,
@@ -40,7 +54,7 @@ namespace ProductCataLog.Lib.Common
     public class Common_Messages
     {
         public const string Save_Failed_Message = "Error in saving {0} data.";
-        public const string Save_Success_Message = "Data insert successfully.";
+        public const string Save_Success_Message = "Data saved successfully.";
     }
     public class SQLHelper
     {

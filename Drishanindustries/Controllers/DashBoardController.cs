@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Drishanindustries.Common;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using ProductCataLog.Lib.Repository.ModuleErrorLog;
+using ProductCataLog.Lib.Repository.Product;
 
 namespace Drishanindustries.Controllers
 {
@@ -6,6 +10,7 @@ namespace Drishanindustries.Controllers
     {
         public IActionResult Index()
         {
+                
             return View();
         }
     }

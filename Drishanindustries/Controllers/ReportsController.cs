@@ -52,7 +52,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("ContactUsReport", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ContactUsReport.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -79,7 +79,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("ProductListInquiryReport", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductInquiryReport.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -99,7 +99,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductInquiryReport.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
