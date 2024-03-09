@@ -130,7 +130,7 @@ namespace ProductCataLog.Lib.DA
                 "varGalleryType", "varGalleryName", "varGalleryURL", "varGalleryPath","varAuthor","varShortDescription","varContent","chrActive",
             "ref_EntryBy","ref_UpdateBy"};
             object[] objParamValue = { contentViewModel.content_Master.intGICode, contentViewModel.gallery_Mapping.intGICode, contentViewModel.gallery_Mapping.fk_ProductID,
-                      contentViewModel.gallery_Mapping.fk_ContentTypeID, contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryType,
+                      contentViewModel.gallery_Mapping.fk_ContentTypeID, contentViewModel.gallery_Mapping.varTitle, contentViewModel.gallery_Mapping.varGalleryType,
                  contentViewModel.gallery_Mapping.varGalleryName, contentViewModel.gallery_Mapping.varGalleryPath,
                 contentViewModel.gallery_Mapping.varGalleryPath,contentViewModel.gallery_Mapping.ref_EntryBy,contentViewModel.content_Master.varShortDescription,
                 contentViewModel.contentType_Master.varContentDescription,contentViewModel.gallery_Mapping.charActive,contentViewModel.gallery_Mapping.ref_EntryBy,

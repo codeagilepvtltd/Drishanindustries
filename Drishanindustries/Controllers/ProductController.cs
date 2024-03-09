@@ -67,7 +67,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -89,7 +89,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -132,7 +132,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -154,7 +154,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -166,6 +166,8 @@ namespace Drishanindustries.Controllers
         #region ProductImage/Video
         public IActionResult ProductContentMaster()
         {
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
             return View("Admin/Content_Master");
         }
 
@@ -185,7 +187,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -208,7 +210,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -236,7 +238,7 @@ namespace Drishanindustries.Controllers
                 }
                 else if (galleyView.gallery_Mapping.varGalleryType == "Video")
                 {
-                    galleyView.gallery_Mapping.varGalleryPath = galleyView.gallery_Mapping.varGalleryURL;
+                    galleyView.gallery_Mapping.varGalleryURL = galleyView.gallery_Mapping.varGalleryPath;
                 }
                 if (!string.IsNullOrEmpty(galleyView.gallery_Mapping.varGalleryPath))
                 {
@@ -247,20 +249,20 @@ namespace Drishanindustries.Controllers
 
                 if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
                 {
-                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
-                    TempData["MessageType"] = "Error";
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, PageNames.ProductContent.ToString());
+                    TempData["MessageType"] = "Success";
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
-                    TempData["MessageType"] = "Success";
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, PageNames.ProductContent.ToString());
+                    TempData["MessageType"] = "Error";
                 }
                 return RedirectToAction(nameof(ProductContentMaster));
             }
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
