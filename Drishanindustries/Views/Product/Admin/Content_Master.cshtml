@@ -149,7 +149,8 @@
                         <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryType" id="ref_GalleryType" />
                         <input type="hidden" asp-for="@Model.contentType_Master.varContentDescription" id="ref_ContentDesc" />
                         <input type="hidden" asp-for="@Model.content_Master.varShortDescription" id="ref_ContentShortDesc" />
-                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryName" id="ref_ContentName" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varTitle" id="ref_ContentName" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryPath" id="varGalleryPath" />
                     </form>
                 </div>
 
@@ -186,11 +187,11 @@
                                 b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
 
                             });
-                            columns.Add().DataField("varGalleryName").Caption("Gallery Name");
-                            columns.Add().DataField("varGalleryType").Caption("Gallery Type");
-                            columns.Add().DataField("varGalleryURL").Caption("Gallery URL");
-                            columns.Add().DataField("varTitle").Caption("Title");
+                            columns.Add().DataField("varGalleryType").Caption("Content Type");
                             columns.Add().DataField("varProductName").Caption("Product Name");
+                            columns.Add().DataField("varTitle").Caption("Title");
+                            columns.Add().DataField("varShortDescription").Caption("Short Description");
+                            columns.Add().DataField("varGalleryURL").Caption("Content URL");
                             columns.Add().DataField("charActive").Caption("Status");
                             columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
 
@@ -273,6 +274,20 @@
             ]
         });
     </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            if ('@ViewBag.MessageType' == 'Success') {
+                PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
+
+            }
+            else {
+                PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
+
+            }
+
+        </script>
+    }
 }
 
 <style>

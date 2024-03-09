@@ -150,12 +150,11 @@ function editdata(e) {
     $("#fk_ProductID").val(e.row.data.fk_ProductID);
     $("#fk_ContentTypeID").val(e.row.data.fk_ContentTypeID);
     $("#ref_GalleryId").val(e.row.data.intGICode);
-
+    $("#varGalleryPath").val(e.row.data.varGalleryPath);
     $("#ref_GalleryUrl").val(e.row.data.varGalleryURL);
     $("#ref_ContentShortDesc").val(e.row.data.varShortDescription);
     $("#ref_ContentDesc").val(e.row.data.varContentDescription);
     $("#ref_ContentName").val(e.row.data.varTitle);
-    debugger;
 
     var my_Docs = document.getElementById("my_Docs");
     var my_images = document.getElementById("my_images");
@@ -169,17 +168,17 @@ function editdata(e) {
         $("#txtImagetitle").val($("#ref_ContentName").val());
         $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtImageDescription").summernote('code',$("#ref_ContentDesc").val());
-
+        alert(e.row.data.varGalleryPath);
         my_images.style.display = "block";
-        my_images.href = e.row.data.varGalleryURL;
-        my_images1.src = e.row.data.varGalleryURL;
+        my_images.href = e.row.data.varGalleryPath;
+        my_images1.src = e.row.data.varGalleryPath;
     }
 
     else if (e.row.data.varGalleryType == "Video") {
         $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtVideoDescription").summernote('code', $("#ref_ContentDesc").val());
         $("#txtVideoTitle").val($("#ref_ContentName").val());
-        $("#txtVideoUrl").val(e.row.data.varGalleryURL)
+        $("#txtVideoUrl").val(e.row.data.varGalleryPath)
     }
 
     else if (e.row.data.varGalleryType == "Document") {
@@ -188,7 +187,7 @@ function editdata(e) {
         $("#txtDocumentTitle").val($("#ref_ContentName").val());
         
         my_Docs.style.display = "block";
-        my_Docs.href = e.row.data.varGalleryURL;
+        my_Docs.href = e.row.data.varGalleryPath;
 
     }
 
