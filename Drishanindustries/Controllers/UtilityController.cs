@@ -121,39 +121,15 @@ namespace Drishanindustries.Controllers
 
         #endregion
 
-        #region Blogs
-        public IActionResult Blogs()
+        #region News
+        public IActionResult News()
         {
             ViewBag.Message = TempData["Message"];
             ViewBag.MessageType = TempData["MessageType"];
 
-            return View("Admin/Blogs");
+            return View("Admin/News");
         }
-
-        public IActionResult GetContentTypeMasterList(int intGlCode = 0)
-        {
-
-            SessionManager sessionManager = new SessionManager(httpContextAccessor);
-
-            ContentTypeViewModel ContentType_Master = new ContentTypeViewModel();
-            DataSet dsResult = new DataSet();
-            try
-            {
-                ContentType_Master.ContentType_Masters = utilityRepository.GetContentTypeMasterList(intGlCode);
-                var resultJson = JsonConvert.SerializeObject(ContentType_Master.ContentType_Masters);
-                return Content(resultJson, "application/json");
-            }
-            catch (Exception ex)
-            {
-                SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
-
-                TempData["ErrorMessage"] = ex.Message;
-                return RedirectToAction("ErrorForbidden", "Account");
-            }
-        }
-
-        public IActionResult GetGalleryMappingList(int ref_ContentTypeId = 0)
+        public IActionResult GetNewsMappingList(int ref_ContentTypeId = 0)
         {
 
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
@@ -162,27 +138,27 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId).Where(x => x.CTM_varContentType ==  ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
+                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId).Where(x => x.CTM_varContentType ==  ProductCataLog.Lib.Common.ContentType.News.ToString()).ToList();
                 var resultJson = JsonConvert.SerializeObject(Gallery_Mapping.Gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("News", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
             }
         }
 
-        private string UploadedFile(GalleryMappingViewModel model)
+        private string UploadedFile(GalleryMappingViewModel model,string RootFolder)
         {
             string uniqueFileName = string.Empty;
             string filePath = string.Empty;
             if (model.Gallery_Mapping.UploadedImage != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles/blog");
+                string uploadsFolder = string.Concat(_webHostEnvironment.WebRootPath, RootFolder);
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
@@ -198,23 +174,22 @@ namespace Drishanindustries.Controllers
             {
                 filePath = model.Gallery_Mapping.varGalleryPath;
             }
-            return @"\UploadFiles\blog\" + Path.GetFileName(filePath);
+            return RootFolder + Path.GetFileName(filePath);
         }
         [HttpPost]
-        public ActionResult Save_Gallery(IFormFile image, GalleryMappingViewModel galleyView)
+        public ActionResult Save_News(IFormFile image, GalleryMappingViewModel galleyView)
         {
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
             try
             {
-                ContentType_Master contentType_Master = ContentType(ProductCataLog.Lib.Common.ContentType.Blogs);
+                ContentType_Master contentType_Master = ContentType(ProductCataLog.Lib.Common.ContentType.News);
                 galleyView.Gallery_Mapping.CTM_intGlCode = contentType_Master.intGICOde;
                 galleyView.Gallery_Mapping.varGalleryType = contentType_Master.varContentType;
-                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView);
+                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/News/");
                 if (!string.IsNullOrEmpty(galleyView.Gallery_Mapping.varGalleryPath))
                 {
                     galleyView.Gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.Gallery_Mapping.varGalleryPath);
                 }
-                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView);
                 galleyView.Gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.Gallery_Mapping.charActive = galleyView.Gallery_Mapping.charActive == "true" ? "Y" : "N";
@@ -224,13 +199,90 @@ namespace Drishanindustries.Controllers
 
                 if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
                 {
-                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, "News");
                     TempData["MessageType"] = "Error";
 
                 }
                 else
                 {
-                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, "Product");
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, "News");
+                    TempData["MessageType"] = "Success";
+                }
+                return RedirectToAction(nameof(News));
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("News", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }        
+        #endregion
+
+
+        #region Blogs
+        public IActionResult Blogs()
+        {
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
+
+            return View("Admin/Blogs");
+        }
+        
+        public IActionResult GetGalleryMappingList(int ref_ContentTypeId = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            GalleryMappingViewModel Gallery_Mapping = new GalleryMappingViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId).Where(x => x.CTM_varContentType == ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
+                var resultJson = JsonConvert.SerializeObject(Gallery_Mapping.Gallery_Mappings);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Gallery", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+         [HttpPost]
+        public ActionResult Save_Gallery(IFormFile image, GalleryMappingViewModel galleyView)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                ContentType_Master contentType_Master = ContentType(ProductCataLog.Lib.Common.ContentType.Blogs);
+                galleyView.Gallery_Mapping.CTM_intGlCode = contentType_Master.intGICOde;
+                galleyView.Gallery_Mapping.varGalleryType = contentType_Master.varContentType;
+                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/blog/");
+                if (!string.IsNullOrEmpty(galleyView.Gallery_Mapping.varGalleryPath))
+                {
+                    galleyView.Gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.Gallery_Mapping.varGalleryPath);
+                }
+                galleyView.Gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                galleyView.Gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
+                galleyView.Gallery_Mapping.charActive = galleyView.Gallery_Mapping.charActive == "true" ? "Y" : "N";
+                galleyView.Gallery_Mapping.fk_ContentTypeID = contentType_Master.intGICOde;
+                DataSet result = utilityRepository.InsertUpdate_GalleryMappingDetails(galleyView);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, "Gallery");
+                    TempData["MessageType"] = "Error";
+
+                }
+                else
+                {
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, "Gallery");
                     TempData["MessageType"] = "Success";
                 }
                 return RedirectToAction(nameof(Blogs));
@@ -238,7 +290,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log("Login", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log("Gallery", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), "Novapack", ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -250,6 +302,5 @@ namespace Drishanindustries.Controllers
             return utilityRepository.GetContentTypeMasterList(0).Where(p => p.varContentType == contentType.ToString()).SingleOrDefault();
         }
         #endregion
-
     }
 }

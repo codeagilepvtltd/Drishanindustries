@@ -34,7 +34,8 @@ namespace ProductCataLog.Lib.Common
         Document,
         Gallery,
         Video,
-        Blogs
+        Blogs,
+        News,
     }
     public class Common_Messages
     {

@@ -1,8 +1,8 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model ProductCataLog.Lib.ViewModels.GalleryMappingViewModel
+@model ProductCataLog.Lib.ViewModels.NewsMappingViewModel
 @{
-    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Blog");
+    ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "News");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Topbar -->
@@ -14,30 +14,30 @@
             <!-- Form Basic -->
             <div class="card mb-6">
                 <div class="card-body">
-                    <form class="needs-validation" enctype="multipart/form-data" asp-controller="Utility" asp-action="Save_Gallery" method="post" id="frmBlogsDetail" novalidate>
+                    <form class="needs-validation" enctype="multipart/form-data" asp-controller="Utility" asp-action="Save_News" method="post" id="frmBlogsDetail" novalidate>
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Blog Title</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>News Title</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="txtImagetitle" placeholder="Blog Title" tabindex="1" asp-for="Gallery_Mapping.CM_varTitle">
+                                <input type="text" class="form-control" id="txtImagetitle" placeholder="News Title" tabindex="1" asp-for="Gallery_Mapping.CM_varTitle">
                             </div>
 
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="txtBlogShortDescription" placeholder="News Short Description" tabindex="2" asp-for="Gallery_Mapping.CM_varShortDescription"></textarea>
+                                <textarea class="form-control" id="txtNewsShortDescription" placeholder="News Short Description" tabindex="2" asp-for="Gallery_Mapping.CM_varShortDescription"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="txtBlogDescription" placeholder="News Description" tabindex="3" asp-for="Gallery_Mapping.CM_varContent"></textarea>
+                                <textarea class="form-control" id="txtNewsDescription" placeholder="News Description" tabindex="3" asp-for="Gallery_Mapping.CM_varContent"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
                             <div class="col-sm-7">
-                                <input type="file" class="form-control" alt="" id="txtBlogUrl" placeholder="News path" tabindex="4" asp-for="Gallery_Mapping.UploadedImage" />
+                                <input type="file" class="form-control" alt="" id="txtNewsUrl" placeholder="Image path" tabindex="4" asp-for="Gallery_Mapping.UploadedImage" />
                             </div>
                             <div class="col-sm-2">
                                 <a id="my_images" class="my_images" href="" style="display:none">
@@ -86,9 +86,9 @@
                 </div>
                 <div class="table-responsive p-3">
                     @(Html.DevExtreme().DataGrid()
-                        .ID("grdBlogsDetials")
+                        .ID("grdNewsDetials")
                         .ShowBorders(true)
-                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("intGICode").LoadAction("GetGalleryMappingList"))
+                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("intGICode").LoadAction("GetNewsMappingList"))
                         .Selection(s => s.Mode(SelectionMode.Single))
                         .LoadPanel(f => f.Enabled(false))
                         .Columns(columns =>
@@ -150,7 +150,7 @@
 
 @section Scripts {
     <script src="~/Scripts/Account/Common.js"></script>
-    <script src="~/Scripts/Utility/Blogs.js"></script>
+    <script src="~/Scripts/Utility/News.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript" src="~/lib/vendor/fancybox/jquery.fancybox.min.js"></script>
 
@@ -160,7 +160,7 @@
         $("a#my_images").fancybox();
 
 
-        $('#txtBlogDescription').summernote({
+        $('#txtNewsDescription').summernote({
             placeholder: 'Message',
             tabsize: 2,
             height: 400,
