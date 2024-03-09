@@ -133,21 +133,6 @@
 </div>
 <!---Container Fluid-->
 @Html.AntiForgeryToken()
-@if (ViewBag.Message != null)
-{
-    <script>
-        if ('@ViewBag.MessageType' == 'Success') {
-            PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
-
-        }
-        else {
-            PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
-
-        }
-
-    </script>
-}
-
 @section Scripts {
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="~/Scripts/Utility/Blogs.js"></script>
@@ -175,5 +160,19 @@
             ]
         });
     </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            if ('@ViewBag.MessageType' == 'Success') {
+                PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
+
+            }
+            else {
+                PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
+
+            }
+
+        </script>
+    }
 }
 

@@ -6,7 +6,7 @@ function ValidateData() {
 
     var ddlLookupType = $("#ddlLookupTypeList").dxSelectBox('instance').option('value');
     if (ddlLookupType == undefined || ddlLookupType == null || ddlLookupType == '' || ddlLookupType == '0') {
-        PopUpMessage('Please Select Category.', "fa fa-exclamation-circle popup_icon");
+        PopUpMessage('Please Select Status.', "fa fa-exclamation-circle popup_icon");
         $("#ddlLookupTypeList").focus();
         return false;
     }
