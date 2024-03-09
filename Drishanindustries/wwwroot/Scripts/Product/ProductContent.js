@@ -166,7 +166,14 @@ function editdata(e) {
     $("#ref_ContentShortDesc").val(e.row.data.varShortDescription);
     $("#ref_ContentDesc").val(e.row.data.varContentDescription);
     $("#ref_ContentName").val(e.row.data.varTitle);
+    debugger;
 
+    var my_Docs = document.getElementById("my_Docs");
+    var my_images = document.getElementById("my_images");
+    var my_images1 = document.getElementById("my_images1");
+
+    my_Docs.style.display = "none";
+    my_images.style.display = "none";
 
     if (e.row.data.varGalleryType == "Gallery") {
 
@@ -174,22 +181,15 @@ function editdata(e) {
         $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtImageDescription").val($("#ref_ContentDesc").val());
 
-        var my_images = document.getElementById("my_images");
-        var my_images1 = document.getElementById("my_images1");
         my_images.style.display = "block";
         my_images.href = e.row.data.varGalleryURL;
         my_images1.src = e.row.data.varGalleryURL;
-        my_images.style.display = "none";
-        my_images.href = "";
-        my_images1.src = "";
     }
 
     else if (e.row.data.varGalleryType == "Video") {
         $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtVideoDescription").val($("#ref_ContentDesc").val());
         $("#txtVideoTitle").val($("#ref_ContentName").val());
-
-
     }
 
     else if (e.row.data.varGalleryType == "Document") {
@@ -197,14 +197,13 @@ function editdata(e) {
         $("#txtDocumentDescription").val($("#ref_ContentDesc").val());
         $("#txtDocumentTitle").val($("#ref_ContentName").val());
 
-        var my_Docs = document.getElementById("my_Docs");
-       /* var my_Docs1 = document.getElementById("my_Docs1");*/
+        /* var my_Docs1 = document.getElementById("my_Docs1");*/
         my_Docs.style.display = "block";
         my_Docs.href = e.row.data.varGalleryURL;
-       /* my_Docs1.src = e.row.data.varGalleryURL;*/
+        /* my_Docs1.src = e.row.data.varGalleryURL;*/
         /*my_Docs.style.display = "none";*/
-       
-       /* my_Docs1.src = "";*/
+
+        /* my_Docs1.src = "";*/
     }
 
 }
