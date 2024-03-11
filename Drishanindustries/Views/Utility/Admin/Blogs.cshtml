@@ -16,7 +16,20 @@
                 <div class="card-body">
                     <form class="needs-validation" enctype="multipart/form-data" asp-controller="Utility" asp-action="Save_Gallery" method="post" id="frmBlogsDetail" novalidate>
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Blog Title</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content Type:</label>
+                            <div class="col-sm-2">
+                                @(Html.DevExtreme().SelectBox().ID("ddlContentTypeList")
+                                    .DataSource(d => d.Mvc().Controller("Utility").LoadAction("GetContentTypeMasterList").Key("intGICOde"))
+                                    .DisplayExpr("varContentType")
+                                    .ValueExpr("intGICOde")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened")                                   
+                                    )
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="txtImagetitle" placeholder="Blog Title" tabindex="1" asp-for="Gallery_Mapping.CM_varTitle">
                             </div>
@@ -62,7 +75,8 @@
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.charActive" id="chrActive" />
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.intGICode" id="ref_GalleryId" />
                         <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryType" id="varGalleryType" />
-                        <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryPath" id="varGalleryPath" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryPath" id="varGalleryPath" />                        
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.fk_ContentTypeID" id="fk_ContentTypeID" />
 
                     </form>
                 </div>
@@ -100,6 +114,7 @@
                                 b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
 
                             });
+                            columns.Add().DataField("CTM_varContentType").Caption("Content Type");
                             columns.Add().DataField("CM_varTitle").Caption("Title");
                             columns.Add().DataField("CM_varShortDescription").Caption("Short Description");
                             columns.Add().DataField("varGalleryPath").Caption("Image");
