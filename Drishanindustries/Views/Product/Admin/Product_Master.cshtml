@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                     
+
                         <div class="form-group mb-0">
                             <button type="button" id="btnSave" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Save</button>
                             <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
@@ -118,7 +118,8 @@
                     <button type="button" class="btn btn-primary" onclick="ExportExcel();">Download</button>
                 </div>
                 <div class="table-responsive p-3">
-                    @(Html.DevExtreme().DataGrid()
+                    @(
+                        Html.DevExtreme().DataGrid()
                         .ID("grdProductDetials")
                         .ShowBorders(true)
                         .DataSource(ds => ds.Mvc().Controller("Product").Key("intGiCode").LoadAction("GetProductList"))
@@ -130,10 +131,11 @@
                             .Width(100)
                             .Buttons(b =>
                             {
-                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editproductdata");
-                                b.Add().Name(GridColumnButtonName.Save).Visible(true).Icon("save").OnClick("addcontent");
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editproductdata");                                
 
                             });
+                            columns.Add().DataField("intGiCode").Caption("Add Product Image").CellTemplate(new JS("cellTemplateProduct"));
+                            columns.Add().DataField("varProductCode").Caption("Product Code");
                             columns.Add().DataField("varProductCode").Caption("Product Code");
                             columns.Add().DataField("varProductName").Caption("Product Name");
                             columns.Add().DataField("varShortDescription").Caption("Short Description");
@@ -142,7 +144,6 @@
                             columns.Add().DataField("varCatergoryCode").Caption("Category Code");
                             columns.Add().DataField("chrActive").Caption("Status");
                             columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
-
                         })
                         .ColumnAutoWidth(true)
                         .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
@@ -172,7 +173,6 @@
 
 @section Scripts {
     <script src="~/Scripts/Product/Product.js"></script>
-    <script src="~/Scripts/Product/ProductContent.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
@@ -190,6 +190,12 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+        function cellTemplateProduct(cellElement, cellInfo) {
+            $('<a/>')
+                .attr({ href: '@Url.RouteUrl("default", new { action = "ProductContentMaster", controller = "Product" })' + `?id=${cellInfo.data.intGiCode}` })
+                .text("Add Product Image")
+                .appendTo(cellElement);
+        }
     </script>
 }
 

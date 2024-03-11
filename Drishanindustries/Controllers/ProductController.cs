@@ -67,7 +67,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -89,7 +89,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -101,6 +101,8 @@ namespace Drishanindustries.Controllers
         #region Product
         public IActionResult Product()
         {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            sessionManager.SelectedProductId = 0;
             return View("Admin/Product_Master");
         }
 
@@ -132,7 +134,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -140,8 +142,9 @@ namespace Drishanindustries.Controllers
 
         public IActionResult GetProductList(int intGlCode = 0)
         {
-
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            if (sessionManager.SelectedProductId > 0)
+                intGlCode = sessionManager.SelectedProductId;
 
             ProductMasterViewModel Product_Master = new ProductMasterViewModel();
             DataSet dsResult = new DataSet();
@@ -154,7 +157,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -164,8 +167,13 @@ namespace Drishanindustries.Controllers
         #endregion
 
         #region ProductImage/Video
-        public IActionResult ProductContentMaster()
+        public IActionResult ProductContentMaster(int id)
         {
+            if (id > 0)
+            {
+                SessionManager sessionManager = new SessionManager(httpContextAccessor);
+                sessionManager.SelectedProductId = id;
+            }
             ViewBag.Message = TempData["Message"];
             ViewBag.MessageType = TempData["MessageType"];
             return View("Admin/Content_Master");
@@ -187,7 +195,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -196,21 +204,29 @@ namespace Drishanindustries.Controllers
 
         public IActionResult GetGalleryMappingList(int intGlCode = 0)
         {
-
+            int intProductId = 0;
+          
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            if (sessionManager.SelectedProductId > 0)
+                intProductId = sessionManager.SelectedProductId;
+
 
             ProductContentTypeMasterViewModel ProductContent_Master = new ProductContentTypeMasterViewModel();
             DataSet dsResult = new DataSet();
             try
             {
-                ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID != 0).ToList();
+                if (intProductId > 0)
+                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID == intProductId).ToList();
+                else
+                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID != 0).ToList();
+
                 var resultJson = JsonConvert.SerializeObject(ProductContent_Master.gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -232,7 +248,7 @@ namespace Drishanindustries.Controllers
                 {
                     galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/images");
                 }
-                else if(galleyView.gallery_Mapping.varGalleryType == "Document")
+                else if (galleyView.gallery_Mapping.varGalleryType == "Document")
                 {
                     galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/document");
                 }
@@ -262,7 +278,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(),Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
