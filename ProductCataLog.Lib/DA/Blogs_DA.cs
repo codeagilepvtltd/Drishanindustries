@@ -53,7 +53,7 @@ namespace ProductCataLog.Lib.DA
                 "varGalleryType","varGalleryName","varGalleryURL","varGalleryPath", "varAuthor", "varShortDescription",
                 "varContent", "chrActive", "ref_EntryBy", "@ref_UpdateBy" };
             object[] objParamValue = { galleryMappingViewModel.Gallery_Mapping.CM_intGlCode, galleryMappingViewModel.Gallery_Mapping.intGICode,
-            galleryMappingViewModel.Gallery_Mapping.fk_ProductID,galleryMappingViewModel.Gallery_Mapping.CTM_intGlCode,
+            galleryMappingViewModel.Gallery_Mapping.fk_ProductID,galleryMappingViewModel.Gallery_Mapping.fk_ContentTypeID,
             galleryMappingViewModel.Gallery_Mapping.CM_varTitle,galleryMappingViewModel.Gallery_Mapping.varGalleryType,
             galleryMappingViewModel.Gallery_Mapping.CM_varTitle,galleryMappingViewModel.Gallery_Mapping.varGalleryURL,
             galleryMappingViewModel.Gallery_Mapping.varGalleryPath,galleryMappingViewModel.Gallery_Mapping.CM_varAuthor,

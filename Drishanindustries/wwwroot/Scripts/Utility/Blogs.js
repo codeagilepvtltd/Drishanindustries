@@ -21,6 +21,14 @@ function ValidateData() {
     var chrActive = $("#chkStatus").prop('checked');
     $("#chrActive").val(chrActive == false ? 'InActive' : 'Active');
 
+    var ddlContentType = $("#ddlContentTypeList").dxSelectBox('instance').option('value');
+    if (ddlContentType == undefined || ddlContentType == null || ddlContentType == '' || ddlContentType == '0') {
+        PopUpMessage('Please Select Content type.', "fa fa-exclamation-circle popup_icon");
+        $("#ddlContentTypeList").focus();
+        return false;
+    }
+    $("#fk_ContentTypeID").val(ddlContentType);
+    
     if ($("#txtImagetitle").val() == "") {
         PopUpMessage("Please Enter Blog Title.", "fa fa-exclamation-circle popup_icon");
         $("#txtImagetitle").focus();
@@ -72,6 +80,7 @@ function resetValidation() {
     $('.field-validation-error').addClass('field-validation-valid');
     $('.field-validation-error').removeClass('field-validation-error');
     $('.field-validation-valid span').html('')
+    $("#ddlContentTypeList").dxSelectBox('instance').option('value', "0");
     $('input:text').val('');
     $('input:file').val('');
     $('textarea').val('');
@@ -79,6 +88,7 @@ function resetValidation() {
     $("#ref_ContentId").val('0');
     $("#ref_GalleryId").val('0');
     $("#Action").val('Insert');
+    $("#fk_ContentTypeID").val('0');
     //$("#txtMetaDescription").val('');
     $("#chkStatus").prop('checked', false);
     $("#txtBlogDescription").summernote('code', '');
@@ -92,11 +102,19 @@ function resetValidation() {
 
 function editdata(e)
 {
+    $("#ddlContentTypeList").dxSelectBox("getDataSource").reload();
+
+    setTimeout(function () {
+        var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
+        ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
+    }, 1000);
+
     $("#ref_ContentTypeId").val(e.row.data.CTM_intGlCode);
     $("#ref_ContentId").val(e.row.data.CM_intGlCode);
     $("#varGalleryType").val(e.row.data.varGalleryType);
     $("#ref_GalleryId").val(e.row.data.intGICode);
     $("#varGalleryPath").val(e.row.data.varGalleryPath);
+    $("#fk_ContentTypeID").val(e.row.data.fk_ContentTypeID);
     $("#Action").val('Update');
     $("#txtImagetitle").val(e.row.data.CM_varTitle);
     $("#txtBlogShortDescription").val(e.row.data.CM_varShortDescription);
