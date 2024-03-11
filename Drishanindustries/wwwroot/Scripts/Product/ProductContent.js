@@ -93,6 +93,7 @@ function ValidateData() {
     //    //$('#loading').fadeOut();
     //}, 1000);
 }
+
 function ExportExcel() {
     $("#grdGalleryDetials").dxDataGrid("instance").exportToExcel(false);
 }
@@ -129,6 +130,24 @@ function resetValidation() {
     var my_Docs = document.getElementById("my_Docs");
     my_Docs.style.display = "none";
 
+}
+
+function editfromProductdata(e) {
+
+    $("#ddlContentTypeList").dxSelectBox("getDataSource").reload();
+    $("#ddlGetProductList").dxSelectBox("getDataSource").reload();
+    setTimeout(function () {
+        //var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
+        //ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
+
+        var ddlGetProductList = $("#ddlGetProductList").dxSelectBox('instance');
+        ddlGetProductList.option('value', parseInt(e.row.data.intGiCode));
+
+        ddlGetProductList.style.display = "disable";
+    }, 1000);
+
+    $("#fk_ProductID").val(e.row.data.intGiCode);
+       
 }
 function editdata(e) {
 
@@ -168,7 +187,6 @@ function editdata(e) {
         $("#txtImagetitle").val($("#ref_ContentName").val());
         $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtImageDescription").summernote('code',$("#ref_ContentDesc").val());
-        alert(e.row.data.varGalleryPath);
         my_images.style.display = "block";
         my_images.href = e.row.data.varGalleryPath;
         my_images1.src = e.row.data.varGalleryPath;

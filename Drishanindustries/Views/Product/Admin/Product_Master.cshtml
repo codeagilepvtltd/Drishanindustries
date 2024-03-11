@@ -89,6 +89,7 @@
                         <div class="form-group mb-0">
                             <button type="button" id="btnSave" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Save</button>
                             <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+                            <button type="button" id="btnAddProductContent" tabindex="5" class="btn btn-secondary" onclick="window.location.href = '@Url.Action("ProductContentMaster", "Product")'">Add Content</button>
                         </div>
 
                         <input type="hidden" asp-for="@Model.product_master.intGiCode" id="intGiCode" />
@@ -126,10 +127,11 @@
                         .Columns(columns =>
                         {
                             columns.Add().DataField("intGiCode").Caption("Edit").Type(GridCommandColumnType.Buttons)
-                            .Width(50)
+                            .Width(100)
                             .Buttons(b =>
                             {
-                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editproductdata");
+                                b.Add().Name(GridColumnButtonName.Save).Visible(true).Icon("save").OnClick("addcontent");
 
                             });
                             columns.Add().DataField("varProductCode").Caption("Product Code");
@@ -170,6 +172,7 @@
 
 @section Scripts {
     <script src="~/Scripts/Product/Product.js"></script>
+    <script src="~/Scripts/Product/ProductContent.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
