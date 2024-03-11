@@ -59,7 +59,6 @@ namespace ProductCataLog.Lib.Common
     public class SQLHelper
     {
         public static IConfiguration Configuration { get; private set; }
-
         public static void InitializeConfiguration(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -168,8 +167,6 @@ namespace ProductCataLog.Lib.Common
             }
             return iRetVal;
         }
-
-
         public static DataSet executeQuery(string sqlQry)
         {
             DataSet ds = new DataSet();
@@ -215,7 +212,6 @@ namespace ProductCataLog.Lib.Common
                 throw;
             }
         }
-
         public static void writeException(Exception ex)
         {
             string str = Environment.CurrentDirectory + "\\log\\";
@@ -234,6 +230,5 @@ namespace ProductCataLog.Lib.Common
                 tw.Close();
             }
         }
-
     }
 }

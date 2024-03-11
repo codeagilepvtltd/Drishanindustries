@@ -20,6 +20,17 @@
                 return _session.GetData<Int64>("intGlCode");
             }
         }
+        public int SelectedProductId
+        {
+            set
+            {
+                _session.SetData("SelectedProductId", Convert.ToInt32(value));
+            }
+            get
+            {
+                return _session.GetData<Int32>("SelectedProductId");
+            }
+        }
 
         public int fk_SubModuleGlCode
         {
