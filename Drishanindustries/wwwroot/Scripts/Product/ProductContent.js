@@ -132,21 +132,12 @@ function resetValidation() {
 
 }
 
-function editfromProductdata(e) {
-
-    $("#ddlContentTypeList").dxSelectBox("getDataSource").reload();
-    $("#ddlGetProductList").dxSelectBox("getDataSource").reload();
+function editfromProductdata(id) {
     setTimeout(function () {
-        //var ddlContentTypeList = $("#ddlContentTypeList").dxSelectBox('instance');
-        //ddlContentTypeList.option('value', parseInt(e.row.data.fk_ContentTypeID));
-
         var ddlGetProductList = $("#ddlGetProductList").dxSelectBox('instance');
-        ddlGetProductList.option('value', parseInt(e.row.data.intGiCode));
-
-        ddlGetProductList.style.display = "disable";
+        ddlGetProductList.option('value', parseInt(id));     
     }, 1000);
-
-    $("#fk_ProductID").val(e.row.data.intGiCode);
+    $("#fk_ProductID").val(id);
        
 }
 function editdata(e) {

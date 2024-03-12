@@ -113,11 +113,6 @@ function resetValidation() {
 
 }
 
-function addcontent(e) {
-   /* window.location.href = "@Url.Action("ProductContentMaster", "Product")";*/
-
-    editfromProductdata(e);
-}
 function editproductdata(e) {
 
     $("#ddlCategoryList").dxSelectBox("getDataSource").reload();
