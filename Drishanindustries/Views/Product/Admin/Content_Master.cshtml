@@ -1,9 +1,11 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProductCataLog.Lib.ViewModels.ProductContentTypeMasterViewModel
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = string.Format(Drishanindustries.Common.Common.PageName, Drishanindustries.Common.Common.AppName, "Dashboard");
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var SelectedProductId = HttpContextAccessor.HttpContext.Session.GetString("SelectedProductId");
 }
 
 
@@ -273,6 +275,10 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+        if (@SelectedProductId != null && @SelectedProductId != '0')
+        {
+            editfromProductdata(@SelectedProductId);
+        }
     </script>
     @if (ViewBag.Message != null)
     {

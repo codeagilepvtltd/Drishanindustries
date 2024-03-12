@@ -134,7 +134,7 @@
                                 b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editproductdata");                                
 
                             });
-                            columns.Add().DataField("intGiCode").Caption("Add Product Image").CellTemplate(new JS("cellTemplateProduct"));
+                            columns.Add().DataField("intGiCode").Caption("Add Product Image").CellTemplate(new JS("cellTemplate"));
                             columns.Add().DataField("varProductCode").Caption("Product Code");
                             columns.Add().DataField("varProductCode").Caption("Product Code");
                             columns.Add().DataField("varProductName").Caption("Product Name");
@@ -173,6 +173,7 @@
 
 @section Scripts {
     <script src="~/Scripts/Product/Product.js"></script>
+    <script src="~/Scripts/Product/ProductContent.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
@@ -190,11 +191,11 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-        function cellTemplateProduct(cellElement, cellInfo) {
+        function cellTemplate(element, cellInfo) {
             $('<a/>')
                 .attr({ href: '@Url.RouteUrl("default", new { action = "ProductContentMaster", controller = "Product" })' + `?id=${cellInfo.data.intGiCode}` })
                 .text("Add Product Image")
-                .appendTo(cellElement);
+                .appendTo(element);
         }
     </script>
 }
