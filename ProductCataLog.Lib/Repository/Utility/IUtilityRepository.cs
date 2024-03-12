@@ -20,8 +20,7 @@ namespace ProductCataLog.Lib.Repository.Utility
         #endregion
 
         #region ContentTypeMaster
-        List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0,string Purpose="");
-
+        List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0, string varPurpose = null);
         #endregion
 
         #region GalleryMapping

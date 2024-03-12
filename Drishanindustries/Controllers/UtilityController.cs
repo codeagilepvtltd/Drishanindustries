@@ -164,7 +164,8 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList("Utility"); //.Where(x => x.CTM_varContentType == ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
+
+                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId).Where(x => x.CTM_varPurpose == ProductCataLog.Lib.Common.ContentTypePurpose.Utility.ToString()).ToList();
                 var resultJson = JsonConvert.SerializeObject(Gallery_Mapping.Gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
@@ -227,8 +228,8 @@ namespace Drishanindustries.Controllers
             ContentTypeViewModel Content_Master = new ContentTypeViewModel();
             DataSet dsResult = new DataSet();
             try
-            {
-                Content_Master.ContentType_Masters = utilityRepository.GetContentTypeMasterList(intGlCode, "Utility");
+            {     
+                Content_Master.ContentType_Masters = utilityRepository.GetContentTypeMasterList(intGlCode, ContentTypePurpose.Utility.ToString());
                 var resultJson = JsonConvert.SerializeObject(Content_Master.ContentType_Masters);
                 return Content(resultJson, "application/json");
             }

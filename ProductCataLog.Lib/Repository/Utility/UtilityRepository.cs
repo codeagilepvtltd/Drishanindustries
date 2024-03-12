@@ -97,15 +97,15 @@ namespace ProductCataLog.Lib.Repository.Utility
         #endregion
 
         #region ContentTypeMaster
-        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0,string Purpose = "")
+
+        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0, string varPurpose = null)
         {
             Blogs_DA BlogsDA = new Blogs_DA();
             List<ContentType_Master> contentType_Master = new List<ContentType_Master>();
 
             try
             {
-                DataSet dsResult = BlogsDA.GetContentTypeMasterList(intGlCode, Purpose);
-
+                DataSet dsResult = BlogsDA.GetContentTypeMasterList(intGlCode,varPurpose);
                 if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
                 {
                     contentType_Master = dsResult.Tables[0].AsEnumerable().Select(row => new ContentType_Master()
@@ -146,6 +146,7 @@ namespace ProductCataLog.Lib.Repository.Utility
                         fk_ProductID = row.Field<int>("PM_intGlCode"),
                         CTM_intGlCode = row.Field<int>("CTM_intGlCode"),
                         CTM_varContentType = row.Field<string>("CTM_varContentType"),
+                        CTM_varPurpose = row.Field<string>("CTM_varPurpose"),
                         CM_intGlCode = row.Field<long>("CM_intGlCode"),
                         CM_varAuthor = row.Field<string>("CM_varAuthor"),
                         CM_varTitle = row.Field<string>("CM_varTitle"),
