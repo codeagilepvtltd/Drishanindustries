@@ -164,7 +164,7 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList(ref_ContentTypeId); //.Where(x => x.CTM_varContentType == ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
+                Gallery_Mapping.Gallery_Mappings = utilityRepository.GetGalleryMappingList("Utility"); //.Where(x => x.CTM_varContentType == ProductCataLog.Lib.Common.ContentType.Blogs.ToString()).ToList();
                 var resultJson = JsonConvert.SerializeObject(Gallery_Mapping.Gallery_Mappings);
                 return Content(resultJson, "application/json");
             }
@@ -228,7 +228,7 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Content_Master.ContentType_Masters = utilityRepository.GetContentTypeMasterList(intGlCode);
+                Content_Master.ContentType_Masters = utilityRepository.GetContentTypeMasterList(intGlCode, "Utility");
                 var resultJson = JsonConvert.SerializeObject(Content_Master.ContentType_Masters);
                 return Content(resultJson, "application/json");
             }
@@ -242,12 +242,6 @@ namespace Drishanindustries.Controllers
             }
         }
 
-        //[NonAction]
-        //private ContentType_Master ContentType(ProductCataLog.Lib.Common.ContentType contentType)
-        //{
-        //    ContentTypeViewModel ContentType_Master = new ContentTypeViewModel();
-        //    return utilityRepository.GetContentTypeMasterList(0).Where(p => p.varContentType == contentType.ToString()).SingleOrDefault();
-        //}
         #endregion
     }
 }

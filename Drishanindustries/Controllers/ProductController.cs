@@ -188,7 +188,7 @@ namespace Drishanindustries.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                ProductContent_Master.contentType_Masters = productRepository.GetContentTypeMasterList(intGlCode);
+                ProductContent_Master.contentType_Masters = productRepository.GetContentTypeMasterList(intGlCode, "Product");
                 var resultJson = JsonConvert.SerializeObject(ProductContent_Master.contentType_Masters);
                 return Content(resultJson, "application/json");
             }
@@ -216,9 +216,9 @@ namespace Drishanindustries.Controllers
             try
             {
                 if (intProductId > 0)
-                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID == intProductId).ToList();
+                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList("Product").Where(p => p.fk_ProductID == intProductId).ToList();
                 else
-                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList(intGlCode).Where(p => p.fk_ProductID != 0).ToList();
+                    ProductContent_Master.gallery_Mappings = productRepository.GetGalleryMappingList("Product").Where(p => p.fk_ProductID != 0).ToList();
 
                 var resultJson = JsonConvert.SerializeObject(ProductContent_Master.gallery_Mappings);
                 return Content(resultJson, "application/json");
