@@ -9,7 +9,8 @@ namespace ProductCataLog.Lib.Common
 {
     public enum ContentTypePurpose
     {
-        Utility
+        Utility,
+        Product
     }
     public enum PageNames
     {

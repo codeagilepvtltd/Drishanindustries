@@ -23,9 +23,9 @@ namespace ProductCataLog.Lib.Repository.Product
         #endregion
 
         #region ProductImage/Video
-        List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0);
+        List<ContentType_Master> GetContentTypeMasterList(string Purpose);
 
-        List<Gallery_Mapping> GetGalleryMappingList(int intGlCode = 0);
+        List<Gallery_Mapping> GetGalleryMappingList(string varPurpose);
 
         DataSet InsertUpdate_GalleryMapping(ProductContentTypeMasterViewModel ContentViewModel);
         #endregion

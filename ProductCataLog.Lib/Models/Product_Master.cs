@@ -26,5 +26,8 @@ namespace ProductCataLog.Lib.Models
         public string varCatergoryName { get; set; }
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }
+
+        public bool ShowOnHomePage { get; set; }
+        public long RankNumber { get; set; }
     }
 }

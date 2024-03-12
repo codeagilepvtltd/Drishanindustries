@@ -89,7 +89,9 @@ namespace ProductCataLog.Lib.Repository.Product
                         ref_CategoryId = row.Field<Int64>("ref_CategoryId"),
                         ProductPriceID = row.Field<int>("ProductPriceID"),
                         chrActive = row.Field<string>("chrActive"),
-                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate"),
+                        ShowOnHomePage = row.Field<bool>("ShowOnHomePage"),
+                        RankNumber = row.Field<long>("RankNumber")
 
                     }).ToList();
 
@@ -120,14 +122,14 @@ namespace ProductCataLog.Lib.Repository.Product
 
 
         #region ProductImage/Video
-        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0)
+        public List<ContentType_Master> GetContentTypeMasterList(string Purpose)
         {
             Product_DA ProductDA = new Product_DA();
             List<ContentType_Master> contentType_Masters = new List<ContentType_Master>();
 
             try
             {
-                DataSet dsResult = ProductDA.GetContentTypeMasterList(intGlCode);
+                DataSet dsResult = ProductDA.GetContentTypeMasterList(Purpose);
 
                 if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
                 {
@@ -150,14 +152,14 @@ namespace ProductCataLog.Lib.Repository.Product
             return contentType_Masters;
         }
 
-        public List<Gallery_Mapping> GetGalleryMappingList(int intGlCode = 0)
+        public List<Gallery_Mapping> GetGalleryMappingList(string varPurpose)
         {
             Product_DA ProductDA = new Product_DA();
             List<Gallery_Mapping> gallery_Masters = new List<Gallery_Mapping>();
 
             try
             {
-                DataSet dsResult = ProductDA.GetGalleryMappingList(intGlCode);
+                DataSet dsResult = ProductDA.GetGalleryMappingList(varPurpose);
 
                 if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
                 {

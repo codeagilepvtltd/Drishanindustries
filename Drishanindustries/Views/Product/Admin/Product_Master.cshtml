@@ -78,6 +78,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">RankNumber:</label>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" tabindex="1" class="form-control custom_input" maxlength="100" id="txtRankNumber" asp-for="product_master.RankNumber" placeholder="Rank Number">
+                                    @Html.ValidationMessageFor(model => model.product_master.RankNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">HomePage:</label>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="checkbox" tabindex="3" asp-for="product_master.ShowOnHomePage" id="chkShowOnHomePage" class="mtop10" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -85,13 +100,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group mb-0">
                             <button type="button" id="btnSave" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Save</button>
                             <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
                             <button type="button" id="btnAddProductContent" tabindex="5" class="btn btn-secondary" onclick="window.location.href = '@Url.Action("ProductContentMaster", "Product")'">Add Content</button>
                         </div>
-
                         <input type="hidden" asp-for="@Model.product_master.intGiCode" id="intGiCode" />
                         <input type="hidden" asp-for="@Model.product_master.chrActive" id="chrActive" />
                         <input type="hidden" asp-for="@Model.product_master.ref_CategoryId" id="ref_CategoryId" />
@@ -173,7 +186,6 @@
 
 @section Scripts {
     <script src="~/Scripts/Product/Product.js"></script>
-    <script src="~/Scripts/Product/ProductContent.js"></script>
     <script src="~/Scripts/Account/Common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">

@@ -44,6 +44,11 @@ function ValidateData() {
         $("#txtDescription").focus();
         return false;
     }
+    if ($("#txtRankNumber").val() == "") {
+        PopUpMessage("Please Enter Rank.", "fa fa-exclamation-circle popup_icon");
+        $("#txtRankNumber").focus();
+        return false;
+    }
 
     if ($("#txtPRoductPrice").val() == "") {
         PopUpMessage("Please Enter Price.", "fa fa-exclamation-circle popup_icon");
@@ -105,12 +110,13 @@ function resetValidation() {
     $("#intGiCode").val('0');
     $("#Action").val('Insert');
     $("#txtMetaDescription").val('');
+    $("#txtRankNumber").val('');
     $("#chkchrActive").prop('checked', false);
+    $("#chkShowOnHomePage").prop('checked', false);
     $("#txtDescription").summernote('code', '');
     $("#chrActive").val(true);
     $("#grdProductDetials").dxDataGrid('instance').refresh();
     $("#grdProductDetials").dxDataGrid('instance').clearFilter();
-
 }
 
 function editproductdata(e) {
@@ -132,10 +138,11 @@ function editproductdata(e) {
     $("#txtPRoductPrice").val(e.row.data.decOriginalPrice);
     $("#txtDisplayPrice").val(e.row.data.decDisplayPrice);
     $("#txtMetaKeyword").val(e.row.data.MetaKeyword);
+    $("#txtRankNumber").val(e.row.data.RankNumber);
     $("#txtMetaDescription").val(e.row.data.MetaDescription);
     $("#ref_CategoryId").val(e.row.data.ref_CategoryId);
     $("#ProductPriceID").val(e.row.data.ProductPriceID);
     $("#chkchrActive").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
-
+    $("#chkShowOnHomePage").prop('checked', e.row.data.ShowOnHomePage);
 }
 
