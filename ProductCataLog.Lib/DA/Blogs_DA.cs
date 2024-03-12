@@ -13,10 +13,10 @@ namespace ProductCataLog.Lib.DA
     {
         private DataSet resultSet;
 
-        public DataSet GetContentTypeMasterList(int intGlCode = 0)
+        public DataSet GetContentTypeMasterList(int intGlCode = 0, string varPurpose = null)
         {
-            object[] objParamName = { "intGlCode" };
-            object[] objParamValue = { intGlCode };
+            object[] objParamName = { "intGlCode", "varPurpose" };
+            object[] objParamValue = { intGlCode, varPurpose };
 
             try
             {

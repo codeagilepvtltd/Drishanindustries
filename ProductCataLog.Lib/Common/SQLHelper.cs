@@ -51,6 +51,13 @@ namespace ProductCataLog.Lib.Common
         Blogs,
         News,
     }
+
+    public enum ContentTypePurpose
+    {
+        Product,
+        Utility
+    }
+
     public class Common_Messages
     {
         public const string Save_Failed_Message = "Error in saving {0} data.";

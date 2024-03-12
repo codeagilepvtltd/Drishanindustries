@@ -11,6 +11,8 @@ namespace ProductCataLog.Lib.Models
     {
         public string CTM_varContentType { get; set; }
 
+        public string CTM_varPurpose { get; set; }
+
         public IFormFile UploadedImage { get; set; }
         public long CM_intGlCode { get; set; }
 
