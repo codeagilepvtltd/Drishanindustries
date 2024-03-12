@@ -20,12 +20,12 @@ namespace ProductCataLog.Lib.Repository.Utility
         #endregion
 
         #region ContentTypeMaster
-        List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0);
+        List<ContentType_Master> GetContentTypeMasterList(string varPurpose);
 
         #endregion
 
         #region GalleryMapping
-        List<Gallery_Mapping> GetGalleryMappingList(int ref_ContentTypeId = 0);
+        List<Gallery_Mapping> GetGalleryMappingList(string Purpose);
 
         DataSet InsertUpdate_GalleryMappingDetails(GalleryMappingViewModel galleryMappingViewModel);
 

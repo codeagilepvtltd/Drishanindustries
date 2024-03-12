@@ -13,10 +13,10 @@ namespace ProductCataLog.Lib.DA
     {
         private DataSet resultSet;
 
-        public DataSet GetContentTypeMasterList(int intGlCode = 0)
+        public DataSet GetContentTypeMasterList(string varPurpose)
         {
-            object[] objParamName = { "intGlCode" };
-            object[] objParamValue = { intGlCode };
+            object[] objParamName = { "varPurpose" };
+            object[] objParamValue = { varPurpose };
 
             try
             {
@@ -30,10 +30,10 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetGalleryMappingList(int ref_ContentTypeId = 0)
+        public DataSet GetGalleryMappingList(string Purpose)
         {
-            object[] objParamName = { "ref_ContentTypeId" };
-            object[] objParamValue = { ref_ContentTypeId };
+            object[] objParamName = { "@varPurpose" };
+            object[] objParamValue = { Purpose };
 
             try
             {

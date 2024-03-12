@@ -7,6 +7,10 @@ using System.Transactions;
 
 namespace ProductCataLog.Lib.Common
 {
+    public enum ContentTypePurpose
+    {
+        Utility
+    }
     public enum PageNames
     {
         Login,

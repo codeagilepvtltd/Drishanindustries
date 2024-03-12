@@ -97,14 +97,14 @@ namespace ProductCataLog.Lib.Repository.Utility
         #endregion
 
         #region ContentTypeMaster
-        public List<ContentType_Master> GetContentTypeMasterList(int intGlCode = 0)
+        public List<ContentType_Master> GetContentTypeMasterList(string Purpose="")
         {
             Blogs_DA BlogsDA = new Blogs_DA();
             List<ContentType_Master> contentType_Master = new List<ContentType_Master>();
 
             try
             {
-                DataSet dsResult = BlogsDA.GetContentTypeMasterList(intGlCode);
+                DataSet dsResult = BlogsDA.GetContentTypeMasterList(Purpose);
 
                 if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
                 {
@@ -128,14 +128,14 @@ namespace ProductCataLog.Lib.Repository.Utility
         #endregion
 
         #region GalleryMapping
-        public List<Gallery_Mapping> GetGalleryMappingList(int ref_ContentTypeId = 0)
+        public List<Gallery_Mapping> GetGalleryMappingList(string Purpose)
         {
             Blogs_DA blogsDA = new Blogs_DA();
             List<Gallery_Mapping> gallery_Mappings = new List<Gallery_Mapping>();
 
             try
             {
-                DataSet dsResult = blogsDA.GetGalleryMappingList(ref_ContentTypeId);
+                DataSet dsResult = blogsDA.GetGalleryMappingList(Purpose);
 
                 if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
                 {
