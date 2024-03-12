@@ -30,7 +30,7 @@ function ValidateData() {
     $("#fk_ContentTypeID").val(ddlContentType);
     
     if ($("#txtImagetitle").val() == "") {
-        PopUpMessage("Please Enter Blog Title.", "fa fa-exclamation-circle popup_icon");
+        PopUpMessage("Please Enter Title.", "fa fa-exclamation-circle popup_icon");
         $("#txtImagetitle").focus();
         return false;
     }

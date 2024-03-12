@@ -1,4 +1,5 @@
 ﻿using ProductCataLog.Lib.Common;
+using ProductCataLog.Lib.Models;
 using ProductCataLog.Lib.ViewModels;
 using System.Data;
 using System.Text;
@@ -70,12 +71,12 @@ namespace ProductCataLog.Lib.DA
         {
             sqlQuery = new StringBuilder();
             object[] objParamName = { "intGlCode", "ref_ProductPriceID", "ref_CategoryId", "varProductCode", "varProductName",
-                "varShortDescription","decOriginalPrice","decDisplayPrice","varLongDescription", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy" };
+                "varShortDescription","decOriginalPrice","decDisplayPrice","varLongDescription", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy","ShowOnHomePage","RankNumber" };
             object[] objParamValue = { productViewModel.product_master.intGiCode,productViewModel.product_master.ProductPriceID,productViewModel.product_master.ref_CategoryId,
                       productViewModel.product_master.varProductCode,productViewModel.product_master.varProductName,productViewModel.product_master.varShortDescription,
                 productViewModel.product_master.decOriginalPrice,productViewModel.product_master.decDisplayPrice,productViewModel.product_master.varLongDescription
             ,productViewModel.product_master.chrActive,productViewModel.product_master.MetaKeyword,
-                productViewModel.product_master.MetaDescription,productViewModel.product_master.ref_EntryBy,productViewModel.product_master.ref_UpdateBy};
+                productViewModel.product_master.MetaDescription,productViewModel.product_master.ref_EntryBy,productViewModel.product_master.ref_UpdateBy,productViewModel.product_master.ShowOnHomePage,productViewModel.product_master.RankNumber};
 
             try
             {
@@ -88,11 +89,11 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetContentTypeMasterList(int intGICOde = 0)
+        public DataSet GetContentTypeMasterList(int intGICOde = 0,string varPurpose="")
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode" };
-            object[] objParamValue = { intGICOde };
+            object[] objParamName = { "intGlCode", "varPurpose" };
+            object[] objParamValue = { intGICOde, varPurpose };
 
             try
             {
@@ -106,11 +107,11 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetGalleryMappingList(int ref_ContentTypeId = 0)
+        public DataSet GetGalleryMappingList(string varPurpose)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "ref_ContentTypeId" };
-            object[] objParamValue = { ref_ContentTypeId };
+            object[] objParamName = { "varPurpose" };
+            object[] objParamValue = { varPurpose };
 
             try
             {

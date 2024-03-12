@@ -30,10 +30,10 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetGalleryMappingList(int ref_ContentTypeId = 0)
+        public DataSet GetGalleryMappingList(string varPurpose = "")
         {
-            object[] objParamName = { "ref_ContentTypeId" };
-            object[] objParamValue = { ref_ContentTypeId };
+            object[] objParamName = { "varPurpose" };
+            object[] objParamValue = { varPurpose };
 
             try
             {

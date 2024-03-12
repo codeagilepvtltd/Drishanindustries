@@ -105,7 +105,9 @@ function resetValidation() {
     $("#intGiCode").val('0');
     $("#Action").val('Insert');
     $("#txtMetaDescription").val('');
+    $("#txtRankNumber").val('');
     $("#chkchrActive").prop('checked', false);
+    $("#chkShowOnHomePage").prop('checked', false);    
     $("#txtDescription").summernote('code', '');
     $("#chrActive").val(true);
     $("#grdProductDetials").dxDataGrid('instance').refresh();
@@ -126,6 +128,7 @@ function editproductdata(e) {
     $("#intGiCode").val(e.row.data.intGiCode);
     $("#Action").val('Update');
     $("#txtProductName").val(e.row.data.varProductName);
+    $("#txtRankNumber").val(e.row.data.RankNumber);
     $("#txtProductCode").val(e.row.data.varProductCode);
     $("#txtProductShortDescription").val(e.row.data.varShortDescription);
     $("#txtDescription").summernote('code', e.row.data.varLongDescription);
@@ -136,6 +139,6 @@ function editproductdata(e) {
     $("#ref_CategoryId").val(e.row.data.ref_CategoryId);
     $("#ProductPriceID").val(e.row.data.ProductPriceID);
     $("#chkchrActive").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
-
+    $("#chkShowOnHomePage").prop('checked',e.row.data.ShowOnHomePage);   
 }
 
