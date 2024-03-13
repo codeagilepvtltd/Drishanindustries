@@ -9,15 +9,15 @@
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public long IntGlCode
+        public int IntGlCode
         {
             set
             {
-                _session.SetData("intGlCode", Convert.ToInt64(value));
+                _session.SetData("intGlCode", Convert.ToInt32(value));
             }
             get
             {
-                return _session.GetData<Int64>("intGlCode");
+                return _session.GetData<Int32>("intGlCode");
             }
         }
         public int SelectedProductId

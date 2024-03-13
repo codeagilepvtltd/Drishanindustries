@@ -1,3 +1,4 @@
+using Drishanindustries.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using ProductCataLog.Lib.Common;
@@ -11,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //builder.Services.AddRazorPages();
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();

@@ -1,5 +1,6 @@
 ﻿using ProductCataLog.Lib.Common;
 using ProductCataLog.Lib.ViewModels;
+using System;
 using System.Data;
 using System.Text;
 
@@ -26,7 +27,6 @@ namespace ProductCataLog.Lib.DA
             return resultSet;
 
         }
-
         public DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel)
         {
             sqlQuery = new StringBuilder();
@@ -64,5 +64,22 @@ namespace ProductCataLog.Lib.DA
 
         }
 
+        public DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy,  string varSystemIP, string varSystemName, string chrFlag)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode", "ref_EntryBy","varSystemIP", "varSystemName", "chrFlag" };
+            object[] objParamValue = { intGlCode, ref_EntryBy,  varSystemIP, varSystemName, chrFlag };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_InsertUpdate_LoginDetails, objParamName, objParamValue);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return resultSet;
+        }
+        
     }
 }

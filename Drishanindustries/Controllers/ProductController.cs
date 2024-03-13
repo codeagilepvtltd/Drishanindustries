@@ -34,7 +34,7 @@ namespace Drishanindustries.Controllers
             moduleErrorLogRepository = _moduleErrorLogRepository;
         }
 
-        #region Category
+        #region Category     
         public IActionResult Index()
         {
             return View("Admin/Category_Master");

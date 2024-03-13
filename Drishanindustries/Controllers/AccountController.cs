@@ -13,6 +13,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Drishanindustries.Common;
 using System;
+using PranicAhmedbad.Common;
 
 namespace Drishanindustries.Controllers
 {
@@ -31,17 +32,54 @@ namespace Drishanindustries.Controllers
             moduleErrorLogRepository = _moduleErrorLogRepository;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
         #region Login
         public ActionResult Login()
         {
             return View("Admin/Login");
         }
 
+
+        [SessionTimeout]
+        public async Task<ActionResult> Logout()
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            int fk_LDGLCode = 0;
+            string IPAddress = string.Empty;
+            string systemName = string.Empty;
+
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                fk_LDGLCode = sessionManager.FK_LGLGlCode;
+                var IPAddressHostName = (Common_Functions.GetSystemIP()).Split(' ');
+                IPAddress = IPAddressHostName[0].ToString();
+                systemName = IPAddressHostName[1].ToString();
+                InsertUpdate_LoginDetails(fk_LDGLCode, sessionManager.IntGlCode, IPAddress, systemName, "U");
+                HttpContext.Session.Clear();
+                return RedirectToAction(nameof(Login));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Login.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+        public DataSet InsertUpdate_LoginDetails(int intGlCode, int fk_PersonGlCode, string varSystemIP, string varSystemName, string chrFlag)
+        {
+            string strResult = string.Empty;
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                return accountRepository.InsertUpdate_LoginDetails(intGlCode, fk_PersonGlCode,  varSystemIP, varSystemName, chrFlag);
+            }
+            catch (Exception ex)
+            {
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Login.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+            }
+            return null;
+        }
         [HttpPost]
         public async Task<ActionResult> ValidateLogin(AccountLoginViewModel accountLoginViewModel, string returnUrl)
         {
@@ -81,6 +119,19 @@ namespace Drishanindustries.Controllers
                     /*Set Session*/
                     sessionManager.IntGlCode = accountLoginView.LoginMaster.intGlCode;
                     sessionManager.UserName = accountLoginView.LoginMaster.varUserName;
+
+                    var IPAddressHostName = (Common_Functions.GetSystemIP()).Split(' ');
+                    string IPAddress = IPAddressHostName[0].ToString();
+                    string systemName = IPAddressHostName[1].ToString();
+
+                    DataSet dsResult_Login = accountRepository.InsertUpdate_LoginDetails(0, sessionManager.IntGlCode, IPAddress,systemName,"I");
+
+                    if (dsResult_Login != null && dsResult_Login.Tables.Count > 0 && dsResult_Login.Tables[0].Rows.Count > 0)
+                    {
+                        int fk_LDLGlCode = 0;
+                        int.TryParse(Convert.ToString(dsResult_Login.Tables[0].Rows[0]["intGlCode"]), out fk_LDLGlCode);
+                        sessionManager.FK_LGLGlCode = fk_LDLGlCode;
+                    }
 
 
                     return RedirectToAction("Index", "DashBoard");

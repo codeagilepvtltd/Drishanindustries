@@ -8,7 +8,7 @@ namespace ProductCataLog.Lib.Models
 {
     public class Login_Master
     {
-        public long intGlCode { get; set; }
+        public int intGlCode { get; set; }
 
         public string varUserName { get; set; }
 
