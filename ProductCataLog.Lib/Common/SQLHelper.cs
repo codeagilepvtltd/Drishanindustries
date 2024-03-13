@@ -45,7 +45,9 @@ namespace ProductCataLog.Lib.Common
         USP_Select_ProductInquiryList,
         USP_Select_ContentTypeMasterList,
         USP_Select_GalleryMappingList,
-        USP_InsertUpdate_GalleryMapping
+        USP_InsertUpdate_GalleryMapping,
+        USP_Select_ProductInquiryListUpdate,
+        USP_Update_InquiryDetails
 
     }
     public enum ContentType

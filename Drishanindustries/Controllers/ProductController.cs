@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Drishanindustries.Common;
 using System;
 using Microsoft.AspNetCore.Hosting;
+using ProductCataLog.Lib.Repository.Reports;
 
 namespace Drishanindustries.Controllers
 {
@@ -205,7 +206,7 @@ namespace Drishanindustries.Controllers
         public IActionResult GetGalleryMappingList(int intGlCode = 0)
         {
             int intProductId = 0;
-          
+
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
             if (sessionManager.SelectedProductId > 0)
                 intProductId = sessionManager.SelectedProductId;
@@ -317,6 +318,69 @@ namespace Drishanindustries.Controllers
                 ReturntValue = @"\UploadFiles\product\document\" + Path.GetFileName(filePath);
             }
             return ReturntValue;
+        }
+        #endregion
+
+        #region ProductInquiry
+
+        public IActionResult ProductInquiry()
+        {
+            return View("Admin/Product_Inquiry");
+        }
+
+        public IActionResult GetProductInquiryListReport(int fk_LookupType_DetailsId = 0)
+        {
+
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            ProductInquiryReportViewModel productInquiryReportViewModel = new ProductInquiryReportViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                productInquiryReportViewModel.InquiryDetailsList = productRepository.GetProductInquiryList(fk_LookupType_DetailsId);
+                var resultJson = JsonConvert.SerializeObject(productInquiryReportViewModel.InquiryDetailsList);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductInquiryReport.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save_ProductInquiry(ProductInquiryReportViewModel productinquiryViewModel)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                productinquiryViewModel.InquiryDetails.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                productinquiryViewModel.InquiryDetails.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
+                productinquiryViewModel.InquiryDetails.chrActive = productinquiryViewModel.InquiryDetails.chrActive == "true" ? "Y" : "N";
+                DataSet result = productRepository.Update_productInquiry(productinquiryViewModel);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, "Product");
+                    return Content(resultJson, "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ProductContent.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
         }
         #endregion
     }
