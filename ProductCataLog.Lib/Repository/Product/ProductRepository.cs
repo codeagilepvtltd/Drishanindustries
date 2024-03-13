@@ -120,7 +120,6 @@ namespace ProductCataLog.Lib.Repository.Product
 
         #endregion
 
-
         #region ProductImage/Video
         public List<ContentType_Master> GetContentTypeMasterList(string Purpose)
         {
@@ -199,6 +198,60 @@ namespace ProductCataLog.Lib.Repository.Product
             {
                 return ProductDA.InsertUpdate_GalleryMapping(ContentViewModel);
 
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region ProductInquery
+        public List<Inquiry_Details> GetProductInquiryList(int intGlCode = 0)
+        {
+            Product_DA ProductDA = new Product_DA();
+            List<Inquiry_Details> inquiry_details = new List<Inquiry_Details>();
+
+            try
+            {
+                DataSet dsResult = ProductDA.GetProductInquiryList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    inquiry_details = dsResult.Tables[0].AsEnumerable().Select(row => new Inquiry_Details()
+                    {
+                        intGICode = row.Field<Int64>("intGICode"),
+                        varProductCode = row.Field<string>("varProductCode"),
+                        varProductName = row.Field<string>("varProductName"),
+                        varLongDescription = row.Field<string>("varLongDescription"),
+                        varShortDescription = row.Field<string>("varShortDescription"),
+                        varEmail = row.Field<string>("varEmail"),
+                        varContactNo = row.Field<string>("varContactNo"),
+                        LookUp_varValue = row.Field<string>("LookUp_varValue"),
+                        varInquiryNo = row.Field<string>("varInquiryNo"),
+                        varName = row.Field<string>("varName"),
+                        fk_InquiryID = row.Field<Int64>("fk_InquiryID"),
+                        fk_LookupType_DetailsId = row.Field<int>("fk_LookupType_DetailsId"),
+                        varContent = row.Field<string>("varContent"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return inquiry_details;
+        }
+
+        public DataSet Update_productInquiry(ProductInquiryReportViewModel productinquiryViewModel)
+        {
+            Product_DA ProductDA = new Product_DA();
+            try
+            {
+                return ProductDA.Update_ProductInquiry(productinquiryViewModel);
             }
             catch
             {

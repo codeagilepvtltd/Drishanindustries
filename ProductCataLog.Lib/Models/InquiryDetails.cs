@@ -12,6 +12,8 @@ namespace ProductCataLog.Lib.Models
         public string varContactNo { get; set; }
         public string varInquiryNo { get; set; }
 
+        public string LookUp_varValue { get; set; }
+
         public string varEmail { get; set; }
         public string varContent { get; set; }
 
