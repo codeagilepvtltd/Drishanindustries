@@ -29,5 +29,10 @@ namespace ProductCataLog.Lib.Repository.Product
 
         DataSet InsertUpdate_GalleryMapping(ProductContentTypeMasterViewModel ContentViewModel);
         #endregion
+
+        #region ProductInquiry
+        List<Inquiry_Details> GetProductInquiryList(int intGlCode = 0);
+        DataSet Update_productInquiry(ProductInquiryReportViewModel productinquiryViewModel);
+        #endregion
     }
 }

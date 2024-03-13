@@ -146,5 +146,41 @@ namespace ProductCataLog.Lib.DA
             }
 
         }
+
+        public DataSet GetProductInquiryList(int intGlCode)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "@intGlCode" };
+            object[] objParamValue = { intGlCode };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ProductInquiryListUpdate, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+
+        public DataSet Update_ProductInquiry(ProductInquiryReportViewModel productinquiryViewModel)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode", "varFeedbackResponse", "fk_LookupType_DetailsId", "ref_UpdateBy" };
+            object[] objParamValue = { productinquiryViewModel.InquiryDetails.intGICode,productinquiryViewModel.InquiryDetails.varContent,
+                productinquiryViewModel.InquiryDetails.fk_LookupType_DetailsId,productinquiryViewModel.InquiryDetails.ref_UpdateBy};
+
+            try
+            {
+                return SQLHelper.GetData(StoredProcedures.USP_Update_InquiryDetails, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }
