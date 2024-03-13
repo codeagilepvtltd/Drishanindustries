@@ -23,7 +23,7 @@ namespace ProductCataLog.Lib.Repository.Account
                 {
                     accountLoginViewModel.LoginMaster.varUserName = Convert.ToString(dsResult.Tables[0].Rows[0]["varUserName"]);
                     accountLoginViewModel.LoginMaster.varPassword = Convert.ToString(dsResult.Tables[0].Rows[0]["varPassword"]);
-                    accountLoginViewModel.LoginMaster.intGlCode = Convert.ToInt64(dsResult.Tables[0].Rows[0]["intGlCode"]);
+                    accountLoginViewModel.LoginMaster.intGlCode = Convert.ToInt32(dsResult.Tables[0].Rows[0]["intGlCode"]);
                 }
                 else
                 {
@@ -36,6 +36,12 @@ namespace ProductCataLog.Lib.Repository.Account
             }
             return accountLoginViewModel;
         }
+        public DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy, string varSystemIP, string varSystemName, string chrFlag)
+        {
+            Account_DA accountDA = new Account_DA();
+            return  accountDA.InsertUpdate_LoginDetails(intGlCode, ref_EntryBy, varSystemIP, varSystemName, chrFlag);
+        }
+      
         #endregion
 
         #region Login Master

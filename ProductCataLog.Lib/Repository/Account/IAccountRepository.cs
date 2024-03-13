@@ -9,7 +9,7 @@ namespace ProductCataLog.Lib.Repository.Account
     {
         #region Login
         AccountLoginViewModel CheckAuthentication(AccountLoginViewModel accountLoginViewModel);
-
+        DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy,string varSystemIP, string varSystemName, string chrFlag);
         #endregion
 
         #region Login Master
