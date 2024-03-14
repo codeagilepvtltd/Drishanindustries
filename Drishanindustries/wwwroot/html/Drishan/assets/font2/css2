@@ -1,0 +1,14 @@
+﻿@font-face {
+  font-family: 'Monda';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../font2/s/monda/v16/TK3tWkYFABsmjvpm.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Monda';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../font2/s/monda/v16/TK3gWkYFABsmjsLaGz8D.ttf) format('truetype');
+}

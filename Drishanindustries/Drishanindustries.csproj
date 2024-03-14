@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\FrontEnd\" />
     <Folder Include="wwwroot\UploadFiles\product\Images\" />
     <Folder Include="wwwroot\UploadFiles\product\document\" />
   </ItemGroup>
