@@ -1,0 +1,21 @@
+﻿@model ProductCataLog.Lib.ViewModels.BannerViewModel
+<section class="banner-section">
+    <div class="line-box">
+        <div class="line-1"></div>
+        <div class="line-2"></div>
+    </div>
+    <div class="banner-carousel owl-theme owl-carousel">
+        @foreach (Gallery_Mapping gallery_Mapping in Model.gallery_mapping)
+        {
+            <div class="slide-item">
+                <div class="image-layer" style="background-image:url(@gallery_Mapping.varGalleryPath)"></div>
+                <div class="">
+                    <div class="content-box">
+                        <!-- <span class="special-text animation_text_word"></span> -->
+                        <h2>@gallery_Mapping.varTitle</h2>
+                    </div>
+                </div>
+            </div>
+        }        
+    </div>
+</section>

@@ -122,12 +122,12 @@ namespace Drishanindustries.Controllers
         #endregion        
 
         #region Blogs
-        public IActionResult Blogs()
+        public IActionResult Content()
         {
             ViewBag.Message = TempData["Message"];
             ViewBag.MessageType = TempData["MessageType"];
 
-            return View("Admin/Blogs");
+            return View("Admin/Content");
         }
 
         private string UploadedFile(GalleryMappingViewModel model, string RootFolder)
@@ -172,7 +172,7 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Blog.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Content.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
@@ -186,8 +186,8 @@ namespace Drishanindustries.Controllers
             try
             {                
                 galleyView.Gallery_Mapping.CTM_intGlCode = galleyView.Gallery_Mapping.CTM_intGlCode;
-                galleyView.Gallery_Mapping.varGalleryType = galleyView.Gallery_Mapping.CTM_varContentType;
-                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/blog/");
+                galleyView.Gallery_Mapping.varGalleryType = galleyView.Gallery_Mapping.varGalleryType;
+                galleyView.Gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/content/");
                 if (!string.IsNullOrEmpty(galleyView.Gallery_Mapping.varGalleryPath))
                 {
                     galleyView.Gallery_Mapping.varGalleryName = Path.GetFileName(galleyView.Gallery_Mapping.varGalleryPath);
@@ -201,20 +201,20 @@ namespace Drishanindustries.Controllers
 
                 if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
                 {
-                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, PageNames.Blog.ToString());
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, PageNames.Content.ToString());
                     TempData["MessageType"] = "Success";
                 }
                 else
                 {
-                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, PageNames.Blog.ToString());
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, PageNames.Content.ToString());
                     TempData["MessageType"] = "Error";                   
                 }
-                return RedirectToAction(nameof(Blogs));
+                return RedirectToAction(nameof(Content));
             }
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Blog.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Content.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 return Content(JsonConvert.SerializeObject(0));
             }
@@ -236,19 +236,13 @@ namespace Drishanindustries.Controllers
             catch (Exception ex)
             {
                 SQLHelper.writeException(ex);
-                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Blog.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.Content.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
 
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("ErrorForbidden", "Account");
             }
         }
 
-        //[NonAction]
-        //private ContentType_Master ContentType(ProductCataLog.Lib.Common.ContentType contentType)
-        //{
-        //    ContentTypeViewModel ContentType_Master = new ContentTypeViewModel();
-        //    return utilityRepository.GetContentTypeMasterList(0).Where(p => p.varContentType == contentType.ToString()).SingleOrDefault();
-        //}
         #endregion
     }
 }

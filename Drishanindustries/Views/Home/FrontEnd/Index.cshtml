@@ -4,192 +4,23 @@
     ViewData["Title"] = Drishanindustries.Common.Common.AppName;
     Layout = "~/Views/Shared/_FrontLayout.cshtml";
 }
-<section class="case-section">
-    <div class="auto-container">
-        <div class="sec-title">
-            <!-- <span class="sub-title">Case Studies</span> -->
-            <h2>Featured Products</h2>
-        </div>
-    </div>
-    <div class="outer-container border-top">
-        <div class="case-carousel owl-carousel owl-theme">
-            <div class="case-block-one">
-                <div class="inner-box">
-                    <div class="image-box">
-                        <figure class="image"><img src="~/css/FrontEnd/images/case/case-1.jpg" alt=""></figure>
-                        <div class="view-btn"><a href="~/css/FrontEnd/images/case/case-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
-                    </div>
-                    <div class="lower-content centred">
-                        <h3><a href="project-details.html">PETROCHEMICALS</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="case-block-one">
-                <div class="inner-box">
-
-                    <div class="image-box">
-                        <figure class="image"><img src="~/css/FrontEnd/images/case/case-2.jpg" alt=" "></figure>
-                        <div class="view-btn"><a href="~/css/FrontEnd/images/case/case-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
-                    </div>
-                    <div class="lower-content centred">
-                        <h3><a href="project-details.html">OLEO CHEM</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="case-block-one">
-                <div class="inner-box">
-
-                    <div class="image-box">
-                        <figure class="image"><img src="~/css/FrontEnd/images/case/case-3.jpg" alt=""></figure>
-                        <div class="view-btn"><a href="~/css/FrontEnd/images/case/case-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
-                    </div>
-                    <div class="lower-content centred">
-                        <h3><a href="project-details.html">AGRI PRODUCTS</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="case-block-one">
-                <div class="inner-box">
-
-                    <div class="image-box">
-                        <figure class="image"><img src="~/css/FrontEnd/images/case/case-4.jpg" alt=""></figure>
-                        <div class="view-btn"><a href="~/css/FrontEnd/images/case/case-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
-                    </div>
-                    <div class="lower-content centred">
-                        <h3><a href="project-details.html">ROCKS & METALS</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="case-block-one">
-                <div class="inner-box">
-
-                    <div class="image-box">
-                        <figure class="image"><img src="~/css/FrontEnd/images/case/case-1.jpg" alt=""></figure>
-                        <div class="view-btn"><a href="~/css/FrontEnd/images/case/case-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
-                    </div>
-                    <div class="lower-content centred">
-                        <h3><a href="project-details.html">PETROCHEMICALS</a></h3>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+@await Component.InvokeAsync("FeaturedProductsComponent", "FeaturedProducts")
 <!-- case-section end -->
 <!-- service-section -->
-<section class="service-style-two sec-pad border-top border-bottom">
-    <div class="line-box">
-        <div class="line line-1"></div>
-        <div class="line line-2"></div>
-        <div class="line line-3"></div>
-        <div class="line line-4"></div>
-    </div>
-    <div class="container-fluid px-5">
-        <div class="sec-title centred">
-          @*   <span class="sub-title">Services</span> *@
-            <h2>Our Services</h2>
-        </div>
-        <div class="row clearfix">
-            <div class="col-lg-3 col-md-6 col-sm-12 service-block">
-                <div class="service-block-two wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><img src="~/css/FrontEnd/images/service/service-4.jpg" alt=""></figure>
-                            <div class="icon-box"><i class="flaticon-machinery"></i></div>
-                            <h2>Machino</h2>
-                            <h3><a href="service-details.html">OFF SHORE CONSULTING</a></h3>
-                        </div>
-                        <div class="lower-content">
-                            <p>Our nation is at war our economy turmoil promise obligations business.</p>
-                            <div class="btn-box">
-                                <a href="service-details.html"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 service-block">
-                <div class="service-block-two wow fadeInUp animated animated" data-wow-delay="300ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 300ms; animation-name: fadeInUp;">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><img src="~/css/FrontEnd/images/service/service-5.jpg" alt=""></figure>
-                            <div class="icon-box"><i class="flaticon-laser"></i></div>
-                            <h2>Machino</h2>
-                            <h3><a href="service-details.html">FREE TRADE WARHOUSING SERVICE</a></h3>
-                        </div>
-                        <div class="lower-content">
-                            <p>A faith in simple dream an insistence of those defining moments.</p>
-                            <div class="btn-box">
-                                <a href="service-details.html"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 service-block">
-                <div class="service-block-two wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><img src="~/css/FrontEnd/images/service/service-6.jpg" alt=""></figure>
-                            <div class="icon-box"><i class="flaticon-tube-bending"></i></div>
-                            <h2>Machino</h2>
-                            <h3><a href="service-details.html">LEASING OF INDUSTRIAL EQUIPMENT</a></h3>
-                        </div>
-                        <div class="lower-content">
-                            <p>Those options are already baked in with this model shoot me clear.</p>
-                            <div class="btn-box">
-                                <a href="service-details.html"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 service-block">
-                <div class="service-block-two wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><img src="~/css/FrontEnd/images/service/service-7.jpg" alt=""></figure>
-                            <div class="icon-box"><i class="flaticon-tube-bending"></i></div>
-                            <h2>Machino</h2>
-                            <h3><a href="service-details.html">TOTAL SUPPLY CHAIN SOLUTIONS</a></h3>
-                        </div>
-                        <div class="lower-content">
-                            <p>Those options are already baked in with this model shoot me clear.</p>
-                            <div class="btn-box">
-                                <a href="service-details.html"><span>More Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@await Component.InvokeAsync("OurServicesComponent", "OurServices")
 <!-- service-section end -->
 <!-- clients-section -->
-<section class="clients-section bg-color-1">
-    <div class="auto-container">
-        <div class="five-item-carousel owl-carousel owl-theme owl-nav-none owl-dots-none">
-            <figure class="clients-logo"><a href="index.html"><img src="~/css/FrontEnd/images/clients/clients-1.png" alt=""></a></figure>
-            <figure class="clients-logo"><a href="index.html"><img src="~/css/FrontEnd/images/clients/clients-2.png" alt=""></a></figure>
-            <figure class="clients-logo"><a href="index.html"><img src="~/css/FrontEnd/images/clients/clients-3.png" alt=""></a></figure>
-            <figure class="clients-logo"><a href="index.html"><img src="~/css/FrontEnd/images/clients/clients-4.png" alt=""></a></figure>
-            <figure class="clients-logo"><a href="index.html"><img src="~/css/FrontEnd/images/clients/clients-5.png" alt=""></a></figure>
-        </div>
-    </div>
-</section>
+@await Component.InvokeAsync("OurClientsComponent", "OurClients")
+
 <!-- clients-section end -->
 <!-- video-section -->
 <section class="video-section">
-    <div class="bg-layer" style="background-image: url(~/css/FrontEnd/images/background/video-bg.jpg);"></div>
+    <div class="bg-layer" style="background-image: url(css/FrontEnd/images/background/video-bg.jpg);"></div>
     <div class="auto-container">
         <div class="sec-title light">
             <!-- <span class="sub-title">produce the best</span> -->
             <h2>" Touch The Sky With Glory "</h2>
-
         </div>
-
     </div>
 </section>
 <!-- video-section end -->

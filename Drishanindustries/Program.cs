@@ -42,8 +42,6 @@ builder.Services.Configure<CookieTempDataProviderOptions>(options =>
     options.Cookie.IsEssential = true;
 });
 
-
-
 var app = builder.Build();
 SQLHelper.InitializeConfiguration(app.Configuration);
 

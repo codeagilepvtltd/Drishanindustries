@@ -15,7 +15,7 @@ namespace ProductCataLog.Lib.Common
     public enum PageNames
     {
         Login,
-        Blog,
+        Content,
         News,
         ProductContent,
         ProductInquiry,
@@ -57,6 +57,9 @@ namespace ProductCataLog.Lib.Common
         Video,
         Blogs,
         News,
+        Banner,
+        Services,
+        Clients
     }
     public class Common_Messages
     {

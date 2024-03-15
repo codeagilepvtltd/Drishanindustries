@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\CommonFieldModels.cs" />
     <Compile Include="ViewModels\ConfigDetailsModels.cs" />
     <Compile Include="ViewModels\DashboardModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
     <Compile Include="ViewModels\ReportsModel.cs" />
   </ItemGroup>
