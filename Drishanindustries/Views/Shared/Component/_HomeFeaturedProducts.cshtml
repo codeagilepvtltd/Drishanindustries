@@ -1,0 +1,28 @@
+﻿@model ProductCataLog.Lib.ViewModels.FeturedProductViewModel
+<section class="case-section">
+    <div class="auto-container">
+        <div class="sec-title">
+            <!-- <span class="sub-title">Case Studies</span> -->
+            <h2>Featured Products</h2>
+        </div>
+    </div>
+    <div class="outer-container border-top">
+        <div class="case-carousel owl-carousel owl-theme">
+            @foreach (Gallery_Mapping featuredProducts in Model.featuredProducts)
+            {
+                <div class="case-block-one">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><img src="@featuredProducts.varGalleryPath" alt=""></figure>
+                            <div class="view-btn"><a href="@featuredProducts.varGalleryPath" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
+                        </div>
+                        <div class="lower-content centred">
+                            <h3><a asp-controller="Products" asp-action="GetProducts">@featuredProducts.varProductName</a></h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

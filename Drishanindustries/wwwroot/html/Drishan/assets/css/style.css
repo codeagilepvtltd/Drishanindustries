@@ -1719,6 +1719,8 @@ div#mCSB_1_container{
   position: relative;
   padding: 210px 0px 120px 0px;
   height: 930px;
+  display: flex;
+    align-items: center;
 }
   
 .banner-carousel .slide-item:before{
@@ -1761,8 +1763,9 @@ div#mCSB_1_container{
 .banner-carousel .content-box{
   position: relative;
   width: 100%;
-  margin-left: 200px;
+  margin-left: 50px;
   z-index: 5;
+  margin-top: 150px;
 }
 
 .banner-carousel .content-box .special-text{
@@ -1782,8 +1785,8 @@ div#mCSB_1_container{
 .banner-carousel .content-box h2{
   position: relative;
   display: block;
-  font-size: 100px;
-  line-height: 110px;
+  font-size: 70px;
+  line-height: 80px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 32px;
@@ -1944,6 +1947,7 @@ div#mCSB_1_container{
   width: 105px;
   min-height: 40px;
   counter-reset: slides-num;
+  display: none;
 }
 
 .banner-carousel .owl-dots::after {
@@ -3487,6 +3491,7 @@ div#mCSB_1_container{
   text-align: right;
   counter-reset: slides-num;
   margin: 0 auto;
+  display: none;
 }
 
 .case-section .owl-dots::after {
@@ -14726,7 +14731,13 @@ div#mCSB_1_container{
 
 
 
+.nav-menu svg {
 
+  width: 18px;
+  fill: white;
+  position: relative;
+  top: -2px;
+}
 
 
 

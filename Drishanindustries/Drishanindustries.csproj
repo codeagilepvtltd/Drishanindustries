@@ -24,4 +24,37 @@
     <Folder Include="wwwroot\UploadFiles\product\document\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\html\Drishan\assets\font2\css2" />
+    <None Include="wwwroot\html\Drishan\assets\font2\css2-1" />
+    <None Include="wwwroot\html\Drishan\assets\font2\css2-2" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\fa-v4compatibility.woff2" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\flaticon.svg" />
+    <None Include="wwwroot\html\Drishan\assets\fonts\flaticon.woff2" />
+    <None Include="wwwroot\html\Drishan\assets\js\appear.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\bxslider.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\gmaps.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\isotope.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery-ui.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.bootstrap-touchspin.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.circleType.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.fancybox.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.lettering.min.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\map-helper.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\owl.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\popper.min.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\script.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\scrollbar.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\text_animation.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\text_plugins.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\validation.js" />
+    <None Include="wwwroot\html\Drishan\assets\js\wow.js" />
+  </ItemGroup>
+
 </Project>

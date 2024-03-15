@@ -18,19 +18,22 @@ function uploadFiles(inputId) {
 }
 function ValidateData() {
 
+    debugger;
     var chrActive = $("#chkStatus").prop('checked');
     $("#chrActive").val(chrActive == false ? 'InActive' : 'Active');
 
     var ddlContentType = $("#ddlContentTypeList").dxSelectBox('instance').option('value');
+    var ddlContentTypeText = $("#ddlContentTypeList").dxSelectBox('instance').option('text');
     if (ddlContentType == undefined || ddlContentType == null || ddlContentType == '' || ddlContentType == '0') {
         PopUpMessage('Please Select Content type.', "fa fa-exclamation-circle popup_icon");
         $("#ddlContentTypeList").focus();
         return false;
     }
     $("#fk_ContentTypeID").val(ddlContentType);
-    
+    $("#varGalleryType").val(ddlContentTypeText);
+
     if ($("#txtImagetitle").val() == "") {
-        PopUpMessage("Please Enter Blog Title.", "fa fa-exclamation-circle popup_icon");
+        PopUpMessage("Please Enter Title.", "fa fa-exclamation-circle popup_icon");
         $("#txtImagetitle").focus();
         return false;
     }

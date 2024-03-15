@@ -1,0 +1,42 @@
+﻿@model ProductCataLog.Lib.ViewModels.OurServicesViewModel
+
+<section class="service-style-two sec-pad border-top border-bottom">
+    <div class="line-box">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="line line-4"></div>
+    </div>
+    <div class="container-fluid px-5">
+        <div class="sec-title centred">
+            @*   <span class="sub-title">Services</span> *@
+            <h2>Our Services</h2>
+        </div>
+        <div class="row clearfix">
+            @foreach (Gallery_Mapping our_service in Model.our_services)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-12 service-block">
+                    <div class="service-block-two wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="@our_service.varGalleryPath" alt=""></figure>
+                                <div class="icon-box"><i class="flaticon-machinery"></i></div>
+                                <h2>Machino</h2>
+                                <h3><a href="service-details.html">@our_service.varTitle</a></h3>
+                            </div>
+                            <div class="lower-content">
+                                <p>@our_service.varShortDescription</p>
+                                <div class="btn-box">
+                                    <a href="service-details.html"><span>More Details</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
