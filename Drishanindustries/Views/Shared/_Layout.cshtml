@@ -45,7 +45,6 @@
     <link href="~/css/admin/ruang-admin.css" rel="stylesheet">
     <link href="~/lib/vendor/fancybox/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
 </head>
-
 <body id="page-top">
     <div id="wrapper">
         <!-- Sidebar -->
@@ -62,7 +61,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li> 
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 Features
@@ -156,7 +155,7 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>
-                    Copyright &copy; @DateTime.Now.Year - <b><a href="http://drishanindustries.com" target="_blank">Drishan Industries</a></b>
+                    Copyright &copy; @DateTime.Now.Year - <b><a href="@Drishanindustries.Common.Common.AppUrl.ToString()" target="_blank">@Drishanindustries.Common.Common.AppName.ToString()</a></b>
                 </span>
             </div>
         </div>
@@ -191,7 +190,6 @@
     <script src="~/css/admin/vendor/chart.js/Chart.min.js"></script>
     <script src="~/js/admin/demo/chart-area-demo.js"></script>
     <link href="~/lib/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
     @RenderSection("scripts", required: false)
 
     <script>
