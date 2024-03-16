@@ -12,6 +12,9 @@
         <div class="col-lg-12">
             <!-- Form Basic -->
             <div class="card mb-6">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Product Entry</h6>
+                </div>
                 <div class="card-body">
                     <form class="needs-validation" method="post" id="frmProductDetail" novalidate>
                         <div class="form-group row">
@@ -148,13 +151,13 @@
 
                             });
                             columns.Add().DataField("intGiCode").Caption("Add Product Image").CellTemplate(new JS("cellTemplate"));
-                            columns.Add().DataField("varProductCode").Caption("Product Code");
+                            columns.Add().DataField("varCatergoryName").Caption("Category Name");
                             columns.Add().DataField("varProductCode").Caption("Product Code");
                             columns.Add().DataField("varProductName").Caption("Product Name");
                             columns.Add().DataField("varShortDescription").Caption("Short Description");
                             columns.Add().DataField("decDisplayPrice").Caption("Display Price");
-                            columns.Add().DataField("varCatergoryName").Caption("Category Name");
-                            columns.Add().DataField("varCatergoryCode").Caption("Category Code");
+                            columns.Add().DataField("RankNumber").Caption("Rank");
+                            columns.Add().DataField("ShowOnHomePage").Caption("HomePage");
                             columns.Add().DataField("chrActive").Caption("Status");
                             columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
                         })
@@ -205,7 +208,7 @@
         });
         function cellTemplate(element, cellInfo) {
             $('<a/>')
-                .attr({ href: '@Url.RouteUrl("default", new { action = "ProductContentMaster", controller = "Product" })' + `?id=${cellInfo.data.intGiCode}` })
+                .attr({ href: '@Url.RouteUrl("default", new { action = "ProductContentMaster", controller = "Product" })' + `?href=${cellInfo.data.intGiCode}` })
                 .text("Add Product Image")
                 .appendTo(element);
         }
