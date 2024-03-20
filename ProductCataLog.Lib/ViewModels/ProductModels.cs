@@ -29,4 +29,15 @@ namespace ProductCataLog.Lib.ViewModels
         public Gallery_Mapping gallery_Mapping { get; set; }
         public List<Gallery_Mapping> gallery_Mappings { get; set; }
     }
+
+    public class RelatedProductViewModel
+    {
+        public Product_Master product_master { get; set; }
+        public List<Product_Master> product_masters { get; set; }
+
+        public Related_Products Related_Product { get; set; }
+        public List<Related_Products> Related_Products { get; set; }
+
+    }
+
 }

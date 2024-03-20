@@ -259,5 +259,57 @@ namespace ProductCataLog.Lib.Repository.Product
             }
         }
         #endregion
+
+        #region Product
+        public List<Related_Products> GetRelatedProductList(int intGlCode = 0)
+        {
+            Product_DA ProductDA = new Product_DA();
+            List<Related_Products> RelatedProduct_Masters = new List<Related_Products>();
+
+            try
+            {
+                DataSet dsResult = ProductDA.GetRelatedProductList(intGlCode);
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    RelatedProduct_Masters = dsResult.Tables[0].AsEnumerable().Select(row => new Related_Products()
+                    {
+                        intGICode = row.Field<int>("intGICode"),
+                        ref_OriginalProductID = row.Field<int>("ref_OriginalProductID"),
+                        ref_RelatedProductID = row.Field<int>("ref_RelatedProductID"),
+                        ProductCode = row.Field<string>("ProductCode"),
+                        ProductName = row.Field<string>("ProductName"),
+                        RelatedProductCode = row.Field<string>("RelatedProductCode"),
+                        RelatedProductName = row.Field<string>("RelatedProductName"),                       
+                        charActive = row.Field<string>("chrActive"),
+                        dtEntryDate = row.Field<DateTime>("dtEntryDate"),                     
+                        ref_EntryBy = row.Field<long>("ref_EntryBy")
+
+                    }).ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return RelatedProduct_Masters;
+        }
+
+        public DataSet InsertUpdate_RelatedProduct(RelatedProductViewModel relatedProductViewModel)
+        {
+            Product_DA ProductDA = new Product_DA();
+            try
+            {
+                return ProductDA.InsertUpdate_RelatedProduct(relatedProductViewModel);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
