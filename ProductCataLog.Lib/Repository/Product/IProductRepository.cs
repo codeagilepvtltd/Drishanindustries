@@ -34,5 +34,11 @@ namespace ProductCataLog.Lib.Repository.Product
         List<Inquiry_Details> GetProductInquiryList(int intGlCode = 0);
         DataSet Update_productInquiry(ProductInquiryReportViewModel productinquiryViewModel);
         #endregion
+
+        #region RelatedProduct
+        List<Related_Products> GetRelatedProductList(int intGlCode = 0);
+
+        DataSet InsertUpdate_RelatedProduct(RelatedProductViewModel relatedProductViewModel);
+        #endregion
     }
 }

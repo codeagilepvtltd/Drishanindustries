@@ -24,7 +24,8 @@ namespace ProductCataLog.Lib.Common
         Dashboard,
         Category,
         Products,
-        Config
+        Config,
+        RelatedProduct
     }
     public enum StoredProcedures
     {
@@ -48,7 +49,9 @@ namespace ProductCataLog.Lib.Common
         USP_InsertUpdate_GalleryMapping,
         USP_InsertUpdate_LoginDetails,
         USP_Select_ProductInquiryListUpdate,
-        USP_Update_InquiryDetails
+        USP_Update_InquiryDetails,
+        USP_Select_RelatedProductList,
+        USP_InsertUpdate_Related_Product_Master
     }
     public enum ContentType
     {

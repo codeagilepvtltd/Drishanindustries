@@ -383,5 +383,93 @@ namespace Drishanindustries.Controllers
             }
         }
         #endregion
+
+        #region RelatedProduct
+        public IActionResult RelatedProduct()
+        {
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
+            return View("Admin/RelatedProduct");
+        }
+
+        public IActionResult GetRelatedProductListMaster(int intGlCode = 0, int ProductId = 0)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            if (sessionManager.SelectedProductId > 0)
+                intGlCode = sessionManager.SelectedProductId;
+
+            ProductMasterViewModel Product_Master = new ProductMasterViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                Product_Master.product_masters = productRepository.GetProductList(intGlCode).Where(x => x.intGiCode != ProductId).ToList();
+                var resultJson = JsonConvert.SerializeObject(Product_Master.product_masters);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.RelatedProduct.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        public IActionResult GetRelatedProductList(int intGlCode = 0)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            
+            RelatedProductViewModel Related_Product = new RelatedProductViewModel();
+            DataSet dsResult = new DataSet();
+            try
+            {
+                Related_Product.Related_Products = productRepository.GetRelatedProductList(intGlCode);
+                var resultJson = JsonConvert.SerializeObject(Related_Product.Related_Products);
+                return Content(resultJson, "application/json");
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.RelatedProduct.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save_RelatedProduct(RelatedProductViewModel relatedproductViewModel)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                relatedproductViewModel.Related_Product.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
+                relatedproductViewModel.Related_Product.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
+                
+                DataSet result = productRepository.InsertUpdate_RelatedProduct(relatedproductViewModel);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["Message"] = string.Format(Common_Messages.Save_Success_Message, PageNames.RelatedProduct.ToString());
+                    TempData["MessageType"] = "Success";
+                }
+                else
+                {
+                    TempData["Message"] = string.Format(Common_Messages.Save_Failed_Message, PageNames.RelatedProduct.ToString());
+                    TempData["MessageType"] = "Error";
+                }
+                return RedirectToAction(nameof(RelatedProduct));
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.RelatedProduct.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }
+        #endregion
     }
 }

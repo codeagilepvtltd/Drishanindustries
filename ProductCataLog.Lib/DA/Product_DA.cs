@@ -182,5 +182,43 @@ namespace ProductCataLog.Lib.DA
             }
 
         }
+
+        public DataSet GetRelatedProductList(int intGlCode = 0)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGICode" };
+            object[] objParamValue = { intGlCode };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_RelatedProductList, objParamName,objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+
+        public DataSet InsertUpdate_RelatedProduct(RelatedProductViewModel relatedProductViewModel)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGICode", "ref_OriginalProductID", "ref_RelatedProductID", "chrActive", "ref_EntryBy",
+                "ref_UpdateBy" };
+            object[] objParamValue = { relatedProductViewModel.Related_Product.intGICode, relatedProductViewModel.Related_Product.ref_OriginalProductID,
+            relatedProductViewModel.Related_Product.ref_RelatedProductID,relatedProductViewModel.Related_Product.charActive,
+            relatedProductViewModel.Related_Product.ref_EntryBy, relatedProductViewModel.Related_Product.ref_UpdateBy};
+
+            try
+            {
+                return SQLHelper.GetData(StoredProcedures.USP_InsertUpdate_Related_Product_Master, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }
