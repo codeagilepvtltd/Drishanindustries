@@ -31,7 +31,7 @@ namespace Drishanindustries.Controllers
             moduleErrorLogRepository = _moduleErrorLogRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult ContactUs()
         {
             return View("Admin/ContactUs");
         }
