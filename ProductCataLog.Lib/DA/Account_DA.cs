@@ -14,19 +14,37 @@ namespace ProductCataLog.Lib.DA
         {
             sqlQuery = new StringBuilder();
             object[] objParamName = { "varUserID", "varPassword" };
-            object[] objParamValue = { UserId, Password};
+            object[] objParamValue = { UserId, Password };
 
             try
             {
                 resultSet = SQLHelper.GetData(StoredProcedures.USP_Check_Login, objParamName, objParamValue);
             }
-            catch 
+            catch
             {
                 throw;
             }
             return resultSet;
 
         }
+        public DataSet Select_MenuMasterList(string chrMenuType)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "chrMenuType" };
+            object[] objParamValue = { chrMenuType };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_MenuMasterList, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
+
         public DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel)
         {
             sqlQuery = new StringBuilder();
@@ -64,11 +82,11 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy,  string varSystemIP, string varSystemName, string chrFlag)
+        public DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy, string varSystemIP, string varSystemName, string chrFlag)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode", "ref_EntryBy","varSystemIP", "varSystemName", "chrFlag" };
-            object[] objParamValue = { intGlCode, ref_EntryBy,  varSystemIP, varSystemName, chrFlag };
+            object[] objParamName = { "intGlCode", "ref_EntryBy", "varSystemIP", "varSystemName", "chrFlag" };
+            object[] objParamValue = { intGlCode, ref_EntryBy, varSystemIP, varSystemName, chrFlag };
 
             try
             {
@@ -80,6 +98,6 @@ namespace ProductCataLog.Lib.DA
             }
             return resultSet;
         }
-        
+
     }
 }

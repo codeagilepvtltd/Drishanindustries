@@ -23,8 +23,6 @@ namespace Drishanindustries.Controllers
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IModuleErrorLogRepository moduleErrorLogRepository;
         // GET: Controller
-
-
         public AccountController(IAccountRepository _accountRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
         {
             accountRepository = _accountRepository;
@@ -37,7 +35,6 @@ namespace Drishanindustries.Controllers
         {
             return View("Admin/Login");
         }
-
 
         [SessionTimeout]
         public async Task<ActionResult> Logout()
@@ -158,7 +155,6 @@ namespace Drishanindustries.Controllers
         {
             return View("Admin/Users");
         }
-
         public IActionResult GetLoginMasterList()
         {
 

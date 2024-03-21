@@ -1,4 +1,5 @@
-﻿using ProductCataLog.Lib.DA;
+﻿using Microsoft.Identity.Client;
+using ProductCataLog.Lib.DA;
 using ProductCataLog.Lib.Models;
 using ProductCataLog.Lib.ViewModels;
 using System;
@@ -39,9 +40,9 @@ namespace ProductCataLog.Lib.Repository.Account
         public DataSet InsertUpdate_LoginDetails(int intGlCode, int ref_EntryBy, string varSystemIP, string varSystemName, string chrFlag)
         {
             Account_DA accountDA = new Account_DA();
-            return  accountDA.InsertUpdate_LoginDetails(intGlCode, ref_EntryBy, varSystemIP, varSystemName, chrFlag);
+            return accountDA.InsertUpdate_LoginDetails(intGlCode, ref_EntryBy, varSystemIP, varSystemName, chrFlag);
         }
-      
+
         #endregion
 
         #region Login Master
@@ -76,7 +77,7 @@ namespace ProductCataLog.Lib.Repository.Account
                         varMobileNo = row.Field<string>("varMobileNo"),
                         varEmailID = row.Field<string>("varEmailID"),
                         varPassword = row.Field<string>("varPassword"),
-                        chrLock = row.Field<string>("chrLock"),                        
+                        chrLock = row.Field<string>("chrLock"),
                         chrActive = row.Field<string>("chrActive"),
                         dtEntryDate = row.Field<DateTime?>("dtEntryDate"),
                         ref_EntryBy = row.Field<long?>("ref_EntryBy"),
@@ -94,6 +95,24 @@ namespace ProductCataLog.Lib.Repository.Account
             }
         }
 
+        #endregion
+
+        #region Menu Master
+        public DataSet Select_MenuMasterList(string chrMenuType)
+        {
+            Account_DA account_DA = new Account_DA();
+            AdminMenuViewModel adminMenuViewModel = new AdminMenuViewModel();
+            adminMenuViewModel.AdminHtmlString = string.Empty;
+
+            try
+            {
+                return  account_DA.Select_MenuMasterList(chrMenuType);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }

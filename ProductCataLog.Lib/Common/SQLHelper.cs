@@ -49,7 +49,8 @@ namespace ProductCataLog.Lib.Common
         USP_InsertUpdate_LoginDetails,
         USP_Select_ProductInquiryListUpdate,
         USP_Update_InquiryDetails,
-        USP_Select_DashboardSummary
+        USP_Select_DashboardSummary,
+        USP_Select_MenuMasterList
     }
     public enum ContentType
     {
