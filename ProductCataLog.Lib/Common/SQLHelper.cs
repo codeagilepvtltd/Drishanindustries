@@ -51,8 +51,7 @@ namespace ProductCataLog.Lib.Common
         USP_Select_ProductInquiryListUpdate,
         USP_Update_InquiryDetails,
         USP_Select_RelatedProductList,
-        USP_InsertUpdate_Related_Product_Master
-        USP_Update_InquiryDetails,
+        USP_InsertUpdate_Related_Product_Master,
         USP_Select_DashboardSummary,
         USP_Select_MenuMasterList
     }
