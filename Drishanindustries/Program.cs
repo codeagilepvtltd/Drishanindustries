@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
+builder.Services.AddSingleton<IDashboardRepository, DashboardRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<IReportsRepository, ReportsRepository>();
 builder.Services.AddSingleton<IUtilityRepository, UtilityRepository>();

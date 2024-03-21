@@ -159,6 +159,7 @@
     <Compile Include="DA\Account_DA.cs" />
     <Compile Include="DA\Blogs_DA.cs" />
     <Compile Include="DA\Config_DA.cs" />
+    <Compile Include="DA\Dashboard_DA.cs" />
     <Compile Include="DA\ModuleErrorLogDA.cs" />
     <Compile Include="DA\Product_DA.cs" />
     <Compile Include="DA\Reports_DA.cs" />
@@ -206,6 +207,8 @@
     <Compile Include="Repository\Account\IAccountRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\IModuleErrorLogRepository.cs" />
     <Compile Include="Repository\ModuleErrorLog\ModuleErrorLogRepository.cs" />
+    <Compile Include="Repository\Dashboard\IDashboardRepository.cs" />
+    <Compile Include="Repository\Dashboard\DashboardRepository.cs" />
     <Compile Include="Repository\Product\IProductRepository.cs" />
     <Compile Include="Repository\Product\ProductRepository.cs" />
     <Compile Include="Repository\Reports\IReportsRepository.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="ViewModels\CommonFieldModels.cs" />
     <Compile Include="ViewModels\ConfigDetailsModels.cs" />
     <Compile Include="ViewModels\DashboardModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
     <Compile Include="ViewModels\ReportsModel.cs" />

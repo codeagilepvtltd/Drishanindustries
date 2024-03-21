@@ -24,7 +24,6 @@ namespace Drishanindustries.Controllers
 
         // GET: Controller
 
-
         public UtilityController(IWebHostEnvironment webHostEnvironment, IUtilityRepository _utilityRepository, IModuleErrorLogRepository _moduleErrorLogRepository, IHttpContextAccessor _httpContextAccessor)
         {
             _webHostEnvironment = webHostEnvironment;
