@@ -15,6 +15,7 @@ namespace ProductCataLog.Lib.Common
     public enum PageNames
     {
         Login,
+        ChangePassword,
         Content,
         News,
         ProductContent,
@@ -53,7 +54,8 @@ namespace ProductCataLog.Lib.Common
         USP_Select_RelatedProductList,
         USP_InsertUpdate_Related_Product_Master,
         USP_Select_DashboardSummary,
-        USP_Select_MenuMasterList
+        USP_Select_MenuMasterList,
+        USP_Update_ChangePassword
     }
     public enum ContentType
     {

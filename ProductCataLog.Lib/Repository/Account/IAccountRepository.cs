@@ -21,9 +21,12 @@ namespace ProductCataLog.Lib.Repository.Account
 
         #region Menu Master
         DataSet Select_MenuMasterList(string chrMenuType);
-        
+
         #endregion
 
+        #region Change Password
+        DataSet Update_Password(ChangePasswordViewModel changePasswordViewModel);
 
+        #endregion
     }
 }

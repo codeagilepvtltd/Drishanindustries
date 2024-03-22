@@ -50,8 +50,7 @@ namespace Drishanindustries.Components
 
                 if (ref_ParentPageID == 0)
                 {
-
-                    sbContent.Append("<li class=\"nav-item\"><a class=\"nav-link collapsed\" href=\"#\" data-toggle=\"collapse\" data-target=\"#collapse" + varDisplayName + "\" aria-expanded=\"true\" aria-controls=\"collapse" + varDisplayName + "\"> <i class=\"" + IconPath + "\"></i><span>" + varDisplayName + "</span></a>");
+                    sbContent.Append("<li class=\"nav-item\"><a class=\"nav-link collapsed\" href=\"#\" data-toggle=\"collapse\" data-target=\"#collapse" + varDisplayName + "\" aria-expanded=\"true\" aria-controls=\"collapse" + varDisplayName + "\"> <i class=\"" + IconPath + "\"></i><span style='margin-left:7px'>" + varDisplayName + "</span></a>");
                     if (controllername?.ToLower() == varControllerName?.ToLower())
                         sbContent.Append("<div id = \"collapse" + varDisplayName + "\" class=\"collapse show\" aria-labelledby=\"headingBootstrap\" data-parent=\"#accordionSidebar\">");
                     else
@@ -67,16 +66,12 @@ namespace Drishanindustries.Components
                 else
                 {
                     string? PageTitle = Convert.ToString(ViewData["Title"]).Split('-')[1].Trim().ToLower().Replace(" ", "");
-
+                    string activeclass = "";
                     if (PageTitle == varDisplayName.Trim().ToLower().Replace(" ", ""))
                     {
-                        sbContent.Append("<a class=\"collapse-item active\" href=\"" + UrlName + "\">" + varDisplayName + "</a>");
+                        activeclass = "active";
                     }
-                    else
-
-                    {
-                        sbContent.Append("<a class=\"collapse-item\" href=\"" + UrlName + "\">" + varDisplayName + "</a>");
-                    }
+                        sbContent.Append("<a class=\"collapse-item " + activeclass+"\" href=\"" + UrlName + "\"><i class=\"" + IconPath +"\" ></i><span style='margin-left:10px'>"+ varDisplayName + "</span></a>");
                 }
             }
             sbContent.Append("</div></div>");
