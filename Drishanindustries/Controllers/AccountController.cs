@@ -116,7 +116,7 @@ namespace Drishanindustries.Controllers
                     /*Set Session*/
                     sessionManager.IntGlCode = accountLoginView.LoginMaster.intGlCode;
                     sessionManager.UserName = accountLoginView.LoginMaster.varUserName;
-
+                    sessionManager.Password = accountLoginViewModel.LoginMaster.varPassword;
                     var IPAddressHostName = (Common_Functions.GetSystemIP()).Split(' ');
                     string IPAddress = IPAddressHostName[0].ToString();
                     string systemName = IPAddressHostName[1].ToString();
@@ -217,6 +217,56 @@ namespace Drishanindustries.Controllers
         }
         #endregion
 
+        #region Change Password
+        public ActionResult ChangePassword()
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+            try
+            {
+                ChangePasswordViewModel changePasswordViewModel = new ChangePasswordViewModel();
+                changePasswordViewModel.Password = sessionManager.Password;
+                changePasswordViewModel.UserName = sessionManager.UserName;
+                changePasswordViewModel.intGlCode = sessionManager.IntGlCode;
+                return View("Admin/ChangePassword", changePasswordViewModel);
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ChangePassword.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                DataSet result = accountRepository.Update_Password(changePasswordViewModel);
+                var resultJson = JsonConvert.SerializeObject(result);
+
+                if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Failed_Message, PageNames.ChangePassword.ToString());
+                    return Content(resultJson, "application/json");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = string.Format(Common_Messages.Save_Success_Message, PageNames.ChangePassword.ToString());
+                    return Content(resultJson, "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.ChangePassword.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), Drishanindustries.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                return Content(JsonConvert.SerializeObject(0));
+            }
+        }
+        #endregion
 
     }
 }

@@ -31,6 +31,17 @@
                 return _session.GetData<Int32>("SelectedProductId");
             }
         }
+        public string Password
+        {
+            set
+            {
+                _session.SetData("_Password", Convert.ToString(value));
+            }
+            get
+            {
+                return _session.GetData<string>("_Password");
+            }
+        }
 
         public int fk_SubModuleGlCode
         {

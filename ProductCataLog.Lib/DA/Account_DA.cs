@@ -44,7 +44,23 @@ namespace ProductCataLog.Lib.DA
             return resultSet;
 
         }
+        public DataSet Update_Password(ChangePasswordViewModel changePasswordViewModel)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "intGlCode", "varPassword", "varNewPassword" };
+            object[] objParamValue = { changePasswordViewModel.intGlCode, changePasswordViewModel.Password, changePasswordViewModel.NewPassword };
 
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Update_ChangePassword, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
         public DataSet InsertUpdate_LoginMaster(LoginMasterViewModel loginMasterViewModel)
         {
             sqlQuery = new StringBuilder();

@@ -31,7 +31,6 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 var ctx = document.getElementById("myAreaChart");
 var chartdata = document.getElementById("chartdata").innerHTML;
 var chartmonths = document.getElementById("chartmonths").innerHTML;
-debugger;
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {

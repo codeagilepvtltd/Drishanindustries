@@ -113,6 +113,25 @@ namespace ProductCataLog.Lib.Repository.Account
                 throw;
             }
         }
+
+        #endregion
+
+        #region Change Password
+        public DataSet Update_Password(ChangePasswordViewModel changePasswordViewModel)
+        {
+            Account_DA account_DA = new Account_DA();
+            AdminMenuViewModel adminMenuViewModel = new AdminMenuViewModel();
+            adminMenuViewModel.AdminHtmlString = string.Empty;
+
+            try
+            {
+                return account_DA.Update_Password(changePasswordViewModel);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
