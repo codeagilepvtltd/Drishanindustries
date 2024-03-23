@@ -1,0 +1,5 @@
+Could not load file or assembly 'System.Data.SqlClient, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'. The system cannot find the file specified. - 
+   at ProductCataLog.Lib.Common.SQLHelper.GetData(StoredProcedures eStoredProcedure, Object[] ParamName, Object[] ParamVal)
+   at ProductCataLog.Lib.DA.Account_DA.Check_Login(String UserId, String Password) in D:\Work\CodeAgile\Project\Drishanindustries\ProductCataLog.Lib\DA\Account_DA.cs:line 21
+   at ProductCataLog.Lib.Repository.Account.AccountRepository.CheckAuthentication(AccountLoginViewModel accountLoginViewModel) in D:\Work\CodeAgile\Project\Drishanindustries\ProductCataLog.Lib\Repository\Account\AccountRepository.cs:line 21
+   at ProductCataLog.Web.Controllers.AccountController.ValidateLogin(AccountLoginViewModel accountLoginViewModel, String returnUrl) in D:\Work\CodeAgile\Project\Drishanindustries\ProductCataLog.Web\Controllers\AccountController.cs:line 105

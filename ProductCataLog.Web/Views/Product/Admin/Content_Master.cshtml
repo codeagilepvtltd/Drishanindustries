@@ -1,0 +1,315 @@
+﻿@using DevExtreme.AspNet.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.ProductContentTypeMasterViewModel
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = string.Format(ProductCataLog.Web.Common.Common.PageName, ProductCataLog.Web.Common.Common.AppName, "Product Content");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var SelectedProductId = HttpContextAccessor.HttpContext.Session.GetString("SelectedProductId");
+}
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-6">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Product Content Entry</h6>
+                </div>
+                <div class="card-body">
+                    <form class="needs-validation" enctype="multipart/form-data" asp-controller="Product" asp-action="Save_Gallery" method="post" id="frmGalleryMaster" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product Name:</label>
+                            <div class="col-sm-10">
+                                @(Html.DevExtreme().SelectBox().ID("ddlGetProductList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetProductList").Key("intGiCode"))
+                                    .DisplayExpr("varProductName")
+                                    .ValueExpr("intGiCode")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened")
+                                    )
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content Type:</label>
+                            <div class="col-sm-2">
+                                @(Html.DevExtreme().SelectBox().ID("ddlContentTypeList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetContentTypeMasterList").Key("intGICOde"))
+                                    .DisplayExpr("varContentType")
+                                    .ValueExpr("intGICOde")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened")
+                                    .OnValueChanged("GetSelectedContentType")
+                                    )
+                            </div>
+                        </div>
+                        <div id="image" style="display: none;">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtImagetitle" placeholder="Image Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtImageShortDescription" placeholder="Image Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control" id="txtImageUrl" asp-for="gallery_Mapping.UploadedImage" formenctype='multipart/form-data' placeholder="Image Url" tabindex="3">
+                                </div>
+                                <div class="col-sm-3">
+                                    <a id="my_images" class="my_images" href="" style="display:none">
+                                        <img id="my_images1" alt="my_images" src="" style="height:50px;width:100px" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="txtImageDescription" placeholder="Image Description"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="document" style="display: none;">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtDocumentTitle" placeholder="Document Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtDocumentShortDescription" placeholder="Document Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Document Url</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control" id="txtDocumentUrl" asp-for="gallery_Mapping.UploadedImage" formenctype='multipart/form-data' placeholder="Document Url" tabindex="3">
+                                </div>
+                                <div class="col-sm-3">
+                                    <a id="my_Docs" class="" href="" style="display:none" target="_blank">
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="txtDocumentDescription" placeholder="Document Description"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="video" style="display: none;">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtVideoTitle" placeholder="Video Title" tabindex="3">
+                                </div>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="txtVideoShortDescription" placeholder="Video Short Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Video Url</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtVideoUrl" formenctype='multipart/form-data' placeholder="Video Url" tabindex="3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="txtVideoDescription" placeholder="Video Description"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" asp-for="gallery_Mapping.charActive" tabindex="6" />
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <button type="submit" id="btnSave" tabindex="6" class="btn btn-primary" onclick="return ValidateData();">Save</button>
+                            <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+                        </div>
+
+                        <input type="hidden" asp-for="@Model.content_Master.intGICode" id="ref_ContentId" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.charActive" id="chrActive" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ProductID" id="fk_ProductID" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.fk_ContentTypeID" id="fk_ContentTypeID" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.intGICode" id="ref_GalleryId" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryURL" id="ref_GalleryUrl" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryType" id="ref_GalleryType" />
+                        <input type="hidden" asp-for="@Model.contentType_Master.varContentDescription" id="ref_ContentDesc" />
+                        <input type="hidden" asp-for="@Model.content_Master.varShortDescription" id="ref_ContentShortDesc" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varTitle" id="ref_ContentName" />
+                        <input type="hidden" asp-for="@Model.gallery_Mapping.varGalleryPath" id="varGalleryPath" />
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<!---Container Fluid-->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Product Content List</h6>
+                    <button type="button" onclick="ExportExcel();" class="btn btn-primary">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("grdGalleryDetials")
+                        .ShowBorders(true)
+                        .DataSource(ds => ds.Mvc().Controller("Product").Key("intGICode").LoadAction("GetGalleryMappingList"))
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .LoadPanel(f => f.Enabled(false))
+                        .Columns(columns =>
+                        {
+                            columns.Add().DataField("intGICode").Caption("Edit").Type(GridCommandColumnType.Buttons)
+                            .Width(50)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
+
+                            });
+                            columns.Add().DataField("varGalleryType").Caption("Content Type");
+                            columns.Add().DataField("varProductName").Caption("Product Name");
+                            columns.Add().DataField("varTitle").Caption("Title");
+                            columns.Add().DataField("varShortDescription").Caption("Short Description");
+                            columns.Add().DataField("varGalleryURL").Caption("Content URL");
+                            columns.Add().DataField("charActive").Caption("Status");
+                            columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
+
+                        })
+                        .ColumnAutoWidth(true)
+                        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowInfo(true);
+                        })
+                        .Sorting(sorting => sorting.Mode(DevExtreme.AspNet.Mvc.GridSortingMode.Multiple))
+                        .FilterRow(filterRow => filterRow
+                        .Visible(true)
+                        .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .WordWrapEnabled(true)
+
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!---Container Fluid-->
+@Html.AntiForgeryToken()
+@section Scripts {
+    <script src="~/Scripts/Product/ProductContent.js"></script>
+    <script src="~/Scripts/Account/Common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="text/javascript" src="~/lib/vendor/fancybox/jquery.fancybox.min.js"></script>
+
+    <script type="text/javascript">
+        $("a#my_images").fancybox();
+
+        $('#txtDocumentDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        $('#txtImageDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        $('#txtVideoDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        if (@SelectedProductId != null && @SelectedProductId != '0')
+        {
+            editfromProductdata(@SelectedProductId);
+        }
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            if ('@ViewBag.MessageType' == 'Success') {
+                PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
+
+            }
+            else {
+                PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
+
+            }
+
+        </script>
+    }
+}
+
+<style>
+    .dvdx-overlay-content {
+        position: absolute;
+        z-index: 1000;
+        outline: 0;
+        overflow: unset !important;
+    }
+
+    .dx-overlay-content.dx-popup-normal.dx-popup-draggable.dx-resizable.dx-dropdowneditor-overlay-flipped {
+        overflow: scroll !important;
+    }
+
+    .custom-checkbox {
+        margin: 40px 0px;
+    }
+</style>
