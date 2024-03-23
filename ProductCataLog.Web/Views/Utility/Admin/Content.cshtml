@@ -1,0 +1,196 @@
+﻿@using DevExtreme.AspNet.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.GalleryMappingViewModel
+@{
+    ViewData["Title"] = string.Format(ProductCataLog.Web.Common.Common.PageName, ProductCataLog.Web.Common.Common.AppName, "Content");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-6">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Content Entry</h6>
+                </div>
+                <div class="card-body">
+                    <form class="needs-validation" enctype="multipart/form-data" asp-controller="Utility" asp-action="Save_Gallery" method="post" id="frmBlogsDetail" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Content Type:</label>
+                            <div class="col-sm-2">
+                                @(Html.DevExtreme().SelectBox().ID("ddlContentTypeList")
+                                    .DataSource(d => d.Mvc().Controller("Utility").LoadAction("GetContentTypeMasterList").Key("intGICOde"))
+                                    .DisplayExpr("varContentType")
+                                    .ValueExpr("intGICOde")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened")                                   
+                                    )
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="txtImagetitle" placeholder="Title" tabindex="1" asp-for="Gallery_Mapping.CM_varTitle">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Short Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="txtBlogShortDescription" placeholder="Short Description" tabindex="2" asp-for="Gallery_Mapping.CM_varShortDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="txtBlogDescription" placeholder="Description" tabindex="3" asp-for="Gallery_Mapping.CM_varContent"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Image Url</label>
+                            <div class="col-sm-7">
+                                <input type="file" class="form-control" alt="" id="txtBlogUrl" placeholder="path" tabindex="4" asp-for="Gallery_Mapping.UploadedImage" />
+                            </div>
+                            <div class="col-sm-2">
+                                <a id="my_images" class="my_images" href="" style="display:none">
+                                    <img id="my_images1" alt="my_images" src="" style="height:50px;width:100px" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="chkStatus" tabindex="5" asp-for="Gallery_Mapping.charActive" />
+                            </div>
+                        </div>
+                        @* <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
+                        <button type="submit" class="btn btn-dark" tabindex="7">Cancel</button> *@
+
+                        <button type="submit" id="btnSave" tabindex="6" class="btn btn-primary" onclick="return ValidateData();">Save</button>
+                        <button type="button" id="btnCancel" tabindex="7" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.CTM_intGlCode" id="ref_ContentTypeId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.CM_intGlCode" id="ref_ContentId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.charActive" id="chrActive" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.intGICode" id="ref_GalleryId" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryType" id="varGalleryType" />
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.varGalleryPath" id="varGalleryPath" />                        
+                        <input type="hidden" asp-for="@Model.Gallery_Mapping.fk_ContentTypeID" id="fk_ContentTypeID" />
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<!---Container Fluid-->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Content List</h6>
+                    <button type="button" class="btn btn-primary" onclick="ExportExcel();">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("grdBlogsDetials")
+                        .ShowBorders(true)
+                        .DataSource(ds => ds.Mvc().Controller("Utility").Key("intGICode").LoadAction("GetGalleryMappingList"))
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .LoadPanel(f => f.Enabled(false))
+                        .Columns(columns =>
+                        {
+                            columns.Add().DataField("intGlCode").Caption("Edit").Type(GridCommandColumnType.Buttons)
+                            .Width(50)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
+
+                            });
+                            columns.Add().DataField("CTM_varContentType").Caption("Content Type");
+                            columns.Add().DataField("CM_varTitle").Caption("Title");
+                            columns.Add().DataField("CM_varShortDescription").Caption("Short Description");
+                            columns.Add().DataField("varGalleryPath").Caption("Image");
+                            columns.Add().DataField("charActive").Caption("Status");
+                            columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
+
+                        })
+                        .ColumnAutoWidth(true)
+                        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowInfo(true);
+                        })
+                        .Sorting(sorting => sorting.Mode(DevExtreme.AspNet.Mvc.GridSortingMode.Multiple))
+                        .FilterRow(filterRow => filterRow
+                        .Visible(true)
+                        .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .WordWrapEnabled(true)
+
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!---Container Fluid-->
+@Html.AntiForgeryToken()
+@section Scripts {
+    <script src="~/Scripts/Account/Common.js"></script>
+    <script src="~/Scripts/Utility/Blogs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="text/javascript" src="~/lib/vendor/fancybox/jquery.fancybox.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        $("a#my_images").fancybox();
+
+
+        $('#txtBlogDescription').summernote({
+            placeholder: 'Message',
+            tabsize: 2,
+            height: 400,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            if ('@ViewBag.MessageType' == 'Success') {
+                PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
+
+            }
+            else {
+                PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
+
+            }
+
+        </script>
+    }
+}
+

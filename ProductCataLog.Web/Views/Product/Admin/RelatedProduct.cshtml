@@ -1,0 +1,167 @@
+﻿@using DevExtreme.AspNet.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.RelatedProductViewModel
+@{
+    ViewData["Title"] = string.Format(ProductCataLog.Web.Common.Common.PageName, ProductCataLog.Web.Common.Common.AppName, "Related Product Entry");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid" id="container-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Form Basic -->
+            <div class="card mb-12">
+                <div class="card-body">
+                    <form class="needs-validation" method="post" id="frmRelatedProduct" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Product:</label>
+                            <div class="col-sm-3">
+                                @(Html.DevExtreme().SelectBox().ID("ddlGetProductList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetProductList").Key("intGiCode"))
+                                    .DisplayExpr("varProductName")
+                                    .ValueExpr("intGiCode")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpened")
+                                    .OnValueChanged("ReloadRelatedProductddl")
+                                    )
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label"><span class="red">*</span>Related Product:</label>
+                            <div class="col-sm-3">
+                                @(Html.DevExtreme().SelectBox().ID("ddlGetRelatedProductList")
+                                    .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetRelatedProductListMaster")
+                                    .LoadParams(new { ProductId = new JS("GetRelatedProductByProduct") })
+                                    .Key("intGiCode"))
+                                    .DisplayExpr("varProductName")
+                                    .ValueExpr("intGiCode")
+                                    .Placeholder("-- Select --")
+                                    .SearchEnabled(true)
+                                    .OnOpened("dxSelectBox_OnOpenedstateDDl")
+                                    )
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="@Model.product_master.intGiCode" id="ProductId" />
+                        <input type="hidden" asp-for="@Model.Related_Product.intGICode" id="intGICode" />
+                        <input type="hidden" asp-for="@Model.Related_Product.charActive" id="charActive" />
+                        <input type="hidden" asp-for="@Model.Related_Product.ref_OriginalProductID" id="ref_OriginalProductID" />
+                        <input type="hidden" asp-for="@Model.Related_Product.ref_RelatedProductID" id="ref_RelatedProductID" />
+                        <div class="form-group mb-0">
+                            <button type="button" id="btnsubmit" tabindex="4" class="btn btn-primary" onclick="return ValidateData()">Submit</button>
+                            <button type="button" id="btnCancel" tabindex="5" class="btn btn-secondary" onclick="return resetValidation()">Cancel</button>
+                        </div>                        
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<!---Container Fluid-->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Related Product List</h6>
+                    <button type="button" class="btn btn-primary" onclick="ExportExcel();">Download</button>
+                </div>
+                <div class="table-responsive p-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("grdRelatedProduct")
+                        .ShowBorders(true)
+                        .DataSource(ds => ds.Mvc().Controller("Product").Key("intGICode").LoadAction("GetRelatedProductList"))
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .LoadPanel(f => f.Enabled(false))
+                        .Columns(columns =>
+                        {
+                            columns.Add().DataField("intGICode").Caption("Delete").Type(GridCommandColumnType.Buttons)
+                            .Width(60)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Delete).Visible(true).OnClick("deletedata").Text("Delete");
+
+                            });
+                            columns.Add().DataField("ProductName").Caption("Product Name");
+                            columns.Add().DataField("RelatedProductName").Caption("Related Product Name");
+                            columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
+
+                        })
+                        .ColumnAutoWidth(true)
+                        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowInfo(true);
+                        })
+                        .Sorting(sorting => sorting.Mode(DevExtreme.AspNet.Mvc.GridSortingMode.Multiple))
+                        .FilterRow(filterRow => filterRow
+                        .Visible(true)
+                        .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .WordWrapEnabled(true)
+
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/Scripts/Product/RelatedProduct.js"></script>
+    <script src="~/Scripts/Account/Common.js"></script>
+    <script type="text/javascript">
+        function GetRelatedProductByProduct() {
+            var selectedItem = $("#ddlGetProductList").dxSelectBox('instance').option('selectedItem');
+            if (selectedItem != null) {
+                $("#ProductId").val(selectedItem.intGiCode);
+                return selectedItem.intGiCode;
+            }
+        }
+    </script>
+
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            if ('@ViewBag.MessageType' == 'Success') {
+                PopUpMessage('@ViewBag.Message', "fa fa-check-circle popup_icon_success");
+
+            }
+            else {
+                PopUpMessage('@ViewBag.Message', "fa fa-exclamation-circle popup_icon");
+
+            }
+
+        </script>
+    }
+}
+
+<style>
+    .dvdx-overlay-content {
+        position: absolute;
+        z-index: 1000;
+        outline: 0;
+        overflow: unset !important;
+    }
+
+    .dx-overlay-content.dx-popup-normal.dx-popup-draggable.dx-resizable.dx-dropdowneditor-overlay-flipped {
+        overflow: scroll !important;
+    }
+
+    .custom-checkbox {
+        margin: 40px 0px;
+    }
+</style>

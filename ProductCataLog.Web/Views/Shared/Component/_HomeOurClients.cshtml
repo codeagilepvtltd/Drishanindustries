@@ -1,0 +1,12 @@
+﻿@model ProductCataLog.Lib.ViewModels.OurClientsViewModel
+
+<section class="clients-section bg-color-1">
+    <div class="auto-container">
+        <div class="five-item-carousel owl-carousel owl-theme owl-nav-none owl-dots-none">
+            @foreach (Gallery_Mapping our_service in Model.our_clients)
+            {
+                <figure class="clients-logo"><a href="index.html"><img src="@our_service.varGalleryPath" alt=""></a></figure>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,26 @@
+﻿<!-- case-section -->
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = ProductCataLog.Web.Common.Common.AppName;
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+}
+@await Component.InvokeAsync("FeaturedProductsComponent", "FeaturedProducts")
+<!-- case-section end -->
+<!-- service-section -->
+@await Component.InvokeAsync("OurServicesComponent", "OurServices")
+<!-- service-section end -->
+<!-- clients-section -->
+@await Component.InvokeAsync("OurClientsComponent", "OurClients")
+
+<!-- clients-section end -->
+<!-- video-section -->
+<section class="video-section">
+    <div class="bg-layer" style="background-image: url(css/FrontEnd/images/background/video-bg.jpg);"></div>
+    <div class="auto-container">
+        <div class="sec-title light">
+            <!-- <span class="sub-title">produce the best</span> -->
+            <h2>" Touch The Sky With Glory "</h2>
+        </div>
+    </div>
+</section>
+<!-- video-section end -->
