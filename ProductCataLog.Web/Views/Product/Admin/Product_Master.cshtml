@@ -22,7 +22,7 @@
                             <div class="col-sm-4">
                                 @(Html.DevExtreme().SelectBox().ID("ddlCategoryList")
                                     .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetProductCategory").Key("intGlCode"))
-                                    .DisplayExpr("varCatergoryName")
+                                    .DisplayExpr("CatergoryNameDisplay")
                                     .ValueExpr("intGlCode")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)

@@ -21,6 +21,11 @@ function ValidateData() {
         $("#txtCategoryName").focus();
         return false;
     }
+    if ($("#txtRankNumber").val() == "") {
+        PopUpMessage("Please Enter Rank Number.", "fa fa-exclamation-circle popup_icon");
+        $("#txtRankNumber").focus();
+        return false;
+    }
 
 
     setTimeout(function () {
@@ -94,8 +99,10 @@ function editdata(e) {
     $("#txtCategoryName").val(e.row.data.varCatergoryName);
     $("#txtCategoryCode").val(e.row.data.varCatergoryCode);
     $("#txtMetaKeyword").val(e.row.data.MetaKeyword);
+    debugger;
+    $("#txtRankNumber").val(e.row.data.RankNumber);
     $("#txtMetaDescription").val(e.row.data.MetaDescription);
     $("#ref_ParentID").val(e.row.data.ref_ParentID);
     $("#chkchrActive").prop('checked', e.row.data.chrActive == 'Active' ? true : false);
-
+    $("#txtCategoryName").focus();
 }

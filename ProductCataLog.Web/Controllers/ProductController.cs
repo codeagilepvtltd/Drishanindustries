@@ -174,7 +174,7 @@ namespace ProductCataLog.Web.Controllers
             DataSet dsResult = new DataSet();
             try
             {
-                Category_Master.Category_Masters = productRepository.GetCategoryList(intGlCode).Where(m=>m.ref_ParentID!=0).ToList();
+                Category_Master.Category_Masters = productRepository.GetCategoryList(intGlCode).ToList();
                 var resultJson = JsonConvert.SerializeObject(Category_Master.Category_Masters);
                 return Content(resultJson, "application/json");
             }
@@ -267,17 +267,17 @@ namespace ProductCataLog.Web.Controllers
                 galleyView.gallery_Mapping.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.gallery_Mapping.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
                 galleyView.gallery_Mapping.charActive = galleyView.gallery_Mapping.charActive == "true" ? "Y" : "N";
-                if (galleyView.gallery_Mapping.varGalleryType == "Gallery")
-                {
-                    galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/images");
-                }
-                else if (galleyView.gallery_Mapping.varGalleryType == "Document")
+                if (galleyView.gallery_Mapping.varGalleryType == "Document")
                 {
                     galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/document");
                 }
                 else if (galleyView.gallery_Mapping.varGalleryType == "Video")
                 {
                     galleyView.gallery_Mapping.varGalleryURL = galleyView.gallery_Mapping.varGalleryPath;
+                }
+                else
+                {
+                    galleyView.gallery_Mapping.varGalleryPath = UploadedFile(galleyView, "/UploadFiles/Product/images");
                 }
                 if (!string.IsNullOrEmpty(galleyView.gallery_Mapping.varGalleryPath))
                 {
@@ -331,13 +331,14 @@ namespace ProductCataLog.Web.Controllers
                 filePath = model.gallery_Mapping.varGalleryPath;
             }
             string ReturntValue = string.Empty;
-            if (model.gallery_Mapping.varGalleryType == "Gallery")
-            {
-                ReturntValue = @"\UploadFiles\product\images\" + Path.GetFileName(filePath);
-            }
-            else if (model.gallery_Mapping.varGalleryType == "Document")
+            if (model.gallery_Mapping.varGalleryType == "Document")
             {
                 ReturntValue = @"\UploadFiles\product\document\" + Path.GetFileName(filePath);
+            }
+            else
+            {
+
+                ReturntValue = @"\UploadFiles\product\images\" + Path.GetFileName(filePath);
             }
             return ReturntValue;
         }
@@ -441,7 +442,7 @@ namespace ProductCataLog.Web.Controllers
         public IActionResult GetRelatedProductList(int intGlCode = 0)
         {
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
-            
+
             RelatedProductViewModel Related_Product = new RelatedProductViewModel();
             DataSet dsResult = new DataSet();
             try
@@ -468,7 +469,7 @@ namespace ProductCataLog.Web.Controllers
             {
                 relatedproductViewModel.Related_Product.ref_EntryBy = Convert.ToInt64(sessionManager.IntGlCode);
                 relatedproductViewModel.Related_Product.ref_UpdateBy = Convert.ToInt64(sessionManager.IntGlCode);
-                
+
                 DataSet result = productRepository.InsertUpdate_RelatedProduct(relatedproductViewModel);
                 var resultJson = JsonConvert.SerializeObject(result);
 
@@ -491,6 +492,37 @@ namespace ProductCataLog.Web.Controllers
 
                 return Content(JsonConvert.SerializeObject(0));
             }
+        }
+        #endregion
+
+        #region Front Products
+
+        [Route("products/{categoryname?}/{product_name?}")]
+        [Route("products")]
+        public IActionResult Product_Details(string? categoryname, string? product_name)
+        {
+            SessionManager sessionManager = new SessionManager(httpContextAccessor);
+            try
+            {
+                if (string.IsNullOrEmpty(categoryname) && string.IsNullOrEmpty(product_name))
+                {
+                    return View("FrontEnd/products");
+                }
+                else
+                {
+                    ProductDetailViewModel productDetailViewModel = productRepository.Select_ProductDetails(categoryname, product_name);
+                    return View("FrontEnd/product_details", productDetailViewModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                SQLHelper.writeException(ex);
+                moduleErrorLogRepository.Insert_Modules_Error_Log(PageNames.RelatedProduct.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(), Convert.ToString(sessionManager.IntGlCode), ex.StackTrace, this.GetType().Name.ToString(), ProductCataLog.Web.Common.Common.AppName, ex.Source, "", "", ex.Message);
+
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorForbidden", "Account");
+            }
+
         }
         #endregion
     }

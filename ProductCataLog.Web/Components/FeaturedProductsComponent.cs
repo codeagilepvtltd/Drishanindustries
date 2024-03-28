@@ -35,8 +35,7 @@ namespace ProductCataLog.Web.Components
             feturedProductViewModel.featuredProducts = new List<Gallery_Mapping>();
             feturedProductViewModel.featuredProducts = 
                 utilityRepository.GetGalleryMappingList(ProductCataLog.Lib.Common.ContentTypePurpose.Product.ToString())
-                .Where(p=>p.varGalleryType== ProductCataLog.Lib.Common.ContentType.Gallery.ToString() && p.charActive=="Active"
-                && p.fk_ProductID !=null
+                .Where(p=>p.varGalleryType== ProductCataLog.Lib.Common.ContentType.Gallery.ToString() && p.charActive=="Active" && p.ShowOnHomePage && p.fk_ProductID !=null
                 ).ToList();
             return feturedProductViewModel;
         }

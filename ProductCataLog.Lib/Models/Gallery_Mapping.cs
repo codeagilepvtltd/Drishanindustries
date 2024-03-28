@@ -57,6 +57,8 @@ namespace ProductCataLog.Lib.Models
 
         public int? PM_intGlCode { get; set; }
 
+        public bool ShowOnHomePage { get; set; }
+
     }
 
 }

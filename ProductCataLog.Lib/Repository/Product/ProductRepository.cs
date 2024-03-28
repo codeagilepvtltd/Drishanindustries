@@ -29,6 +29,8 @@ namespace ProductCataLog.Lib.Repository.Product
                         varCatergoryName = row.Field<string>("varCatergoryName"),
                         ParentCatergoryName = row.Field<string>("ParentCategory"),
                         MetaDescription = row.Field<string>("MetaDescription"),
+                        RankNumber = row.Field<int>("intRankNumber"),
+                        CatergoryNameDisplay = row.Field<string>("CatergoryNameDisplay"),                        
                         MetaKeyword = row.Field<string>("MetaKeyword"),
                         ref_ParentID = row.Field<int>("ParentCategoryID"),
                         chrActive = row.Field<string>("chrActive"),
@@ -87,6 +89,7 @@ namespace ProductCataLog.Lib.Repository.Product
                         decDisplayPrice = row.Field<decimal>("decDisplayPrice"),
                         decOriginalPrice = row.Field<decimal>("decOriginalPrice"),
                         ref_CategoryId = row.Field<Int64>("ref_CategoryId"),
+                        ref_ParentCategoryId = row.Field<int>("ParentCategoryId"),                        
                         ProductPriceID = row.Field<int>("ProductPriceID"),
                         chrActive = row.Field<string>("chrActive"),
                         dtEntryDate = row.Field<DateTime>("dtEntryDate"),
@@ -308,6 +311,44 @@ namespace ProductCataLog.Lib.Repository.Product
             {
                 throw;
             }
+        }
+
+        public ProductDetailViewModel Select_ProductDetails(string category_name, string product_name)
+        {
+            ProductDetailViewModel productDetailViewModel = new ProductDetailViewModel();
+
+            Product_DA ProductDA = new Product_DA();
+            try
+            {
+                DataSet dsResult = ProductDA.Select_ProductDetails(category_name,product_name.Replace("-"," "));
+                Product_Master product_Master = new Product_Master();
+                List<Gallery_Mapping> mappings = new List<Gallery_Mapping>();
+
+                if (dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    product_Master.intGiCode = Convert.ToInt32(dsResult.Tables[0].Rows[0]["intGlCode"]);
+                    product_Master.varGalleryPath = Convert.ToString(dsResult.Tables[0].Rows[0]["varGalleryPath"]);
+                    product_Master.varProductCode = Convert.ToString(dsResult.Tables[0].Rows[0]["varProductCode"]);
+                    product_Master.varProductName = Convert.ToString(dsResult.Tables[0].Rows[0]["varProductName"]);
+                    product_Master.varShortDescription = Convert.ToString(dsResult.Tables[0].Rows[0]["varShortDescription"]);
+                    product_Master.varLongDescription = Convert.ToString(dsResult.Tables[0].Rows[0]["varLongDescription"]);
+                }
+                mappings = dsResult.Tables[1].AsEnumerable().Select(row => new Gallery_Mapping()
+                {
+                    varGalleryPath = row.Field<string>("varGalleryPath"),
+                    varGalleryURL = row.Field<string>("varGalleryURL"),
+                    varTitle = row.Field<string>("varTitle"),
+                    varShortDescription = row.Field<string>("varShortDescription"),
+
+                }).ToList();
+                productDetailViewModel.product_master = product_Master;
+                productDetailViewModel.gallery_Mappings = mappings;
+            }
+            catch
+            {
+                throw;
+            }
+            return productDetailViewModel;
         }
 
         #endregion

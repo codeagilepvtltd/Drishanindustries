@@ -40,4 +40,18 @@ namespace ProductCataLog.Lib.ViewModels
 
     }
 
+    public class ProductDetailViewModel
+    {
+        public Product_Master product_master { get; set; }
+
+        public List<Gallery_Mapping> gallery_Mappings { get; set; }
+
+        public ProductDetailViewModel()
+        {
+
+            product_master = new Product_Master();
+            gallery_Mappings= new List<Gallery_Mapping>();
+        }
+    }
+
 }

@@ -8,16 +8,21 @@ using ProductCataLog.Lib.ViewModels;
 using System;
 using System.Data;
 using System.Text;
+using ProductCataLog.Lib.Repository.Product;
+using Microsoft.Extensions.Primitives;
 
 namespace ProductCataLog.Web.Components
 {
     public class AdminMenuComponent : ViewComponent
     {
         private readonly IAccountRepository accountRepository;
+        private readonly IProductRepository productRepository;
+
         private readonly IHttpContextAccessor httpContextAccessor;
-        public AdminMenuComponent(IAccountRepository _accountRepository, IHttpContextAccessor _httpContextAccessor)
+        public AdminMenuComponent(IProductRepository _productRepository, IAccountRepository _accountRepository, IHttpContextAccessor _httpContextAccessor)
         {
             accountRepository = _accountRepository;
+            productRepository = _productRepository;
             httpContextAccessor = _httpContextAccessor;
         }
         public async Task<IViewComponentResult> InvokeAsync(string Action)
@@ -93,72 +98,103 @@ namespace ProductCataLog.Web.Components
             return adminMenuViewModel;
         }
 
-        private async Task<AdminMenuViewModel> UserMenu()
-        {
-            SessionManager sessionManager = new SessionManager(httpContextAccessor);
-
-            AdminMenuViewModel adminMenuViewModel = new AdminMenuViewModel();
-            DataSet result = accountRepository.Select_MenuMasterList("A");
-
-            string? HeaderName = string.Empty;
-            string? Html = string.Empty;
-            StringBuilder sbContent = new StringBuilder();
-            sbContent.Append("<li class=\"nav-item dropdown no-arrow\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"userDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><img class=\"img-profile rounded-circle\" src=\"../img/Admin/img/boy.png\" style=\"max-width: 60px\"><span class=\"ml-2 d-none d-lg-inline text-white small\">" + sessionManager.UserName + "</span> </a>");
-            sbContent.Append("<div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\" aria-labelledby=\"userDropdown\">");
-            foreach (DataRow dr in result.Tables[0].Rows)
-            {
-                string? varDisplayName = Convert.ToString(dr["varDisplayName"])?.Trim();
-                string? varControllerName = Convert.ToString(dr["varControllerName"]);
-                string? varActionName = Convert.ToString(dr["varActionName"]);
-                int ref_ParentPageID = Convert.ToInt32(dr["ref_ParentPageID"]);
-                string? UrlName = Convert.ToString(dr["UrlName"]);
-                string? IconPath = Convert.ToString(dr["varIconPath"]);
-
-                if (varControllerName == "Account" && ref_ParentPageID > 0)
-                {
-                    string controllername = httpContextAccessor.HttpContext.Request.RouteValues["controller"].ToString();
-                     sbContent.Append(" <a class=\"dropdown-item\" href=\"" + UrlName + "\"><i class=\"" + IconPath + "\"></i><span style='margin-left:10px'>" + varDisplayName + "</span></a>");
-
-                  
-                }
-            }
-            sbContent.Append("</div></li>");
-            adminMenuViewModel.AdminHtmlString = sbContent.ToString();
-            return adminMenuViewModel;
-        }
-
         private async Task<AdminMenuViewModel> CategoryLeftMenu()
         {
             SessionManager sessionManager = new SessionManager(httpContextAccessor);
 
             AdminMenuViewModel adminMenuViewModel = new AdminMenuViewModel();
-            DataSet result = accountRepository.Select_MenuMasterList("A");
+            List<Category_Master> category_Masters = productRepository.GetCategoryList(0).Where(m => m.ref_ParentID == 0).OrderBy(m => m.RankNumber).ToList();
 
-            string? HeaderName = string.Empty;
-            string? Html = string.Empty;
             StringBuilder sbContent = new StringBuilder();
-            sbContent.Append("<li class=\"nav-item dropdown no-arrow\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"userDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><img class=\"img-profile rounded-circle\" src=\"../img/Admin/img/boy.png\" style=\"max-width: 60px\"><span class=\"ml-2 d-none d-lg-inline text-white small\">" + sessionManager.UserName + "</span> </a>");
-            sbContent.Append("<div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\" aria-labelledby=\"userDropdown\">");
-            foreach (DataRow dr in result.Tables[0].Rows)
+            foreach (Category_Master cm_parent in category_Masters.Where(m => m.ref_ParentID == 0))
             {
-                string? varDisplayName = Convert.ToString(dr["varDisplayName"])?.Trim();
-                string? varControllerName = Convert.ToString(dr["varControllerName"]);
-                string? varActionName = Convert.ToString(dr["varActionName"]);
-                int ref_ParentPageID = Convert.ToInt32(dr["ref_ParentPageID"]);
-                string? UrlName = Convert.ToString(dr["UrlName"]);
-                string? IconPath = Convert.ToString(dr["varIconPath"]);
+                sbContent.Append("<li class=\"accordion block\">");
+                sbContent.Append("<div class=\"acc-btn\">");
+                sbContent.Append("<div class=\"icon-outer\"><i class=\"fa-solid fa-angle-down\"></i></div><h4>" + cm_parent.varCatergoryName + "</h4> </div>");
+            
+                List<Category_Master> second_category = productRepository.GetCategoryList(0).Where(m => m.ref_ParentID == cm_parent.intGlCode).OrderBy(m => m.RankNumber).ToList();
 
-                if (varControllerName == "Account" && ref_ParentPageID > 0)
+                if (second_category != null && second_category.Count > 0)
                 {
-                    string controllername = httpContextAccessor.HttpContext.Request.RouteValues["controller"].ToString();
-                    sbContent.Append(" <a class=\"dropdown-item\" href=\"" + UrlName + "\"><i class=\"" + IconPath + "\"></i><span style='margin-left:10px'>" + varDisplayName + "</span></a>");
 
+                    sbContent.Append("<div class=\"acc-content\" style=\"display: none;\">");
+                    sbContent.Append("<div class=\"payment-info\">");
+                    sbContent.Append("<div class=\"category-widget\">");
 
+                    foreach (Category_Master child_category in second_category)
+                    {
+
+                        sbContent.Append("<h3>" + child_category.varCatergoryName + "</h3>");
+                        sbContent.Append("<ul class=\"category-list clearfix mb-3\">");
+                        string categoryname = child_category.varCatergoryName;
+
+                        List<Product_Master> lstProducts = productRepository.GetProductList(0).Where(m => m.ref_CategoryId == child_category.intGlCode).OrderBy(m => m.RankNumber).ToList();
+                        foreach (Product_Master products in lstProducts)
+                        {
+                            {
+                                sbContent.Append("<li><a href='\\products\\" + categoryname.Replace(" ", "-").ToLower() + "\\" + products.varProductName.Replace(" ", "-").ToLower() + "\'>" + products.varProductName + "</a></li>");
+                            }
+                        }
+                        sbContent.Append("</ul>");
+                    }
+                    sbContent.Append("</div></div></div>");
                 }
+                else
+                {
+                    sbContent.Append("<div class=\"acc-content\" style=\"display: none;\">");
+                    sbContent.Append("<div class=\"payment-info\">");
+                    sbContent.Append("<div class=\"category-widget\">");
+                    //sbContent.Append("<h3>" + child_category.varCatergoryName + "</h3>");
+                    sbContent.Append("<ul class=\"category-list clearfix mb-3\">");
+                    string categoryname = cm_parent.varCatergoryName;
+                    List<Product_Master> lstProducts = productRepository.GetProductList(0).Where(m => m.ref_CategoryId == cm_parent.intGlCode).OrderBy(m => m.RankNumber).ToList();
+
+                    foreach (Product_Master products in lstProducts)
+                    {
+                        {
+                            sbContent.Append("<li><a href='\\products\\" + categoryname .Replace(" ","-").ToLower()+"\\"+ products.varProductName.Replace(" ","-").ToLower()+ "\'>" + products.varProductName + "</a></li>");
+                        }
+                    }
+                    sbContent.Append("</ul></div></div></div>");
+                }
+                sbContent.Append("</li>");
             }
-            sbContent.Append("</div></li>");
             adminMenuViewModel.AdminHtmlString = sbContent.ToString();
             return adminMenuViewModel;
         }
+
+            private async Task<AdminMenuViewModel> UserMenu()
+            {
+                SessionManager sessionManager = new SessionManager(httpContextAccessor);
+
+                AdminMenuViewModel adminMenuViewModel = new AdminMenuViewModel();
+                DataSet result = accountRepository.Select_MenuMasterList("A");
+
+                string? HeaderName = string.Empty;
+                string? Html = string.Empty;
+                StringBuilder sbContent = new StringBuilder();
+                sbContent.Append("<li class=\"nav-item dropdown no-arrow\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"userDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><img class=\"img-profile rounded-circle\" src=\"../img/Admin/img/boy.png\" style=\"max-width: 60px\"><span class=\"ml-2 d-none d-lg-inline text-white small\">" + sessionManager.UserName + "</span> </a>");
+                sbContent.Append("<div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\" aria-labelledby=\"userDropdown\">");
+                foreach (DataRow dr in result.Tables[0].Rows)
+                {
+                    string? varDisplayName = Convert.ToString(dr["varDisplayName"])?.Trim();
+                    string? varControllerName = Convert.ToString(dr["varControllerName"]);
+                    string? varActionName = Convert.ToString(dr["varActionName"]);
+                    int ref_ParentPageID = Convert.ToInt32(dr["ref_ParentPageID"]);
+                    string? UrlName = Convert.ToString(dr["UrlName"]);
+                    string? IconPath = Convert.ToString(dr["varIconPath"]);
+
+                    if (varControllerName == "Account" && ref_ParentPageID > 0)
+                    {
+                        string controllername = httpContextAccessor.HttpContext.Request.RouteValues["controller"].ToString();
+                        sbContent.Append(" <a class=\"dropdown-item\" href=\"" + UrlName + "\"><i class=\"" + IconPath + "\"></i><span style='margin-left:10px'>" + varDisplayName + "</span></a>");
+
+
+                    }
+                }
+                sbContent.Append("</div></li>");
+                adminMenuViewModel.AdminHtmlString = sbContent.ToString();
+                return adminMenuViewModel;
+            }
+        }
     }
-}
