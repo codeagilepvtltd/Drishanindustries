@@ -27,15 +27,32 @@ namespace ProductCataLog.Lib.DA
             return resultSet;
 
         }
+        public DataSet Select_ProductDetails(string varCategoryName, string varProductName)
+        {
+            sqlQuery = new StringBuilder();
+            object[] objParamName = { "varProductName", "varCategoryName" };
+            object[] objParamValue = { varProductName, varCategoryName };
+
+            try
+            {
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_ProductDetails, objParamName, objParamValue);
+            }
+            catch
+            {
+                throw;
+            }
+            return resultSet;
+
+        }
 
         public DataSet InsertUpdate_Category(CategoryMasterViewModel categoryViewModel)
         {
             sqlQuery = new StringBuilder();
-            object[] objParamName = { "intGlCode", "varCatergoryCode", "varCatergoryName", "ref_ParentID", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy" };
+            object[] objParamName = { "intGlCode", "varCatergoryCode", "varCatergoryName", "ref_ParentID", "chrActive", "MetaKeyword", "MetaDescription", "ref_EntryBy", "ref_UpdateBy", "intRankNumber" };
             object[] objParamValue = { categoryViewModel.category_Master.intGlCode, categoryViewModel.category_Master.varCatergoryCode, categoryViewModel.category_Master.varCatergoryName,
                       categoryViewModel.category_Master.ref_ParentID, categoryViewModel.category_Master.chrActive, categoryViewModel.category_Master.MetaKeyword,
                  categoryViewModel.category_Master.MetaDescription, categoryViewModel.category_Master.ref_EntryBy,
-                categoryViewModel.category_Master.ref_UpdateBy };
+                categoryViewModel.category_Master.ref_UpdateBy,categoryViewModel.category_Master.RankNumber };
 
             try
             {
@@ -88,7 +105,7 @@ namespace ProductCataLog.Lib.DA
 
         }
 
-        public DataSet GetContentTypeMasterList(string Purpose )
+        public DataSet GetContentTypeMasterList(string Purpose)
         {
             sqlQuery = new StringBuilder();
             object[] objParamName = { "@varPurpose" };
@@ -191,7 +208,7 @@ namespace ProductCataLog.Lib.DA
 
             try
             {
-                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_RelatedProductList, objParamName,objParamValue);
+                resultSet = SQLHelper.GetData(StoredProcedures.USP_Select_RelatedProductList, objParamName, objParamValue);
             }
             catch
             {

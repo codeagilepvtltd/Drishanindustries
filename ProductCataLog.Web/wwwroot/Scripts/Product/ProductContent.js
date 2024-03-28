@@ -173,31 +173,29 @@ function editdata(e) {
     my_Docs.style.display = "none";
     my_images.style.display = "none";
 
-    if (e.row.data.varGalleryType == "Gallery") {
-
-        $("#txtImagetitle").val($("#ref_ContentName").val());
-        $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
-        $("#txtImageDescription").summernote('code',$("#ref_ContentDesc").val());
-        my_images.style.display = "block";
-        my_images.href = e.row.data.varGalleryPath;
-        my_images1.src = e.row.data.varGalleryPath;
-    }
-
-    else if (e.row.data.varGalleryType == "Video") {
+    if (e.row.data.varGalleryType == "Video")
+    {
         $("#txtVideoShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtVideoDescription").summernote('code', $("#ref_ContentDesc").val());
         $("#txtVideoTitle").val($("#ref_ContentName").val());
         $("#txtVideoUrl").val(e.row.data.varGalleryPath)
     }
-
-    else if (e.row.data.varGalleryType == "Document") {
+    else if (e.row.data.varGalleryType == "Document")
+    {
         $("#txtDocumentShortDescription").val($("#ref_ContentShortDesc").val());
         $("#txtDocumentDescription").summernote('code', $("#ref_ContentDesc").val());
         $("#txtDocumentTitle").val($("#ref_ContentName").val());
-        
         my_Docs.style.display = "block";
         my_Docs.href = e.row.data.varGalleryPath;
-
+    }
+    else
+    {
+        $("#txtImagetitle").val($("#ref_ContentName").val());
+        $("#txtImageShortDescription").val($("#ref_ContentShortDesc").val());
+        $("#txtImageDescription").summernote('code', $("#ref_ContentDesc").val());
+        my_images.style.display = "block";
+        my_images.href = e.row.data.varGalleryPath;
+        my_images1.src = e.row.data.varGalleryPath;
     }
 
 }
@@ -219,7 +217,8 @@ function GetSelectedContentType(e) {
         documents.style.display = "block";
         video.style.display = "none";
     }
-    else if (selectedItem.varContentType == "Gallery") {
+    else
+    {
         image.style.display = "block";
         documents.style.display = "none";
         video.style.display = "none";

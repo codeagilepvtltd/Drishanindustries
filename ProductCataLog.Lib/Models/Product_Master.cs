@@ -19,6 +19,7 @@ namespace ProductCataLog.Lib.Models
         public DateTime dtUpdatedDate { get; set; }
         public long ref_UpdateBy { get; set; }
         public long ref_CategoryId { get; set; }
+        public int ref_ParentCategoryId { get; set; }
         public int ProductPriceID { get; set; }
         public decimal decOriginalPrice { get; set; }
         public decimal decDisplayPrice { get; set; }
@@ -29,5 +30,7 @@ namespace ProductCataLog.Lib.Models
 
         public bool ShowOnHomePage { get; set; }
         public long RankNumber { get; set; }
+
+        public string varGalleryPath { get; set; }
     }
 }

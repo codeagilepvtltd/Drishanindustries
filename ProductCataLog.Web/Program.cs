@@ -62,20 +62,18 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 
 //app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Account}/{action=Login}/{id?}");
-
-
-app.MapControllerRoute(
-    name: "product-details",
-    pattern: "{controller=Home}/{action=product-details}/{product_name?}");
+//    name: "product-details",
+//    pattern: "{controller=Product}/{action=products}/{categoryname}/{product_name?}");
 
 //app.MapRazorPages();
 

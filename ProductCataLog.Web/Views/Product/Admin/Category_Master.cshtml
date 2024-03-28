@@ -52,18 +52,25 @@
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Parents :</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 @(Html.DevExtreme().SelectBox().ID("ddlCategoryList")
                                     .DataSource(d => d.Mvc().Controller("Product").LoadAction("GetCategoryList").Key("intGlCode"))
-                                    .DisplayExpr("varCatergoryName")
+                                    .DisplayExpr("CatergoryNameDisplay")
                                     .ValueExpr("intGlCode")
                                     .Placeholder("-- Select --")
                                     .SearchEnabled(true)
                                     .OnOpened("dxSelectBox_OnOpened ")
                                     )
                             </div>
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Status:</label>
-                            <div class="col-sm-3">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">Rank Number:</label>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                <input type="text" tabindex="1" class="form-control custom_input" maxlength="100" id="txtRankNumber" asp-for="category_Master.RankNumber" placeholder="Rank Number">
+                                @Html.ValidationMessageFor(model => model.category_Master.RankNumber, "", new { @class = "text-danger" })
+                            </div>
+                            </div>
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">Status:</label>
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="checkbox" tabindex="3" asp-for="category_Master.chrActive" id="chkchrActive" class="mtop10" />
                                 </div>
@@ -116,9 +123,10 @@
                                 b.Add().Name(GridColumnButtonName.Edit).Visible(true).Icon("edit").OnClick("editdata");
 
                             });
-                            columns.Add().DataField("varCatergoryName").Caption("Category Name");
+                            columns.Add().DataField("CatergoryNameDisplay").Caption("Category Name");
                             columns.Add().DataField("varCatergoryCode").Caption("Category Code");
                             columns.Add().DataField("ParentCatergoryName").Caption("Parent Category");
+                            columns.Add().DataField("RankNumber").Caption("Rank Number");                            
                             columns.Add().DataField("chrActive").Caption("Status");
                             columns.Add().DataField("dtEntryDate").Caption("Entry Date").Format("yyyy-mm-dd");
 

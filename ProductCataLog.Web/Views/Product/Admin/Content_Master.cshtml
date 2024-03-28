@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = string.Format(ProductCataLog.Web.Common.Common.PageName, ProductCataLog.Web.Common.Common.AppName, "Product Content");
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var SelectedProductId = HttpContextAccessor.HttpContext.Session.GetString("SelectedProductId");
+    ViewData["SelectedProductId"] = HttpContextAccessor.HttpContext.Session.GetString("SelectedProductId") ?? "";
 }
 <!-- Topbar -->
 <!-- Container Fluid-->
@@ -276,9 +276,10 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-        if (@SelectedProductId != null && @SelectedProductId != '0')
-        {
-            editfromProductdata(@SelectedProductId);
+        debugger;
+        var ProductId = getParameterByName('href');
+        if (ProductId != undefined && ProductId != '' && ProductId != '0') {
+            editfromProductdata(ProductId);
         }
     </script>
     @if (ViewBag.Message != null)

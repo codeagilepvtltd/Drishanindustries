@@ -162,7 +162,8 @@ namespace ProductCataLog.Lib.Repository.Utility
                         PM_intGlCode = row.Field<int>("PM_intGlCode"),
                         varProductName = row.Field<string>("PM_varProductName"),
                         dtEntryDate = row.Field<DateTime>("dtEntryDate"),
-                        charActive = row.Field<string>("GM_chrActive")                        
+                        charActive = row.Field<string>("GM_chrActive") ,
+                        ShowOnHomePage = row.Field<bool>("ShowOnHomePage")
                     }).ToList();
 
                 }

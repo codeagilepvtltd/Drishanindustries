@@ -117,6 +117,7 @@ function resetValidation() {
     $("#chrActive").val(true);
     $("#grdProductDetials").dxDataGrid('instance').refresh();
     $("#grdProductDetials").dxDataGrid('instance').clearFilter();
+    $("#txtProductName").focus();
 }
 
 function editproductdata(e) {

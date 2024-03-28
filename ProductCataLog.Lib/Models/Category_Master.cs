@@ -20,5 +20,7 @@ namespace ProductCataLog.Lib.Models
         public long? ref_UpdateBy { get; set; }
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }
+        public int RankNumber { get; set; }
+        public string CatergoryNameDisplay { get; set; }
     }
 }

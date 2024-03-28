@@ -1,0 +1,120 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductCataLog.Lib.ViewModels.ProductDetailViewModel
+@{
+    ViewData["Title"] = string.Format(ProductCataLog.Web.Common.Common.PageName, ProductCataLog.Web.Common.Common.AppName, "Login");
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+}
+<!-- sidebar-page-container -->
+<section class="sidebar-page-container blog-list-two product-list-52">
+    <div class="container-fluid px-5 ">
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side ">
+                <div class="default-sidebar blog-sidebar">
+                    <div class="sidebar-widget category-widget">
+                        <div class="widget-content">
+                            <section class="checkout-page-section p-0">
+                                <div class="payment-method">
+                                    <ul class="accordion-box">
+                                        @await Component.InvokeAsync("AdminMenuComponent", "CategoryMenu")
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="shop-details">
+                        <div class="product-discription">
+                            <div class="comment-box">
+                                <h2>Product Inquiry</h2>
+                                <form action="shop-details.html" method="post">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-6 col-sm-12 column">
+                                            <div class="form-group">
+                                                <input type="text" name="name" placeholder="Name*" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 column">
+                                            <div class="form-group">
+                                                <input type="email" name="email" placeholder="Email*" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <input type="text" name="website" placeholder="Website" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <textarea name="message" placeholder="Comments" spellcheck="false"></textarea><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none; z-index: auto;" class="dnXmp"></grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none; z-index: auto;" class="dnXmp"></grammarly-extension>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <div class="custom-controls-stacked">
+                                                    <label class="custom-control material-checkbox">
+                                                        <input type="checkbox" class="material-control-input">
+                                                        <span class="material-control-indicator"></span>
+                                                        <span class="description">Save my name, email, and website in this browser for the next time I comment.</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group message-btn">
+                                                <div class="message-btn">
+                                                    <button type="submit" class="theme-btn btn-two"><span>Submit Now</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="g-recaptcha" id="rcaptcha" data-sitekey="site key"></div>
+                                        <span id="captcha" style="color:red" /></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12 content-side">
+                @Html.Raw(Model.product_master.varLongDescription)
+                
+                @if(Model.gallery_Mappings !=null && Model.gallery_Mappings.Count>0)
+                {
+
+                    <section class="project-style-two">
+                        <div class="auto-container">
+                            <div class="content-box">
+                                <div class="title-box">
+                                    <h5>Packing</h5>
+                                </div>
+                                <div class="project-carousel owl-carousel owl-theme owl-dots-none">
+                                    @foreach (Gallery_Mapping gallery_Mapping in Model.gallery_Mappings)
+                                    {
+                                        <div class="project-block-two">
+                                            <div class="inner-box">
+                                                <div class="image-box">
+                                                    <figure class="image"><img src="@gallery_Mapping.varGalleryPath" alt=""></figure>
+                                                    <div class="btn-box">
+                                                        <a href="project-details.html">More Details<i class="flaticon-diagonal-arrow"></i></a>
+                                                    </div>
+                                                    <div class="view-btn"><a href="@gallery_Mapping.varGalleryPath" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-zoom-in"></i></a></div>
+                                                </div>
+                                                <div class="lower-content">
+                                                    <h3><a href="project-details.html">@gallery_Mapping.varTitle</a></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+               }
+            </div>
+
+
+
+
+        </div>
+    </div>
+</section>
